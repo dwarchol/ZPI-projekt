@@ -2,11 +2,23 @@
 a.	Kinga Kacperczyk 242431 (lider)
 b.	Dominika Warchoł 242408
 c.	Katarzyna Oleksiewicz 242481
-d.	Przemysław Szeszko 
-2.	Aplikacja na system Android wykorzystująca język programowania Java oraz XML, łącząca się z bazą danych PostgreSQL/SQLite. 
+d.	Przemysław Szeszko 242410
+
+2.Opis projektu:
+1.	Aplikacja na system Android wykorzystująca język programowania Java oraz XML, łącząca się z bazą danych PostgreSQL/SQLite. 
 3.	Aplikacja wykorzystywać będzie Machine Learning oraz geolokalizację.
-4.	Aplikacja to gra miejska w której celem będzie zdobycie fragmentów mapy która poprowadzi do skarbu.
-5.	Fragmenty mapy uczestnik otrzyma za wykonanie zadań które pojawią się w formie pop-up na ekranie w momencie kiedy wejdzie na zadany obszar.
+3.	Aplikacja to gra miejska w której celem będzie zdobycie fragmentów mapy która poprowadzi do skarbu.
+4.	Fragmenty mapy uczestnik otrzyma za wykonanie zadań które pojawią się w formie pop-up na ekranie w momencie kiedy wejdzie na zadany obszar.
+5.  W trakcie wykonywania zadań uczestnik będzie poznawał ciekawostki o Wrocławiu.
 6.	Po zdobyciu wszystkich fragmentów mapy uczestnik otrzymuje położenie ostatecznego punktu.
-7.	Aplikacja umożniliwać będzie logowanie. Jedynymi danymi potrzebnymi do rejestracji są login i haslo.
-8.	
+7.	Aplikacja umożliwiać będzie logowanie. Jedynymi danymi potrzebnymi do rejestracji są login i haslo.
+
+3.Analiza podobnych programow:
+a.PokemonGo: 
+b.Ingress:
+c.Zombies, Run!: Gra pozwala na słuchanie muzyki podczas biegania i przerywa słuvhowisko komunikatami o zbliżających się zombie, co ma mobilizować ludzi do szybszego biegania.
+Szybkokść biegu nie wpływa jednak na rozwój gry, jest to zwykły audiobook motywacyjny. W grze nie pojawiają się ciekawostki o mieście, ani żadne misje do wykonania.
+d.CodeRunner:
+e.Adventure City:
+f.Biblioteka Publiczna we Wrocławiu i ActionTrack:
+-
