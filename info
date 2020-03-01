@@ -9,7 +9,7 @@ d.	Przemysław Szeszko 242410
 3.	Aplikacja wykorzystywać będzie Machine Learning oraz geolokalizację.
 3.	Aplikacja to gra miejska w której celem będzie zdobycie fragmentów mapy która poprowadzi do skarbu.
 4.	Fragmenty mapy uczestnik otrzyma za wykonanie zadań które pojawią się w formie pop-up na ekranie w momencie kiedy wejdzie na zadany obszar.
-5.  W trakcie wykonywania zadań uczestnik będzie poznawał ciekawostki o Wrocławiu.
+5.      W trakcie wykonywania zadań uczestnik będzie poznawał ciekawostki o Wrocławiu.
 6.	Po zdobyciu wszystkich fragmentów mapy uczestnik otrzymuje położenie ostatecznego punktu.
 7.	Aplikacja umożliwiać będzie logowanie. Jedynymi danymi potrzebnymi do rejestracji są login i haslo.
 
@@ -21,4 +21,8 @@ Szybkokść biegu nie wpływa jednak na rozwój gry, jest to zwykły audiobook m
 d.CodeRunner:
 e.Adventure City:
 f.Biblioteka Publiczna we Wrocławiu i ActionTrack:
--
+-Zemsta Strzygi: Gra polega na docieraniu do kolejnych wyznaczonych miejsc. W momencie pojawienia sie w obrębie tego miejsca, wyswietlana jest kolejna część historii. Co jakiś czas trzeba 
+odpowiadać na pytania związane z Wrocławiem i wysyłać zdjęcia. Za poprawne odpowiedzi dostaje się punkty. Jednak nie wiadomo po co się je zbiera. Gra uważa za poprawne zdjęcia związane z zadaniem, 
+jak i te, które przedstawiają coś całkiem innego. Aplikacja nakazuje zrobienie zdjecia np. lustra, gdy żadnego nie ma w okolicy. Czasem karze iść w pewne miejsce, a gdy się tam dociera, nakazuje 
+wrócić do miejsca które się mijało po drodze. Po drodze nie pojawiają się ciekawostki związane z miastem, czasem tylko pojawia się informacja o obiekcie znajdującym się niedaleko nas. Grafika aplikacji
+jest niespójna. 
