@@ -18,15 +18,21 @@ a.PokemonGo:
 b.Ingress:
 c.Zombies, Run!: Gra pozwala na słuchanie muzyki podczas biegania i przerywa słuvhowisko komunikatami o zbliżających się zombie, co ma mobilizować ludzi do szybszego biegania.
 Szybkokść biegu nie wpływa jednak na rozwój gry, jest to zwykły audiobook motywacyjny. W grze nie pojawiają się ciekawostki o mieście, ani żadne misje do wykonania.
-d.CodeRunner:
-e.Adventure City:
-f.Biblioteka Publiczna we Wrocławiu i ActionTrack:
+d.Adventure City: Projekt gry opracowany przez młodych wrocławian jako gra miejska po tym mieście. Napisany miał być system do tworzenia, zarządzania i grania w gry miejskie, 
+który pozwala użytkownikom na grę poprzez aplikację mobilną na system Android i iOS. Pierwszą taką przykładową grą jest podążanie śladami postaci 
+z książek Marka Krajewskiego (kryminały osadzone w Breslau), ale tutaj napotkano problem porozumienia się z autorem. W planach jest stworzenie gier miejskich mówiących o popularnych 
+i mniej popularnych legendach związanych z naszym regionem.
+  Zadania których podejmować się mieli użytkownicy aplikacji są tak przemyślane, aby musieli oni eksplorować miasto na różne sposoby. Najprostsze wymagają pójścia w konkretne miejsce, 
+dopiero wtedy odblokuje się kolejna cześć misji. Inne polegają na zrobieniu zdjęcia konkretnego obiektu, np. murala, wykorzystywane są do tego techniki przetwarzania i analizowania obrazu 
+z kamery telefonu. W innej misji gracz musiałby po dotarciu do wskazanego miejsca znaleźć hasło i wpisać je do telefonu, np. treść poniemieckiego szyldu.
+Pomysła na taka aplikację jest przedstawiony jedynie w artykułach , nie doszło do jego realizacji.
+e.Biblioteka Publiczna we Wrocławiu i ActionTrack:
 -Zemsta Strzygi: Gra polega na docieraniu do kolejnych wyznaczonych miejsc. W momencie pojawienia sie w obrębie tego miejsca, wyswietlana jest kolejna część historii. Co jakiś czas trzeba 
 odpowiadać na pytania związane z Wrocławiem i wysyłać zdjęcia. Za poprawne odpowiedzi dostaje się punkty. Jednak nie wiadomo po co się je zbiera. Gra uważa za poprawne zdjęcia związane z zadaniem, 
 jak i te, które przedstawiają coś całkiem innego. Aplikacja nakazuje zrobienie zdjecia np. lustra, gdy żadnego nie ma w okolicy. Czasem karze iść w pewne miejsce, a gdy się tam dociera, nakazuje 
 wrócić do miejsca które się mijało po drodze. Po drodze nie pojawiają się ciekawostki związane z miastem, czasem tylko pojawia się informacja o obiekcie znajdującym się niedaleko nas. Grafika aplikacji
 jest niespójna. 
 -Reguła Meyera: Gra jest bardzo podobna do "Zemsty Strzygi". Aplikacja kieruje użytkownika po liniowej historii i trasie między punktami w których uczesnik otrzymuje fragmenty historii, czasami dodatkowo 
-otrzymując pytanie na które należy odpowiedzieć. Czasami nawiązuje do okolicy w której dany punkt się znajduje.
-g.Geocaching: Jest to platforma łącząca szukanie skrzynek w terenie z aplikacją mobilną/webową. W aplikacji znajdują się koordynaty do skrzynek w terenie. Są one umieszczane przez użytkowników. W założeniu znajdują się one 
+otrzymując pytanie na które należy odpowiedzieć. Czasami nawiązuje do 
+f.Geocaching: Jest to platforma łącząca szukanie skrzynek w terenie z aplikacją mobilną/webową. W aplikacji znajdują się koordynaty do skrzynek w terenie. Są one umieszczane przez użytkowników. W założeniu znajdują się one 
 w miejscach ciekawych historycznie, przyrodniczo. Aplikacja pokazuje ciekawe miejsca m.in. we Wrocławiu. Pokazuje ona również położenie użykownika w terenie.
