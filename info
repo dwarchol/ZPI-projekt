@@ -17,7 +17,8 @@ d.	Przemysław Szeszko 242410
 a.PokemonGo: Gra której celem jest łapanie pokemonów za pomocą smartfona. Awatar gracza porusza się po prawdziwej mapie wykorzystując moduł GPS w smartfonie – aby zagrać trzeba 
 poruszać się po prawdziwym świecie. Pokemony łapie się w ich naturalnym środowisku – trawiaste w lesie, a wodne w okolicach rzek, jezior i mórz itp. Gra wyświetla zdjęcia niektórych obiektów w mieście.
 Gra jest bardzo rozwinieta, nie wykorzystuje sie tu machine learningu.
-b.Ingress:
+b.Ingress: Aplikacja w kórej celem jest zdobycie przewagi nad drużyną przeciwną za pomocą przejmowania portali. Portale w założeniu znajdują się w miejscach ciekawych, m.in. przy muralach. Nie podaje informacji 
+historycznych na temat miasta.
 c.Zombies, Run!: Gra pozwala na słuchanie muzyki podczas biegania i przerywa słuvhowisko komunikatami o zbliżających się zombie, co ma mobilizować ludzi do szybszego biegania.
 Szybkokść biegu nie wpływa jednak na rozwój gry, jest to zwykły audiobook motywacyjny. W grze nie pojawiają się ciekawostki o mieście, ani żadne misje do wykonania.
 d.Adventure City: Projekt gry opracowany przez młodych wrocławian jako gra miejska po tym mieście. Napisany miał być system do tworzenia, zarządzania i grania w gry miejskie, 
