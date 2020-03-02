@@ -14,7 +14,9 @@ d.	Przemysław Szeszko 242410
 7.	Aplikacja umożliwiać będzie logowanie. Jedynymi danymi potrzebnymi do rejestracji są login i haslo.
 
 3.Analiza podobnych programow:
-a.PokemonGo: 
+a.PokemonGo: Gra której celem jest łapanie pokemonów za pomocą smartfona. Awatar gracza porusza się po prawdziwej mapie wykorzystując moduł GPS w smartfonie – aby zagrać trzeba 
+poruszać się po prawdziwym świecie. Pokemony łapie się w ich naturalnym środowisku – trawiaste w lesie, a wodne w okolicach rzek, jezior i mórz itp. 
+Gra jest bardzo rozwinieta, nie wykorzystuje sie tu machine learningu.
 b.Ingress:
 c.Zombies, Run!: Gra pozwala na słuchanie muzyki podczas biegania i przerywa słuvhowisko komunikatami o zbliżających się zombie, co ma mobilizować ludzi do szybszego biegania.
 Szybkokść biegu nie wpływa jednak na rozwój gry, jest to zwykły audiobook motywacyjny. W grze nie pojawiają się ciekawostki o mieście, ani żadne misje do wykonania.
