@@ -15,7 +15,7 @@ d.	Przemysław Szeszko 242410
 
 3.Analiza podobnych programow:
 a.PokemonGo: Gra której celem jest łapanie pokemonów za pomocą smartfona. Awatar gracza porusza się po prawdziwej mapie wykorzystując moduł GPS w smartfonie – aby zagrać trzeba 
-poruszać się po prawdziwym świecie. Pokemony łapie się w ich naturalnym środowisku – trawiaste w lesie, a wodne w okolicach rzek, jezior i mórz itp. 
+poruszać się po prawdziwym świecie. Pokemony łapie się w ich naturalnym środowisku – trawiaste w lesie, a wodne w okolicach rzek, jezior i mórz itp. Gra wyświetla zdjęcia niektórych obiektów w mieście.
 Gra jest bardzo rozwinieta, nie wykorzystuje sie tu machine learningu.
 b.Ingress:
 c.Zombies, Run!: Gra pozwala na słuchanie muzyki podczas biegania i przerywa słuvhowisko komunikatami o zbliżających się zombie, co ma mobilizować ludzi do szybszego biegania.
