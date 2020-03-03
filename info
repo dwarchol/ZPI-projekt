@@ -36,6 +36,6 @@ jak i te, które przedstawiają coś całkiem innego. Aplikacja nakazuje zrobien
 wrócić do miejsca które się mijało po drodze. Po drodze nie pojawiają się ciekawostki związane z miastem, czasem tylko pojawia się informacja o obiekcie znajdującym się niedaleko nas. Grafika aplikacji
 jest niespójna. 
 -Reguła Meyera: Gra jest bardzo podobna do "Zemsty Strzygi". Aplikacja kieruje użytkownika po liniowej historii i trasie między punktami w których uczesnik otrzymuje fragmenty historii, czasami dodatkowo 
-otrzymując pytanie na które należy odpowiedzieć. Czasami nawiązuje do 
+otrzymując pytanie na które należy odpowiedzieć. Czasami nawiązuje do okolicy w której dany punkt się znajduje.
 f.Geocaching: Jest to platforma łącząca szukanie skrzynek w terenie z aplikacją mobilną/webową. W aplikacji znajdują się koordynaty do skrzynek w terenie. Są one umieszczane przez użytkowników. W założeniu znajdują się one 
 w miejscach ciekawych historycznie, przyrodniczo. Aplikacja pokazuje ciekawe miejsca m.in. we Wrocławiu. Pokazuje ona również położenie użykownika w terenie.
