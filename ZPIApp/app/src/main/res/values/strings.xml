@@ -12,4 +12,17 @@
     <string name="userName">Nazwa użytkownika</string>
     <string name="password">Hasło</string>
     <string name="close">X</string>
+    <string name="Udalo_sie">Udalosie!</string>
+    <string name="Udalo_sie_info">Udaj się do wskazanej lokacji aby zakończyć rozgrywkę!</string>
+    <string name="Czy_wiesz_ze">Czy wiesz ze?</string>
+    <string name="Zagadka">Zagadka</string>
+    <string name="Zagadka_info">aaaaaa</string>
+    <string name="Brawo">Brawo!</string>
+    <string name="Brawo_info">Twoja gra dobiegła końca. Teraz możesz zostać we Wrocławiu i nadal zdobywać odznaki  albo jechać zwiedzić resztę świata!
+    </string>
+    <string name="Gratulacje">Gratulacje, rozwiązałeś zagadkę</string>
+    <string name="Zla_odpowiedz">Zła odpowiedź, spróbuj ponownie</string>
+    <string name="Zdjecie">Zrob zdjecie</string>
+    <string name="Idz_do">Idź w pobliże miejsca z zagadkami</string>
+
 </resources>
