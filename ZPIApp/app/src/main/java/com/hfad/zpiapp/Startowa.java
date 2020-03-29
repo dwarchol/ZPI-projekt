@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
+    Dialog registerDialog;
     Context ctx;
 
     @Override
@@ -36,6 +37,7 @@ public class Startowa extends AppCompatActivity{
         moveButton(register);
 
         haveAccountDialog = new Dialog(this);
+        registerDialog = new Dialog(this);
         ctx = this;
     }
 
@@ -81,8 +83,23 @@ public class Startowa extends AppCompatActivity{
 
     public void registerMethod(View view)
     {
-        final Intent registerIntent=new Intent(this,Glowna.class);
-        startActivity(registerIntent);
+        registerDialog.setContentView(R.layout.custom_popup_register);
+        registerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button register = (Button) registerDialog.findViewById(R.id.registerButton);
+        TextView closeRegister = (TextView) registerDialog.findViewById(R.id.closeRegister);
+        closeRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerDialog.dismiss();
+            }
+        });
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerDialog.dismiss();
+            }
+        });
+        registerDialog.show();
     }
 
 }
