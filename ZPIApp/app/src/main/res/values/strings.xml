@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ZPIApp</string>
+    <string name="haveAccount">Mam konto</string>
+    <string name="register">Zarejestruj się</string>
 </resources>

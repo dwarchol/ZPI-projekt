@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#0e4c75</color>
+    <color name="colorPrimaryDark">#1b262c</color>
+    <color name="colorAccent">#bbe0fa</color>
     <color name="darkBlue">#1b262c</color>
     <color name="blue">#0e4c75</color>
-    <color name="ligthBlue">#3282b7</color>
+    <color name="lightBlue">#3282b7</color>
     <color name="azure">#bbe0fa</color>
 </resources>
