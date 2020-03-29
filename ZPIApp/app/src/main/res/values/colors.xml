@@ -8,4 +8,5 @@
     <color name="lightBlue">#3282b7</color>
     <color name="azure">#bbe0fa</color>
     <color name="textColor">#bbe0fa</color>
+    <color name="backgroundColor">#1b262c</color>
 </resources>

@@ -47,7 +47,7 @@ public class Startowa extends AppCompatActivity{
         button.getLocationOnScreen( originalPos );
 
         long timeToAnimate = 2000;
-        
+
         button.animate().setDuration(timeToAnimate);
         button.animate().y(yDest - originalPos[1]);
         button.animate().translationY(yDest - originalPos[1]);

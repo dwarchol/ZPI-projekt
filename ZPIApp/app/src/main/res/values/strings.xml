@@ -3,4 +3,7 @@
     <string name="haveAccount">Mam konto</string>
     <string name="register">Zarejestruj się</string>
     <string name="coordinatesText">_ _  _ _ \' _ _ . _ _ " N _ _  _ _ \' _ _ . _ _ " E</string>
+    <string name="coordinates">Współrzędne</string>
+    <string name="coordinatesTextCloser">_ _  _ _ \' _ _ . _ _ " N \n_ _  _ _ \' _ _ . _ _ " E</string>
+    <string name="ok">OK</string>
 </resources>

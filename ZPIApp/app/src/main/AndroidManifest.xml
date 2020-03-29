@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Glowna"></activity>
+        <activity android:name=".KontoUzytkownika"></activity>
+        <activity android:name=".Ustawienia" />
+        <activity android:name=".Glowna" />
         <activity
             android:name=".Startowa"
             android:theme="@style/StartTheme">
