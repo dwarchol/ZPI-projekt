@@ -1,6 +1,11 @@
 package com.hfad.zpiapp;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -13,8 +18,11 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class Startowa extends AppCompatActivity{
+    Dialog haveAccountDialog;
+    Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +32,11 @@ public class Startowa extends AppCompatActivity{
         Button haveAccount = (Button) findViewById(R.id.haveAccount);
         Button register = (Button) findViewById(R.id.register);
 
-        new CountDownTimer(30000, 100) {
-
-            public void onTick(long millisUntilFinished) {
-            }
-
-            public void onFinish() {
-            }
-        }.start();
-
         moveButton(haveAccount);
         moveButton(register);
+
+        haveAccountDialog = new Dialog(this);
+        ctx = this;
     }
 
     public void moveButton(final Button button)
@@ -56,8 +58,25 @@ public class Startowa extends AppCompatActivity{
 
     public void haveAccountMethod(View view)
     {
-        final Intent haveAccountIntent=new Intent(this,Glowna.class);
-        startActivity(haveAccountIntent);
+        haveAccountDialog.setContentView(R.layout.custom_popup_have_account);
+        haveAccountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button signIn = (Button) haveAccountDialog.findViewById(R.id.signInButton);
+        TextView closeHaveAccount = (TextView) haveAccountDialog.findViewById(R.id.closeHaveAccount);
+        closeHaveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                haveAccountDialog.dismiss();
+            }
+        });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent MainPageIntent=new Intent(ctx, Glowna.class);
+                startActivity(MainPageIntent);
+            }
+        });
+        haveAccountDialog.show();
+
     }
 
     public void registerMethod(View view)

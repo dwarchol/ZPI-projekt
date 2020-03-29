@@ -6,4 +6,9 @@
     <string name="coordinates">Współrzędne</string>
     <string name="coordinatesTextCloser">_ _  _ _ \' _ _ . _ _ " N \n_ _  _ _ \' _ _ . _ _ " E</string>
     <string name="ok">OK</string>
+    <string name="signIn">Zaloguj się</string>
+    <string name="signInButton">Zaloguj</string>
+    <string name="userName">Nazwa użytkownika</string>
+    <string name="password">Hasło</string>
+    <string name="close">X</string>
 </resources>
