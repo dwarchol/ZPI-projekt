@@ -1,13 +1,18 @@
 package com.hfad.zpiapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class Glowna extends AppCompatActivity {
+    Dialog coordinatesDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +23,7 @@ public class Glowna extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
-        View view = getSupportActionBar().getCustomView();
-
+        coordinatesDialog = new Dialog(this);
     }
 
     public void settingsMethod(View view)
@@ -33,4 +37,19 @@ public class Glowna extends AppCompatActivity {
         final Intent userIntent=new Intent(this,KontoUzytkownika.class);
         startActivity(userIntent);
     }
+
+    public void coordinatesMethod(View view)
+    {
+        coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
+        coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                coordinatesDialog.dismiss();
+            }
+        });
+        coordinatesDialog.show();
+    }
+
 }
