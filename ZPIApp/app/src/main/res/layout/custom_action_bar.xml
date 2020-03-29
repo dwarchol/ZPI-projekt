@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"
+    android:gravity = "center_vertical"
+    android:orientation="horizontal"
+    android:padding = "10dp"
+    android:weightSum = "1">
+
+    <LinearLayout
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "0.18">
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/settingswhite" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "0.64"
+        android:layout_gravity="bottom">
+        <TextView
+            android:id = "@+id/coordinates"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginLeft = "10dp"
+            android:text = "@string/coordinatesText"
+            android:textSize = "12dp"
+            android:textColor = "@color/textColor"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width = "0dp"
+            android:layout_height = "match_parent"
+            android:layout_weight = "0.18">
+        <ImageView
+            android:id="@+id/user"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginLeft = "20dp"
+            android:src = "@drawable/avatarwhite" />
+        </LinearLayout>
+</LinearLayout>

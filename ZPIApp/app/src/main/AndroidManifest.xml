@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Startowa"
+        <activity android:name=".Glowna"></activity>
+        <activity
+            android:name=".Startowa"
             android:theme="@style/StartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
