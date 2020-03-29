@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -45,14 +46,12 @@ public class Startowa extends AppCompatActivity{
         final int originalPos[] = new int[2];
         button.getLocationOnScreen( originalPos );
 
-        int timeToAnimate = 2000;
+        long timeToAnimate = 2000;
+        
+        button.animate().setDuration(timeToAnimate);
+        button.animate().y(yDest - originalPos[1]);
+        button.animate().translationY(yDest - originalPos[1]);
 
-        TranslateAnimation animation = new TranslateAnimation( originalPos[0], originalPos[0] , originalPos[1], yDest - originalPos[1]);
-        animation.setDuration(timeToAnimate);
-        animation.setFillAfter( true );
-        button.startAnimation(animation);
-        SystemClock.sleep(timeToAnimate);
-        button.setY(yDest-originalPos[1]);
     }
 
     public void haveAccountMethod(View view)
