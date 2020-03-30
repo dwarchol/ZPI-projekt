@@ -26,5 +26,6 @@
     <string name="Idz_do">Idź w pobliże miejsca z zagadkami</string>
     <string name="Pytanie">[pytanie]</string>
     <string name="Odpowiedz">odpowiedź</string>
+    <string name="userAccount">Konto użytkownika</string>
 
 </resources>
