@@ -27,7 +27,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/closeOdznaka"
+        android:id="@+id/closeGratulacje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ok"

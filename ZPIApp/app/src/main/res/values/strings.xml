@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">ZPIApp</string>
-    <string name="zamknij">Zamknij</string>
-    <string name="superka">Super</string>
-    <string name="ZdjecieZrobione">Zrobione zdjęcie</string>
-    <string name="wyslij">Wyślij</string>
-    <string name="ponow">Ponów</string>
     <string name="haveAccount">Mam konto</string>
     <string name="register">Zarejestruj się</string>
     <string name="registerButton">Zarejestruj się</string>
@@ -17,18 +12,14 @@
     <string name="userName">Nazwa użytkownika</string>
     <string name="password">Hasło</string>
     <string name="close">X</string>
-    <string name="Udalo_sie">Udalo sie!</string>
+    <string name="Udalo_sie">Udalosie!</string>
     <string name="Udalo_sie_info">Udaj się do wskazanej lokacji aby zakończyć rozgrywkę!</string>
-    <string name="Wspolrzedne">57° 12.123N 014° 98.765E</string>
     <string name="Czy_wiesz_ze">Czy wiesz ze?</string>
     <string name="Zagadka">Zagadka</string>
-    <string name="Zagadka_w_poblizu">Zagadka typu znajdź punkt w okolicy</string>
     <string name="Zagadka_info">aaaaaa bbbbbbbbbbbbbbbb cccccccccccc ddddddddddddddd eeeeeeeeeeeee fffffffffffffff ggggggggggggg hhhh iiiiii jjjjjjjjjjjj</string>
     <string name="Brawo">Brawo!</string>
     <string name="Brawo_info">Twoja gra dobiegła końca. Teraz możesz zostać we Wrocławiu i nadal zdobywać odznaki  albo jechać zwiedzić resztę świata!
     </string>
-    <string name="nazwaZagadki">Nazwa odznaki</string>
-    <string name="opisZagadki">Opis odznaki</string>
     <string name="Gratulacje">Gratulacje, rozwiązałeś zagadkę!</string>
     <string name="Zla_odpowiedz">Zła odpowiedź, spróbuj ponownie</string>
     <string name="Zdjecie">Zrób zdjęcie</string>
