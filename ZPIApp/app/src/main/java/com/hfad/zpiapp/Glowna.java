@@ -50,7 +50,7 @@ public class Glowna extends AppCompatActivity {
             }
         });
         coordinatesDialog.show();*/
-        coordinatesDialog.setContentView(R.layout.popup_zagadka);
+        coordinatesDialog.setContentView(R.layout.popup_ciekawostka);
         coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         coordinatesDialog.show();
     }

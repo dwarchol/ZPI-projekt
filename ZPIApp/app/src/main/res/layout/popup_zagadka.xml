@@ -26,18 +26,7 @@
         android:textColor="@color/textColor"
         android:textSize="20dp" />
 
-<<<<<<< HEAD
-    <EditText
-        android:id="@+id/odpowiedz_editTex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:visibility="gone" />
 
-=======
->>>>>>> 535c3d8d6fb8c6741eb171590640940a084fb1d1
     <TextView
         android:id="@+id/popup_text"
         android:layout_width="wrap_content"
