@@ -40,7 +40,7 @@ public class Glowna extends AppCompatActivity {
 
     public void coordinatesMethod(View view)
     {
-        coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
+       /* coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
         coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
         closeDialog.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +49,9 @@ public class Glowna extends AppCompatActivity {
                 coordinatesDialog.dismiss();
             }
         });
+        coordinatesDialog.show();*/
+        coordinatesDialog.setContentView(R.layout.popup_zagadka);
+        coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         coordinatesDialog.show();
     }
 

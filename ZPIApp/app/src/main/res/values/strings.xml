@@ -20,9 +20,11 @@
     <string name="Brawo">Brawo!</string>
     <string name="Brawo_info">Twoja gra dobiegła końca. Teraz możesz zostać we Wrocławiu i nadal zdobywać odznaki  albo jechać zwiedzić resztę świata!
     </string>
-    <string name="Gratulacje">Gratulacje, rozwiązałeś zagadkę</string>
+    <string name="Gratulacje">Gratulacje, rozwiązałeś zagadkę!</string>
     <string name="Zla_odpowiedz">Zła odpowiedź, spróbuj ponownie</string>
-    <string name="Zdjecie">Zrob zdjecie</string>
+    <string name="Zdjecie">Zrób zdjęcie</string>
     <string name="Idz_do">Idź w pobliże miejsca z zagadkami</string>
+    <string name="Pytanie">[pytanie]</string>
+    <string name="Odpowiedz">odpowiedź</string>
 
 </resources>
