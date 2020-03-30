@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/koniecGry_title"
+        android:id="@+id/zagadka_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -22,7 +22,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/Brawo"
+        android:text="@string/Zagadka"
         android:textColor="@color/textColor"
         android:textSize="20dp" />
 
@@ -36,9 +36,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/Brawo_info"
+        android:text="@string/Zagadka_w_poblizu"
         android:textColor="@color/textColor"
-        android:textSize="15dp" />
+        android:textSize="24dp" />
 
     <Button
         android:id="@+id/okButton"

@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/koniecGry_title"
+        android:id="@+id/udalo_sie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -22,10 +22,22 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/Brawo"
+        android:text="@string/Udalo_sie"
         android:textColor="@color/textColor"
         android:textSize="20dp" />
-
+    <TextView
+        android:id="@+id/wspolrzedne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/Wspolrzedne"
+        android:textColor="@color/textColor"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/udalo_sie_opis"
         android:layout_width="wrap_content"
@@ -36,7 +48,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/Brawo_info"
+        android:text="@string/Udalo_sie_info"
         android:textColor="@color/textColor"
         android:textSize="15dp" />
 
