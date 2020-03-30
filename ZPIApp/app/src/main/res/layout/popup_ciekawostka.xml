@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/popup_title"
+        android:id="@+id/ciekawostka_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -26,16 +26,9 @@
         android:textColor="@color/textColor"
         android:textSize="20dp" />
 
-    <EditText
-        android:id="@+id/odpowiedz_editTex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
 
     <TextView
-        android:id="@+id/popup_text"
+        android:id="@+id/ciekawostka_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -44,12 +37,12 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/coordinatesTextCloser"
+        android:text="@string/Zagadka_info"
         android:textColor="@color/textColor"
-        android:textSize="24dp" />
+        android:textSize="15dp" />
 
     <Button
-        android:id="@+id/closeCoordinates"
+        android:id="@+id/closeCoiekawostka"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ok"
