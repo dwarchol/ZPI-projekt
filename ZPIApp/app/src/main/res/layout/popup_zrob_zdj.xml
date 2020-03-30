@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/zrobioneZdjecie_title"
+        android:id="@+id/zrobZdjecie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -37,7 +37,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/udalo_sie_opis"
+        android:id="@+id/popup_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -48,7 +48,7 @@
          />
 
     <Button
-        android:id="@+id/wyslijZdjecie"
+        android:id="@+id/closeZrobZdjecie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ok"
