@@ -17,10 +17,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
@@ -88,8 +86,6 @@ public class Startowa extends AppCompatActivity{
         registerDialog.setContentView(R.layout.custom_popup_register);
         registerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button register = (Button) registerDialog.findViewById(R.id.registerButton);
-        final EditText loginU = (EditText) registerDialog.findViewById(R.id.login);
-        final EditText password = (EditText) registerDialog.findViewById(R.id.password);
         TextView closeRegister = (TextView) registerDialog.findViewById(R.id.closeRegister);
         closeRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,29 +96,7 @@ public class Startowa extends AppCompatActivity{
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(password.getText().toString().equals("") || loginU.getText().toString().equals(""))
-                {
-                    Toast.makeText(getApplicationContext(),R.string.Pusta_rejestracja,Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Uzytkownik us = new Uzytkownik(loginU.getText().toString(),password.getText().toString());
-                    new FirebaseDB().addUser(us, new FirebaseDB.DataStatus() {
-                        @Override
-                        public void dataInserted() {
-                            Toast.makeText(getApplicationContext(),R.string.rejestracja,Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void dataUpdated() {
-
-                        }
-
-                        @Override
-                        public void dataLoaded() {
-
-                        }
-                    });
-                }
+                registerDialog.dismiss();
             }
         });
         registerDialog.show();
