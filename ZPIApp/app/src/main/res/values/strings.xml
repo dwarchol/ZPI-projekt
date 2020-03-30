@@ -24,5 +24,7 @@
     <string name="Zla_odpowiedz">Zła odpowiedź, spróbuj ponownie</string>
     <string name="Zdjecie">Zrob zdjecie</string>
     <string name="Idz_do">Idź w pobliże miejsca z zagadkami</string>
+    <string name="Pusta_rejestracja">Login i hasło nie mogą być puste</string>
+    <string name="rejestracja">Konto utworzone</string>
 
 </resources>
