@@ -32,4 +32,13 @@
     <string name="userAccount">Konto użytkownika</string>
 
 
+    <string name="zamknij">Zamknij</string>
+    <string name="superka">Super</string>
+    <string name="ZdjecieZrobione">Zrobione zdjęcie</string>
+    <string name="wyslij">Wyślij</string>
+    <string name="ponow">Ponów</string>
+    <string name="Wspolrzedne">57° 12.123N 014° 98.765E</string>
+    <string name="nazwaZagadki">Nazwa odznaki</string>
+    <string name="opisZagadki">Opis odznaki</string>
+    <string name="Zagadka_w_poblizu">Zagadka typu znajdź punkt w okolicy</string>
 </resources>
