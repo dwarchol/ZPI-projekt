@@ -107,31 +107,51 @@ public class Startowa extends AppCompatActivity{
                 }
                 else {
 
-                    Uzytkownik us = new Uzytkownik(loginU.getText().toString(),password.getText().toString());
-                   new FirebaseDB().checkIfUserExistsAndRegister(us, new FirebaseDB.DataStatus() {
+                   final FirebaseDB fbdb = new FirebaseDB();
+                   fbdb.checkIfUserExistsAndRegister(loginU.getText().toString(), new FirebaseDB.DataStatus() {
                        @Override
                        public void dataInserted() {
-                           Toast.makeText(getApplicationContext(),R.string.rejestracja,Toast.LENGTH_LONG).show();
                        }
-
                        @Override
                        public void dataUpdated() {
-
                        }
-
                        @Override
                        public void dataLoaded() {
-
                        }
-
                        @Override
                        public void dataExists() {
                            Toast.makeText(getApplicationContext(),R.string.uz_istnieje,Toast.LENGTH_LONG).show();
                        }
-
                        @Override
                        public void databaseFailure() {
                            Toast.makeText(getApplicationContext(),R.string.DataBase_failure,Toast.LENGTH_LONG).show();
+                       }
+                       @Override
+                       public void dataExistsNot() {
+                           Uzytkownik us = new Uzytkownik(loginU.getText().toString(),password.getText().toString());
+                           fbdb.addUser(us, new FirebaseDB.DataStatus() {
+                               @Override
+                               public void dataInserted() {
+                                   Toast.makeText(getApplicationContext(),R.string.rejestracja,Toast.LENGTH_LONG).show();
+                               }
+                               @Override
+                               public void dataUpdated() {
+                               }
+                               @Override
+                               public void dataLoaded() {
+                               }
+                               @Override
+                               public void dataExists() {
+                               }
+                               @Override
+                               public void databaseFailure() {
+                                   Toast.makeText(getApplicationContext(),R.string.DataBase_failure,Toast.LENGTH_LONG).show();
+                               }
+                               @Override
+                               public void dataExistsNot() {
+
+                               }
+                           });
                        }
                    });
                 }

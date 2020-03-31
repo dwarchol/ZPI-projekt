@@ -21,6 +21,7 @@ public class FirebaseDB {
         void dataLoaded();
         void dataExists();
         void databaseFailure();
+        void dataExistsNot();
     }
 
     public FirebaseDB()
@@ -29,11 +30,27 @@ public class FirebaseDB {
         dbreference = database.getReference();
     }
 
+    public void addUser(final Uzytkownik us, final DataStatus ds)
+    {
+        dbreference.child(us.login).setValue(us.password).addOnSuccessListener(
+                new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        ds.dataInserted();
+                    }
+                }
 
-    public void checkIfUserExistsAndRegister(final Uzytkownik us, final DataStatus ds)
+        ).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                ds.databaseFailure();
+            }
+        });
+    }
+    public void checkIfUserExistsAndRegister(final String us, final DataStatus ds)
     {
         dbreference=database.getReference().child("users");
-        dbreference.child(us.login).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbreference.child(us).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -43,20 +60,7 @@ public class FirebaseDB {
                 }
                 else
                 {
-                    dbreference.child(us.login).setValue(us.password).addOnSuccessListener(
-                            new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    ds.dataInserted();
-                                }
-                            }
-
-                    ).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            ds.databaseFailure();
-                        }
-                    });
+                   ds.dataExistsNot();
                 }
             }
 
