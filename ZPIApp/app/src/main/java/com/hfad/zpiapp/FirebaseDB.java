@@ -32,7 +32,8 @@ public class FirebaseDB {
 
     public void addUser(final Uzytkownik us, final DataStatus ds)
     {
-        dbreference.child(us.login).setValue(us.password).addOnSuccessListener(
+        dbreference=database.getReference().child("users");
+        dbreference.child(us.login).setValue(us).addOnSuccessListener(
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -70,5 +71,26 @@ public class FirebaseDB {
             }
         });
     }
+public void checkIfUserExistsAndLogin(final String l, final String p, final DataStatus ds)
+{
+    dbreference=database.getReference().child("users");
+    dbreference.child(l).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists() && p.equals(dataSnapshot.getValue(String.class)) )
+            {
+                ds.dataExists();
+            }
+            else
+            {
+                ds.dataExistsNot();
+            }
+        }
 
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            ds.databaseFailure();
+        }
+    });
+}
 }

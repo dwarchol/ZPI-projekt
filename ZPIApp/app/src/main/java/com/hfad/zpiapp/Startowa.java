@@ -64,6 +64,8 @@ public class Startowa extends AppCompatActivity{
     {
         haveAccountDialog.setContentView(R.layout.custom_popup_have_account);
         haveAccountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        final EditText loginsi = (EditText) haveAccountDialog.findViewById(R.id.loginSI);
+        final EditText passwordsi = (EditText) haveAccountDialog.findViewById(R.id.passwordSI);
         Button signIn = (Button) haveAccountDialog.findViewById(R.id.signInButton);
         TextView closeHaveAccount = (TextView) haveAccountDialog.findViewById(R.id.closeHaveAccount);
         closeHaveAccount.setOnClickListener(new View.OnClickListener() {
@@ -72,11 +74,49 @@ public class Startowa extends AppCompatActivity{
                 haveAccountDialog.dismiss();
             }
         });
-        signIn.setOnClickListener(new View.OnClickListener() {
+       /* signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Intent MainPageIntent=new Intent(ctx, Glowna.class);
                 startActivity(MainPageIntent);
+            }
+        });*/
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(passwordsi.getText().toString().equals("") || loginsi.getText().toString().equals("")||passwordsi.getText().toString().isEmpty()||loginsi.getText().toString().isEmpty() )
+                {
+                    Toast.makeText(getApplicationContext(),R.string.Pusta_rejestracja,Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    final FirebaseDB fbdb = new FirebaseDB();
+                    fbdb.checkIfUserExistsAndLogin(loginsi.getText().toString(), passwordsi.getText().toString(), new FirebaseDB.DataStatus() {
+                        @Override
+                        public void dataInserted() {
+                        }
+                        @Override
+                        public void dataUpdated() {
+                        }
+                        @Override
+                        public void dataLoaded() {
+                        }
+                        @Override
+                        public void dataExists() {
+                            Toast.makeText(getApplicationContext(),R.string.LogIn,Toast.LENGTH_SHORT).show();
+                            final Intent MainPageIntent=new Intent(ctx, Glowna.class);
+                            startActivity(MainPageIntent);
+                        }
+                        @Override
+                        public void databaseFailure() {
+                        }
+                        @Override
+                        public void dataExistsNot() {
+                            Toast.makeText(getApplicationContext(),R.string.LoginFailed,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+
             }
         });
         haveAccountDialog.show();
