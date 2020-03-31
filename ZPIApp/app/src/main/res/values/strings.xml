@@ -30,8 +30,8 @@
     <string name="Pytanie">[pytanie]</string>
     <string name="Odpowiedz">odpowiedź</string>
     <string name="userAccount">Konto użytkownika</string>
-
-
+    <string name="DataBase_failure">Ups! Coś poszło nie tak.</string>
+    <string name="uz_istnieje">Podany login jest zajęty</string>
     <string name="zamknij">Zamknij</string>
     <string name="superka">Super</string>
     <string name="ZdjecieZrobione">Zrobione zdjęcie</string>

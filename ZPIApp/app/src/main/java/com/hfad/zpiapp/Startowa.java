@@ -100,28 +100,40 @@ public class Startowa extends AppCompatActivity{
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(password.getText().toString().equals("") || loginU.getText().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(),R.string.Pusta_rejestracja,Toast.LENGTH_SHORT).show();
                 }
                 else {
+
                     Uzytkownik us = new Uzytkownik(loginU.getText().toString(),password.getText().toString());
-                    new FirebaseDB().addUser(us, new FirebaseDB.DataStatus() {
-                        @Override
-                        public void dataInserted() {
-                            Toast.makeText(getApplicationContext(),R.string.rejestracja,Toast.LENGTH_SHORT).show();
-                        }
+                   new FirebaseDB().checkIfUserExistsAndRegister(us, new FirebaseDB.DataStatus() {
+                       @Override
+                       public void dataInserted() {
+                           Toast.makeText(getApplicationContext(),R.string.rejestracja,Toast.LENGTH_LONG).show();
+                       }
 
-                        @Override
-                        public void dataUpdated() {
+                       @Override
+                       public void dataUpdated() {
 
-                        }
+                       }
 
-                        @Override
-                        public void dataLoaded() {
+                       @Override
+                       public void dataLoaded() {
 
-                        }
-                    });
+                       }
+
+                       @Override
+                       public void dataExists() {
+                           Toast.makeText(getApplicationContext(),R.string.uz_istnieje,Toast.LENGTH_LONG).show();
+                       }
+
+                       @Override
+                       public void databaseFailure() {
+                           Toast.makeText(getApplicationContext(),R.string.DataBase_failure,Toast.LENGTH_LONG).show();
+                       }
+                   });
                 }
             }
         });
