@@ -40,6 +40,10 @@ public class Startowa extends AppCompatActivity{
 
         haveAccountDialog = new Dialog(this);
         registerDialog = new Dialog(this);
+        haveAccountDialog.setCancelable(true);
+        registerDialog.setCancelable(true);
+        haveAccountDialog.setCanceledOnTouchOutside(false);
+        registerDialog.setCanceledOnTouchOutside(false);
         ctx = this;
     }
 

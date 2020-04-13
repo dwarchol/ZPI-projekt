@@ -24,6 +24,8 @@ public class Glowna extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         coordinatesDialog = new Dialog(this);
+        coordinatesDialog.setCancelable(true);
+        coordinatesDialog.setCanceledOnTouchOutside(false);
     }
 
     public void settingsMethod(View view)
@@ -40,7 +42,7 @@ public class Glowna extends AppCompatActivity {
 
     public void coordinatesMethod(View view)
     {
-       /* coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
+        coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
         coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
         closeDialog.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +51,17 @@ public class Glowna extends AppCompatActivity {
                 coordinatesDialog.dismiss();
             }
         });
-        coordinatesDialog.show();*/
-        coordinatesDialog.setContentView(R.layout.popup_przypomnienie_postepow);
-        coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         coordinatesDialog.show();
+
     }
 
+    public void onBackPressed()
+    {
+        if(coordinatesDialog.isShowing())
+        {
+            coordinatesDialog.dismiss();
+            return;
+        }
+        super.onBackPressed();
+    }
 }
