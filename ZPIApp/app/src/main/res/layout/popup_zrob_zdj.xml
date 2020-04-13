@@ -11,7 +11,20 @@
     android:background="@drawable/popupbackground"
     android:layout_gravity="center"
     android:orientation="vertical">
-
+    <TextView
+        android:id="@+id/closeZrobZdjecie"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="end"
+        android:background="@drawable/closebutton"
+        android:gravity="center"
+        android:text="@string/close"
+        android:textColor="@color/textColor"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/zrobZdjecie_title"
         android:layout_width="wrap_content"
@@ -27,14 +40,14 @@
         android:textSize="20dp"
         android:visibility="visible" />
 
-    <EditText
-        android:id="@+id/odpowiedz_editTex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:visibility="gone" />
+    <ImageView
+        android:id="@+id/miejsceNaZdj"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="280dp"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/popup_text"
@@ -48,7 +61,7 @@
          />
 
     <Button
-        android:id="@+id/closeZrobZdjecie"
+        android:id="@+id/zrobZdjecieButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ok"

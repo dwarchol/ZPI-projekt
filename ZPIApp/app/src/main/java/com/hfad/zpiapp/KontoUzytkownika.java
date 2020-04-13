@@ -1,10 +1,23 @@
 package com.hfad.zpiapp;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class KontoUzytkownika extends AppCompatActivity {
+    Dialog progressDialog;
+    static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,5 +27,64 @@ public class KontoUzytkownika extends AppCompatActivity {
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_2);
+
+        progressDialog = new Dialog(this);
+        progressDialog.setCancelable(true);
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    public void progressMethod(View view)
+    {
+            takePhoto();
+    }
+
+    private void takePhoto()
+    {
+        progressDialog.setContentView(R.layout.popup_zrob_zdj);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView closeDialog = (TextView) progressDialog.findViewById(R.id.closeZrobZdjecie);
+        final Button takePhoto = (Button) progressDialog.findViewById(R.id.zrobZdjecieButton);
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.dismiss();
+            }
+        });
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String textOnButton = takePhoto.getText().toString();
+                if(textOnButton.equals("OK"))
+                {
+                    dispatchTakePictureIntent();
+                }
+                else if(textOnButton.equals(R.string.wyslij))
+                {
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////analizuj
+                }
+            }
+        });
+        progressDialog.show();
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////no pobiera zdjatko
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            final Button takePhoto = (Button) progressDialog.findViewById(R.id.zrobZdjecieButton);
+            takePhoto.setText("Wyślij");
+            ImageView photo = (ImageView) progressDialog.findViewById(R.id.miejsceNaZdj);
+            photo.setImageBitmap(imageBitmap);
+            photo.setVisibility(View.VISIBLE);
+        }
+
     }
 }

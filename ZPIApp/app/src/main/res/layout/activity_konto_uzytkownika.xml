@@ -14,7 +14,8 @@
         android:layout_marginEnd="20dp"
         android:src="@drawable/bookwhite"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="progressMethod"/>
     <TextView
         android:id="@+id/postep_gView"
         android:layout_width="wrap_content"
