@@ -1,13 +1,15 @@
 package com.hfad.zpiapp;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.ActionBar;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,10 +17,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import static android.app.Activity.RESULT_OK;
+
 public class KontoUzytkownika extends AppCompatActivity {
     Dialog progressDialog;
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +88,7 @@ public class KontoUzytkownika extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
             final Button takePhoto = (Button) progressDialog.findViewById(R.id.zrobZdjecieButton);
             takePhoto.setText("Wyślij");
             ImageView photo = (ImageView) progressDialog.findViewById(R.id.miejsceNaZdj);
