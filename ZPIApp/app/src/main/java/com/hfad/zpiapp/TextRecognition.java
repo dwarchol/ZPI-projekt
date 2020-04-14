@@ -2,12 +2,14 @@ package com.hfad.zpiapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.hardware.biometrics.BiometricPrompt;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -18,7 +20,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 
 public class TextRecognition {
-    String textFromImage="";
+    private String textFromImage="";
 
     public void detectTextFromImage(final Context ctx, Bitmap photo)
     {
@@ -30,6 +32,7 @@ public class TextRecognition {
             @Override
             public void onSuccess(FirebaseVisionText firebaseVisionText) {
                 textFromImage = takeTextFromImage(ctx, firebaseVisionText);
+                Log.println(Log.ASSERT, "tu byłem" , textFromImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -37,10 +40,19 @@ public class TextRecognition {
                 Toast.makeText(ctx, "Error", Toast.LENGTH_LONG);
             }
         });
+        try {
+            Tasks.await(task);
+            Log.println(Log.ASSERT,"cokolwiekAgain", textFromImage);
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(ctx, "Ups!", Toast.LENGTH_LONG);
+        }
     }
 
     public String getTextFromImage()
     {
+        Log.println(Log.ASSERT,"cokolwiek", textFromImage);
         return textFromImage;
     }
 
