@@ -1,5 +1,6 @@
 package com.hfad.zpiapp;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
@@ -21,12 +22,14 @@ import androidx.annotation.NonNull;
 public class MLLandmark {
     FirebaseVisionImage image;
     StringBuilder sb = new StringBuilder();
+    Context ctx;
     FirebaseVisionImageLabeler detector ;
-    public MLLandmark(Bitmap photo)
+    public MLLandmark(Bitmap photo,Context ctx)
     {
         image = FirebaseVisionImage.fromBitmap(photo);
         detector= FirebaseVision.getInstance()
                 .getOnDeviceImageLabeler();
+        this.ctx=ctx;
     }
 
    public String labeler (final int i)
@@ -45,12 +48,14 @@ public class MLLandmark {
                        }
                        System.out.println(i);
                        System.out.println(sb.toString());
+                       Toast.makeText(ctx,sb,Toast.LENGTH_LONG).show();
                    }
                })
                .addOnFailureListener(new OnFailureListener() {
                    @Override
                    public void onFailure(@NonNull Exception e) {
                      sb.append("failure");
+                       Toast.makeText(ctx,sb,Toast.LENGTH_LONG).show();
                    }
                });
        return sb.toString();

@@ -34,12 +34,13 @@ public class Glowna extends AppCompatActivity {
         coordinatesDialog = new Dialog(this);
         coordinatesDialog.setCancelable(true);
         coordinatesDialog.setCanceledOnTouchOutside(false);
-       /* int [] id= new int[]{R.drawable.skytower3,R.drawable.skytower4,R.drawable.skytower5,R.drawable.skytower6,R.drawable.skytower7,R.drawable.skytower8,R.drawable.skytower9,
+       /* int [] id= new int[]{R.drawable.skytower3,R.drawable.skytower4,R.drawable.skytower5};
+                R.drawable.skytower6,R.drawable.skytower7,R.drawable.skytower8,R.drawable.skytower9,
                 R.drawable.skytower10,R.drawable.skytower11,R.drawable.skytower12,R.drawable.skytower13,R.drawable.skytower14,R.drawable.skytower15,R.drawable.skytower16};
-        for (int i=0;i<14;i++) {
+        for (int i=0;i<id.length;i++) {
 
             Bitmap icon = BitmapFactory.decodeResource(getResources(),id[i]);
-            MLLandmark ml = new MLLandmark((icon));
+            MLLandmark ml = new MLLandmark(icon,this);
             String sb = ml.labeler(i+3);
             // Toast.makeText(getApplicationContext(),"yupi",Toast.LENGTH_LONG);
             Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_LONG).show();
