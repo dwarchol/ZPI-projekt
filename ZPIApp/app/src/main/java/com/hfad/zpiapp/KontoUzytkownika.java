@@ -29,6 +29,10 @@ public class KontoUzytkownika extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     Context ctx;
+    Dialog badAnswerDialog;
+    Dialog congratulationsDialog;
+    boolean museum = false;
+
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,9 @@ public class KontoUzytkownika extends AppCompatActivity {
         progressDialog = new Dialog(this);
         progressDialog.setCancelable(true);
         progressDialog.setCanceledOnTouchOutside(false);
+
+        badAnswerDialog = new Dialog(this);
+        congratulationsDialog = new Dialog(this);
 
         ctx = this;
     }
@@ -75,6 +82,22 @@ public class KontoUzytkownika extends AppCompatActivity {
                 {
                     TextRecognition tR = new TextRecognition();
                     tR.detectTextFromImage(ctx,myPhoto);
+                    Log.println(Log.ASSERT,"cokolwiek", "naprawdę cokolwiek");
+                    String textFromImage = tR.getTextFromImage();
+                    Log.println(Log.ASSERT,"cokolwiek", textFromImage);
+                    museum = MuzeumWspolczesneRecognition.museum(textFromImage);
+                    progressDialog.dismiss();
+                    if(museum)
+                    {
+                        congratulationsDialog.setContentView(R.layout.popup_gratulacje);
+                        congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        congratulationsDialog.show();
+                    }
+                    else {
+                        badAnswerDialog.setContentView(R.layout.popup_zla_odpowiedz);
+                        badAnswerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        badAnswerDialog.show();
+                    }
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////analizuj
                 }
             }
@@ -101,6 +124,8 @@ public class KontoUzytkownika extends AppCompatActivity {
             ImageView photo = (ImageView) progressDialog.findViewById(R.id.miejsceNaZdj);
             photo.setImageBitmap(imageBitmap);
             photo.setVisibility(View.VISIBLE);
+
+
         }
 
     }
