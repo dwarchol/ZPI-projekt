@@ -3,6 +3,7 @@ package com.hfad.zpiapp;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -26,7 +27,8 @@ import static android.app.Activity.RESULT_OK;
 public class KontoUzytkownika extends AppCompatActivity {
     Dialog progressDialog;
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
-
+    Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
+    Context ctx;
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class KontoUzytkownika extends AppCompatActivity {
         progressDialog = new Dialog(this);
         progressDialog.setCancelable(true);
         progressDialog.setCanceledOnTouchOutside(false);
+
+        ctx = this;
     }
 
     public void progressMethod(View view)
@@ -67,8 +71,10 @@ public class KontoUzytkownika extends AppCompatActivity {
                 {
                     dispatchTakePictureIntent();
                 }
-                else if(textOnButton.equals(R.string.wyslij))
+                else if(textOnButton.equals("Wyślij"))
                 {
+                    TextRecognition tR = new TextRecognition();
+                    tR.detectTextFromImage(ctx,myPhoto);
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////analizuj
                 }
             }
@@ -88,6 +94,7 @@ public class KontoUzytkownika extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            myPhoto = imageBitmap;
             //FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
             final Button takePhoto = (Button) progressDialog.findViewById(R.id.zrobZdjecieButton);
             takePhoto.setText("Wyślij");
