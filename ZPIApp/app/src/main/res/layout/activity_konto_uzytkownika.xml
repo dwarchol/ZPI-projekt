@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     tools:context=".KontoUzytkownika">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/bookwhite"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="progressMethod"/>
     <TextView
         android:id="@+id/postep_gView"
         android:layout_width="wrap_content"
@@ -15,7 +25,9 @@
         android:text="Postęp w grze"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintStart_toStartOf="@+id/seekBar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="22dp"
+        android:textColor="@color/textColor"/>
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -23,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="3dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/odznazki_textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postep_gView" />
@@ -33,10 +46,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="1dp"
-        android:text="odznaki"
+        android:layout_marginTop="15dp"
+        android:text="@string/odznaki"
         app:layout_constraintBottom_toTopOf="@id/seekBar"
         app:layout_constraintStart_toStartOf="@+id/seekBar"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        android:textSize="22dp"
+        android:textColor="@color/textColor"/>
 
     <GridView
         android:layout_width="0dp"
@@ -44,8 +60,9 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/odznazki_textView" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

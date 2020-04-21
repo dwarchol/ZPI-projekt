@@ -3,20 +3,20 @@
     <string name="haveAccount">Mam konto</string>
     <string name="register">Zarejestruj się</string>
     <string name="registerButton">Zarejestruj się</string>
-    <string name="coordinatesText">_ _  _ _ \' _ _ . _ _ " N _ _  _ _ \' _ _ . _ _ " E</string>
+    <string name="coordinatesText">_ _° _ _ . _ _ _ " N _ _° _ _ . _ _ _ " E</string>
     <string name="coordinates">Współrzędne</string>
-    <string name="coordinatesTextCloser">_ _  _ _ \' _ _ . _ _ " N \n_ _  _ _ \' _ _ . _ _ " E</string>
+    <string name="coordinatesTextCloser">_ _° _ _ . _ _ _ " N \n_ _° _ _ . _ _ _ " E</string>
     <string name="ok">OK</string>
     <string name="signIn">Zaloguj się</string>
     <string name="signInButton">Zaloguj</string>
     <string name="userName">Nazwa użytkownika</string>
     <string name="password">Hasło</string>
     <string name="close">X</string>
-    <string name="Udalo_sie">Udalosie!</string>
+    <string name="Udalo_sie">Udało się!</string>
     <string name="Udalo_sie_info">Udaj się do wskazanej lokacji aby zakończyć rozgrywkę!</string>
     <string name="Czy_wiesz_ze">Czy wiesz ze?</string>
     <string name="Zagadka">Zagadka</string>
-    <string name="Zagadka_info">aaaaaa</string>
+    <string name="Zagadka_info">aaaaaa bbbbbbbbbbbbbbbb cccccccccccc ddddddddddddddd eeeeeeeeeeeee fffffffffffffff ggggggggggggg hhhh iiiiii jjjjjjjjjjjj</string>
     <string name="Brawo">Brawo!</string>
     <string name="Brawo_info">Twoja gra dobiegła końca. Teraz możesz zostać we Wrocławiu i nadal zdobywać odznaki  albo jechać zwiedzić resztę świata!
     </string>
@@ -24,7 +24,23 @@
     <string name="Zla_odpowiedz">Zła odpowiedź, spróbuj ponownie</string>
     <string name="Zdjecie">Zrób zdjęcie</string>
     <string name="Idz_do">Idź w pobliże miejsca z zagadkami</string>
+    <string name="Pusta_rejestracja">Login i hasło nie mogą być puste</string>
+    <string name="rejestracja">Konto utworzone</string>
+    <string name="LogIn">Udało się zalogować</string>
+    <string name="LoginFailed">Błędny login lub hasło</string>
     <string name="Pytanie">[pytanie]</string>
     <string name="Odpowiedz">odpowiedź</string>
-
+    <string name="userAccount">Konto użytkownika</string>
+    <string name="DataBase_failure">Ups! Coś poszło nie tak.</string>
+    <string name="uz_istnieje">Podany login jest zajęty</string>
+    <string name="zamknij">Zamknij</string>
+    <string name="superka">Super</string>
+    <string name="ZdjecieZrobione">Zrobione zdjęcie</string>
+    <string name="wyslij">Wyślij</string>
+    <string name="ponow">Ponów</string>
+    <string name="Wspolrzedne">57° 12.123N 14° 98.765E</string>
+    <string name="nazwaZagadki">Nazwa odznaki</string>
+    <string name="opisZagadki">Opis odznaki</string>
+    <string name="Zagadka_w_poblizu">Zagadka typu znajdź punkt w okolicy</string>
+    <string name="odznaki">Odznaki</string>
 </resources>
