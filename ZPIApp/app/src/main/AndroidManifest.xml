@@ -28,7 +28,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="com.google.android.gms.maps.SupportMapFragment">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MapsActivity2"
             android:label="@string/title_activity_maps2"></activity>
@@ -38,11 +46,7 @@
         <activity
             android:name=".Startowa"
             android:theme="@style/StartTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
