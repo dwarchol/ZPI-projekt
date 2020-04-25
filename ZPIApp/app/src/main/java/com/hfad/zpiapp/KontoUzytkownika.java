@@ -129,4 +129,9 @@ public class KontoUzytkownika extends AppCompatActivity {
         }
 
     }
+
+    public void comeBackMethod(View view)
+    {
+        super.onBackPressed();
+    }
 }
