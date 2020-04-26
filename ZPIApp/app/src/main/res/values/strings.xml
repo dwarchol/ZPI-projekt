@@ -44,4 +44,10 @@
     <string name="Zagadka_w_poblizu">Zagadka typu znajdź punkt w okolicy</string>
     <string name="odznaki">Odznaki</string>
     <string name="title_activity_maps2">Map</string>
+    <string name="settings">Ustawienia</string>
+    <string name="darkMode">Dark mode</string>
+    <string name="dzwiek">Dźwięk</string>
+    <string name="powiadomienia">Powiadomienia</string>
+    <string name="wibracje">Wibracje</string>
+    <string name="postep">Postęp w grze</string>
 </resources>
