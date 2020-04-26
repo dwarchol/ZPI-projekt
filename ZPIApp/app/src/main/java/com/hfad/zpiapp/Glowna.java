@@ -64,8 +64,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback {
         coordinatesDialog.setCanceledOnTouchOutside(false);
 
         initMap();
-       // SprawdzZdjecie sz = new SprawdzZdjecie(this);
-        //sz.execute();
+        SprawdzZdjecie sz = new SprawdzZdjecie(this);
+        sz.execute();
 
 
 
