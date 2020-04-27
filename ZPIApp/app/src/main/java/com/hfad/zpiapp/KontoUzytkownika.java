@@ -80,6 +80,7 @@ public class KontoUzytkownika extends AppCompatActivity {
                 }
                 else if(textOnButton.equals("Wyślij"))
                 {
+
                     TextRecognition tR = new TextRecognition();
                     tR.detectTextFromImage(ctx,myPhoto);
                     Log.println(Log.ASSERT,"cokolwiek", "naprawdę cokolwiek");
@@ -128,5 +129,10 @@ public class KontoUzytkownika extends AppCompatActivity {
 
         }
 
+    }
+
+    public void comeBackMethod(View view)
+    {
+        super.onBackPressed();
     }
 }
