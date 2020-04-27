@@ -44,20 +44,19 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     protected Void doInBackground(Void... voids) {
         publishProgress(0);
         CountDownLatch cdl = new CountDownLatch(1);
-        publishProgress(10);
-        TextRecognition tR = new TextRecognition(ctx,image,cdl);
         publishProgress(30);
+        TextRecognition tR = new TextRecognition(ctx,image,cdl);
+        publishProgress(60);
         Executor executor = Executors.newFixedThreadPool(1);
-        publishProgress(35);
+        publishProgress(70);
         executor.execute(tR);
-        publishProgress(50);
+        publishProgress(80);
         try {
             cdl.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        publishProgress(70);
-        Log.println(Log.ASSERT,"cokolwiek", "naprawdę cokolwiek");
+        publishProgress(90);
         textFromImage= tR.getTextFromImage();
         publishProgress(100);
         return null;

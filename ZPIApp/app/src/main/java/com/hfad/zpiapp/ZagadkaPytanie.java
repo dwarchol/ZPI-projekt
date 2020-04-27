@@ -6,12 +6,14 @@ public class ZagadkaPytanie extends Zagadka{
     private String pytanie;
     private String zdjecie;
 
-    public ZagadkaPytanie(String p, String z, String pO)
+    public ZagadkaPytanie(String p, String z, ArrayList<String> pO, double x, double y)
     {
         pytanie = p;
         zdjecie = z;
-        poprawnaOdpowiedz = new ArrayList<String>();
+        poprawnaOdpowiedz = pO;
         rozwiazana = false;
+        wspolrzednaX = x;
+        wspolrzednaY = y;
     }
 
     public void sprawdz()

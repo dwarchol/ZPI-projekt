@@ -54,9 +54,7 @@ public class TextRecognition implements Runnable {
             for(FirebaseVisionText.TextBlock block : blocks)
             {
                 textOnImg.append(block.getText());
-                return textOnImg.toString();
             }
-            Log.println(Log.ASSERT, "tu byłem" , textOnImg.toString());
             return textOnImg.toString();
         }
         return "";
@@ -75,7 +73,7 @@ public class TextRecognition implements Runnable {
                 try {
                     textFromImage=takeTextFromImage(ctx,firebaseVisionText);
                 }finally {
-                    Toast.makeText(ctx,textFromImage.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(ctx,textFromImage,Toast.LENGTH_LONG).show();
                     cdl.countDown();
                 }
             }
@@ -86,13 +84,5 @@ public class TextRecognition implements Runnable {
                 cdl.countDown();
             }
         });
-        try {
-
-            Log.println(Log.ASSERT,"cokolwiekAgain", textFromImage.toString());
-        }
-        catch(Exception e)
-        {
-            Toast.makeText(ctx, "Ups!", Toast.LENGTH_LONG);
-        }
     }
 }

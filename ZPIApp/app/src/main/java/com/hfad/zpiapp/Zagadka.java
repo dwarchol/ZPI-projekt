@@ -6,6 +6,8 @@ public abstract class Zagadka {
     protected List<String> poprawnaOdpowiedz;
     protected String udzielonaOdpowiedz;
     protected Boolean rozwiazana;
+    protected double wspolrzednaX;
+    protected double wspolrzednaY;
 
     public abstract void sprawdz();
     public Boolean czyRozwiazane()
@@ -14,6 +16,16 @@ public abstract class Zagadka {
     }
     public void setUdzielonaOdpowiedz(String uO)
     {
-        udzielonaOdpowiedz = uO;
+        udzielonaOdpowiedz = uO.toUpperCase();
     };
+
+    public double getWspolrzednaX()
+    {
+        return wspolrzednaX;
+    }
+
+    public double getWspolrzednaY()
+    {
+        return wspolrzednaY;
+    }
 }
