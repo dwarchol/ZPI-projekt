@@ -81,17 +81,11 @@ public class KontoUzytkownika extends AppCompatActivity {
                 else if(textOnButton.equals("Wyślij"))
                 {
 
-                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto);
-                    progressDialog.dismiss();
-                    st.execute();
-
-                   /* TextRecognition tR = new TextRecognition();
+                    TextRecognition tR = new TextRecognition();
                     tR.detectTextFromImage(ctx,myPhoto);
                     Log.println(Log.ASSERT,"cokolwiek", "naprawdę cokolwiek");
                     String textFromImage = tR.getTextFromImage();
                     Log.println(Log.ASSERT,"cokolwiek", textFromImage);
-
-
                     museum = MuzeumWspolczesneRecognition.museum(textFromImage);
                     progressDialog.dismiss();
                     if(museum)
@@ -106,8 +100,6 @@ public class KontoUzytkownika extends AppCompatActivity {
                         badAnswerDialog.show();
                     }
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////analizuj
-                    /
-                    */
                 }
             }
         });
