@@ -50,4 +50,5 @@
     <string name="powiadomienia">Powiadomienia</string>
     <string name="wibracje">Wibracje</string>
     <string name="postep">Postęp w grze</string>
+    <string name="loading">Weryfikacja</string>
 </resources>
