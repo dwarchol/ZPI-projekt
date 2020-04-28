@@ -1,15 +1,19 @@
 package com.hfad.zpiapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -42,8 +46,10 @@ import java.util.concurrent.ThreadFactory;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-public class Glowna extends AppCompatActivity implements OnMapReadyCallback {
+public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
     Dialog coordinatesDialog;
 
     GoogleMap mMap;
@@ -113,32 +119,57 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.mapGoogle);
         mapFragment.getMapAsync(this);
 
-        //mapFragment.getMapAsync(this);
-
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //Toast.makeText(getApplicationContext(),"sa;fefeef",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT).show();
         Log.d("Glowna","onMapReady: ready");
         mMap = googleMap;
-//
-//        // Add a marker in Sydney and move the camera
+        if(checkSelfPermission("ACCESS_FINE_LOCATION")
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(Glowna.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+            mMap.setMyLocationEnabled(true);
+        }
+
+
         LatLng wroclaw = new LatLng(51.105171, 17.037821);
         mMap.addMarker(new MarkerOptions().position(wroclaw).title("Marker in Wrocław"));
-        //Toast.makeText(getApplicationContext(),"zzzzzzzzzzzzzz",Toast.LENGTH_SHORT).show();
         float zoomLevel = 10.0f;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
-//        mMap.addMarker(new MarkerOptions()
-//                .position(new LatLng(10, 10))
-//                .title("Hello world"));
+
 
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        float zoomLevel = 10.0f;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
+        Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 }
