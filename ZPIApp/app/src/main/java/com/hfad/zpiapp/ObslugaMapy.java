@@ -24,15 +24,15 @@ public class ObslugaMapy {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, " asdff " + dataSnapshot.toString());
-
+              //  Log.i(TAG, " asdff " + dataSnapshot.toString());
+//
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    Log.w("sss",snapshot.toString());
+                    //Log.w("sss",snapshot.toString());
                     ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
                     zagadki.add(zagadka);
-                    Log.w("asdqwe", zagadki.get(0).toString());
+                    //Log.w("asdqwe", zagadki.get(0).toString());
                 }
-                Log.w("tag", "asd " + zagadki.get(0).index + " "+ zagadki.get(0).typ + " " + zagadki.get(0).wspolrzednaLat + " " + zagadki.get(0).wspolrzednaLng);
+                //Log.w("tag", "asd " + zagadki.get(0).index + " "+ zagadki.get(0).typ + " " + zagadki.get(0).wspolrzednaLat + " " + zagadki.get(0).wspolrzednaLng);
                 wyswietlPunkty();
             }
             @Override
@@ -41,16 +41,16 @@ public class ObslugaMapy {
         };
 
         DatabaseReference zagadkiRef = FirebaseDatabase.getInstance().getReference();
-        zagadkiRef.child("test").addListenerForSingleValueEvent(listener);
+        zagadkiRef.child("zagadki").addListenerForSingleValueEvent(listener);
 
         return zagadki;
     }
 
     public void wyswietlPunkty(){
         for(int i=0;i<zagadki.size();i++){
-            Log.w("w forze",zagadki.get(i).wspolrzednaLat + " " + zagadki.get(i).wspolrzednaLng + " " + zagadki.get(i).index + " " + mMap);
+    //        Log.w("w forze",zagadki.get(i).wspolrzednaLat + " " + zagadki.get(i).wspolrzednaLng + " " + zagadki.get(i).index + " " + mMap);
             LatLng wroclaw = new LatLng(zagadki.get(i).wspolrzednaLat, zagadki.get(i).wspolrzednaLng);
-            mMap.addMarker(new MarkerOptions().position(wroclaw).title(zagadki.get(i).index+""));
+            mMap.addMarker(new MarkerOptions().position(wroclaw).title(zagadki.get(i).nazwa));
         }
     }
 

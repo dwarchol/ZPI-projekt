@@ -75,8 +75,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setCanceledOnTouchOutside(false);
 
         initMap();
-        SprawdzZdjecie sz = new SprawdzZdjecie(this);
-        sz.execute();
+//        SprawdzZdjecie sz = new SprawdzZdjecie(this);
+//        sz.execute();
 
     }
     public void settingsMethod(View view)
@@ -138,9 +138,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
         LatLng wroclaw = new LatLng(51.105171, 17.037821);
-        mMap.addMarker(new MarkerOptions().position(wroclaw).title("Marker in Wrocław"));
-        float zoomLevel = 10.0f;
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
+        float zoomLevel = 16.0f;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
         obsluga.start(mMap);
