@@ -33,11 +33,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 
+import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -51,9 +54,11 @@ import androidx.core.content.ContextCompat;
 
 public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
     Dialog coordinatesDialog;
-
     GoogleMap mMap;
     SupportMapFragment mapFragment;
+    DatabaseReference mDatabase;
+    ArrayList<Zagadka> zagadki = new ArrayList<Zagadka>();
+    ObslugaMapy obsluga = new ObslugaMapy();
 
     @SuppressLint("WrongConstant")
     @Override
@@ -72,9 +77,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         initMap();
         SprawdzZdjecie sz = new SprawdzZdjecie(this);
         sz.execute();
-
-
-
 
     }
     public void settingsMethod(View view)
@@ -121,7 +123,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         //Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT).show();
@@ -142,7 +143,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
-
+        obsluga.start(mMap);
 
     }
 

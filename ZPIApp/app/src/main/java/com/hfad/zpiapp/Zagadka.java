@@ -3,29 +3,23 @@ package com.hfad.zpiapp;
 import java.util.List;
 
 public abstract class Zagadka {
-    protected List<String> poprawnaOdpowiedz;
-    protected String udzielonaOdpowiedz;
-    protected Boolean rozwiazana;
-    protected double wspolrzednaX;
-    protected double wspolrzednaY;
+    public int index;
+    protected double wspolrzednaLat;
+    protected double wspolrzednaLng;
+    protected int typ;      //1 - pytanie, 2- wybor, 3- mlObiekty 4- mlTekst
 
-    public abstract void sprawdz();
-    public Boolean czyRozwiazane()
-    {
-        return rozwiazana;
-    }
-    public void setUdzielonaOdpowiedz(String uO)
-    {
-        udzielonaOdpowiedz = uO.toUpperCase();
-    };
+    public abstract boolean sprawdz(String odp);
 
-    public double getWspolrzednaX()
+    public double getTyp() { return typ; }
+
+    public double getWspolrzednaLat()
     {
-        return wspolrzednaX;
+        return wspolrzednaLat;
     }
 
-    public double getWspolrzednaY()
+    public double getWspolrzednaLng()
     {
-        return wspolrzednaY;
+        return wspolrzednaLng;
     }
+
 }

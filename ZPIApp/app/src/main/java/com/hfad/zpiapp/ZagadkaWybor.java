@@ -9,16 +9,14 @@ public class ZagadkaWybor extends Zagadka{
     private String opcja2;
     private String opcja3;
     private String opcja4;
-
+    private String poprawnaOdpowiedz;
     public ZagadkaWybor(String p, String z, String pO, double x, double y, String o1, String o2, String o3, String o4)
     {
         pytanie = p;
         zdjecie = z;
-        poprawnaOdpowiedz = new ArrayList<String>();
-        poprawnaOdpowiedz.add(pO);
-        rozwiazana = false;
-        wspolrzednaX = x;
-        wspolrzednaY = y;
+        poprawnaOdpowiedz = pO;
+        wspolrzednaLat = x;
+        wspolrzednaLng = y;
         opcja1 = o1;
         opcja2 = o2;
         opcja3 = o3;
@@ -26,11 +24,12 @@ public class ZagadkaWybor extends Zagadka{
     }
 
     @Override
-    public void sprawdz() {
-        if(poprawnaOdpowiedz.get(0).equals(udzielonaOdpowiedz))
-        {
-            rozwiazana = true;
-        }
+    public boolean sprawdz(String str) {
+//        if(poprawnaOdpowiedz.get(0).equals(udzielonaOdpowiedz))
+//        {
+//            rozwiazana = true;
+//        }
+        return false;
     }
 
     public String getOpcja1()

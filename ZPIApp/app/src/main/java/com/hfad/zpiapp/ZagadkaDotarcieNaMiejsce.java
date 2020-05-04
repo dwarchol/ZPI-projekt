@@ -2,14 +2,13 @@ package com.hfad.zpiapp;
 
 public class ZagadkaDotarcieNaMiejsce extends Zagadka{
     private String zagadka;
-
+    private String poprawnaOdpowiedz;
     public ZagadkaDotarcieNaMiejsce(String z, double x, double y)
     {
         zagadka= z;
         poprawnaOdpowiedz = null;
-        rozwiazana = false;
-        wspolrzednaX = x;
-        wspolrzednaY = y;
+        wspolrzednaLat = x;
+        wspolrzednaLng = y;
     }
     public String getZagadka()
     {
@@ -17,7 +16,8 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
     }
 
     @Override
-    public void sprawdz() {
+    public boolean sprawdz(String str) {
         //////////////////////////////////////////////////tu sprawdza czy zagadzają się współrzędne
+    return false;
     }
 }

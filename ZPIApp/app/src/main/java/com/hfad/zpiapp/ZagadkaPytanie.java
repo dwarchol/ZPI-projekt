@@ -3,38 +3,41 @@ package com.hfad.zpiapp;
 import java.util.ArrayList;
 
 public class ZagadkaPytanie extends Zagadka{
-    private String pytanie;
-    private String zdjecie;
+    private String trescPytania;
+   // private String zdjecie;
+    private String poprawnaOdpowiedz;
+    public ZagadkaPytanie(){
 
-    public ZagadkaPytanie(String p, String z, ArrayList<String> pO, double x, double y)
-    {
-        pytanie = p;
-        zdjecie = z;
-        poprawnaOdpowiedz = pO;
-        rozwiazana = false;
-        wspolrzednaX = x;
-        wspolrzednaY = y;
     }
 
-    public void sprawdz()
+    public ZagadkaPytanie(int index, String pyt,/* String zdj,*/ String poprOdp, double wspolrzedna_lat, double wspolrzedna_lng, int typ)
     {
-        for(int i = 0; i < poprawnaOdpowiedz.size(); i++)
+        this.index = index;
+        this.typ=typ;
+        trescPytania = pyt;
+      //  zdjecie = zdj;
+        poprawnaOdpowiedz = poprOdp;
+        wspolrzednaLat = wspolrzedna_lat;
+        wspolrzednaLng = wspolrzedna_lng;
+    }
+
+    public boolean sprawdz(String Odp)
+    {
+        if(poprawnaOdpowiedz.equals(Odp))
         {
-            if(poprawnaOdpowiedz.get(i).equals(udzielonaOdpowiedz))
-            {
-                rozwiazana = true;
-            }
+                return true;
         }
+        return false;
     }
 
     public String getPytanie()
     {
-        return pytanie;
+        return trescPytania;
     }
 
-    public String getZdjecie()
-    {
-        return zdjecie;
-    }
+//    public String getZdjecie()
+//    {
+//        return zdjecie;
+//    }
 
 }
