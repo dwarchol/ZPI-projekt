@@ -1,23 +1,34 @@
 package com.hfad.zpiapp;
 
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
+
 public class ZagadkaDotarcieNaMiejsce extends Zagadka{
-    private String zagadka;
-    private String poprawnaOdpowiedz;
-    public ZagadkaDotarcieNaMiejsce(String z, double x, double y)
+
+    public ZagadkaDotarcieNaMiejsce(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
     {
-        zagadka= z;
-        poprawnaOdpowiedz = null;
-        wspolrzednaLat = x;
-        wspolrzednaLng = y;
-    }
-    public String getZagadka()
-    {
-        return zagadka;
+        this.index = index;
+        this.wspolrzednaLat = wspolrzednaLat;
+        this.wspolrzednaLng = wspolrzednaLng;
+        this.typ = typ;
+        this.nazwa = nazwa;
+        this.poprzednia = poprzednia;
     }
 
     @Override
     public boolean sprawdz(String str) {
-        //////////////////////////////////////////////////tu sprawdza czy zagadzają się współrzędne
-    return false;
+        String[] wsp = str.split(",");
+        double lat = Double.parseDouble(wsp[0]);
+        double lng = Double.parseDouble(wsp[1]);
+
+        double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
+        if(distance<0.01){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 }

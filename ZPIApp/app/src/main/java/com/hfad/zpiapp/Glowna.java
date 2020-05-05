@@ -27,7 +27,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,19 +48,19 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
     Dialog coordinatesDialog;
     GoogleMap mMap;
     SupportMapFragment mapFragment;
     DatabaseReference mDatabase;
-    ArrayList<Zagadka> zagadki = new ArrayList<Zagadka>();
-    ObslugaMapy obsluga = new ObslugaMapy();
+    ArrayList<Zagadka> zagadkiLista = new ArrayList<Zagadka>();
 
     @SuppressLint("WrongConstant")
     @Override
@@ -78,7 +80,39 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 //        SprawdzZdjecie sz = new SprawdzZdjecie(this);
 //        sz.execute();
 
+        ZagadkaReader zagadkaReader = new ZagadkaReader();
+        zagadkaReader.readData(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<Zagadka> zag) {
+                Log.w("ktorereader", zag.get(0).getNazwa());
+                zagadkiLista=zag;
+                drawMaps();
+            }
+        });
+        Log.w("ZAGADKI", "" +zagadkiLista.size());
+
     }
+
+    public void drawMaps(){
+        mMap.setOnMarkerClickListener(this);
+        for(int i=0;i<zagadkiLista.size();i++){
+            Log.w("lista_punktow",zagadkiLista.get(i).toString());
+            LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+            MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa);
+
+            Marker marker = mMap.addMarker(markerOptions);
+            marker.setTag(i);
+
+            CircleOptions circleOptions = new CircleOptions();
+            circleOptions.center(point);
+            circleOptions.radius(50);
+            circleOptions.strokeColor(Color.BLACK);
+            circleOptions.fillColor(0x0ff000);
+            circleOptions.strokeWidth(1);
+            mMap.addCircle(circleOptions);
+        }
+    }
+
     public void settingsMethod(View view)
     {
         final Intent settingsIntent=new Intent(this,Ustawienia.class);
@@ -142,7 +176,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
-        obsluga.start(mMap);
+       // obsluga.start(mMap);
 
     }
 
@@ -171,5 +205,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        int tag = (int) marker.getTag();
+        showPopUpZagadka(tag);
+        return false;
+    }
+
+
+
+    public void showPopUpZagadka(int ktore){
+        Toast.makeText(getApplicationContext(),"Kliknieto marker " + ktore,Toast.LENGTH_SHORT).show();
     }
 }

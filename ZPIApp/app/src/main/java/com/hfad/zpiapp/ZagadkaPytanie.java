@@ -2,6 +2,8 @@ package com.hfad.zpiapp;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+
 public class ZagadkaPytanie extends Zagadka{
     private String trescPytania;
     private String zdjecie;
@@ -23,6 +25,10 @@ public class ZagadkaPytanie extends Zagadka{
         this.poprzednia=poprzednia;
     }
 
+    public String getTrescPytania(){ return trescPytania; }
+    public String getZdjecie(){ return zdjecie; }
+    public String getPoprawnaOdpowiedz() { return poprawnaOdpowiedz; }
+
     public boolean sprawdz(String Odp)
     {
         if(poprawnaOdpowiedz.equals(Odp))
@@ -32,14 +38,10 @@ public class ZagadkaPytanie extends Zagadka{
         return false;
     }
 
-    public String getPytanie()
-    {
-        return trescPytania;
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getIndex() + " " + getPoprzednia() + " " + getNazwa() + " " + getWspolrzednaLat() + " " + getWspolrzednaLng() + " " + getTrescPytania() + " " + getPoprawnaOdpowiedz() + " " + getZdjecie() + " " + getTyp();
     }
-
-//    public String getZdjecie()
-//    {
-//        return zdjecie;
-//    }
-
 }
