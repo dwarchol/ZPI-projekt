@@ -51,7 +51,7 @@ import androidx.core.content.ContextCompat;
 
 public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
     Dialog coordinatesDialog;
-
+    Uzytkownik user;
     GoogleMap mMap;
     SupportMapFragment mapFragment;
 
@@ -59,6 +59,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @Override
     protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
+      //  user.odznaki.set(0,1);
+        //user.uaktualnijWBazie();
+        System.out.println(user.login);
+        //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -70,8 +75,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setCanceledOnTouchOutside(false);
 
         initMap();
-        SprawdzZdjecie sz = new SprawdzZdjecie(this);
-        sz.execute();
+       /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
+        sz.execute();*/
 
 
 

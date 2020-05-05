@@ -1,15 +1,22 @@
 package com.hfad.zpiapp;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-public class Uzytkownik {
+import androidx.annotation.NonNull;
+
+public class Uzytkownik implements Serializable {
     String login;
     String password;
    public ArrayList<Integer> odznaki;
-    ArrayList<ArrayList<Integer>> zagadki;
+   public ArrayList<ArrayList<Integer>> zagadki;
 
 
 
@@ -17,6 +24,14 @@ public class Uzytkownik {
     {
         login="";
         password="";
+    }
+    public Uzytkownik(String l, String p, ArrayList<Integer> od, ArrayList<Integer> zag)
+    {
+        this.login=l;
+        this.password=p;
+        this.odznaki=new ArrayList<>(od);
+        this.zagadki=new ArrayList(zag);
+
     }
     public Uzytkownik(String l, String p)
     {
@@ -69,4 +84,11 @@ public class Uzytkownik {
     public void setZagadki(ArrayList<ArrayList<Integer>> zagadki) {
         this.zagadki = zagadki;
     }
+
+    public void uaktualnijWBazie()
+    {
+       FirebaseDB fbdb = new FirebaseDB(this);
+       fbdb.updateUser();
+    }
+
 }

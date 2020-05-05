@@ -27,6 +27,7 @@ public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
     Dialog registerDialog;
     Context ctx;
+    Uzytkownik user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +108,9 @@ public class Startowa extends AppCompatActivity{
                         }
                         @Override
                         public void dataExists() {
-                            Toast.makeText(getApplicationContext(),R.string.LogIn,Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(),R.string.LogIn,Toast.LENGTH_SHORT).show();
                             final Intent MainPageIntent=new Intent(ctx, Glowna.class);
+                            MainPageIntent.putExtra("Uzytkownik",fbdb.user);
                             startActivity(MainPageIntent);
                         }
                         @Override
