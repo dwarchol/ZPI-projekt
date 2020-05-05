@@ -47,6 +47,7 @@ public class Startowa extends AppCompatActivity{
         haveAccountDialog.setCanceledOnTouchOutside(false);
         registerDialog.setCanceledOnTouchOutside(false);
         ctx = this;
+
     }
 
     public void moveButton(final Button button)
@@ -72,6 +73,35 @@ public class Startowa extends AppCompatActivity{
         haveAccountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final EditText loginsi = (EditText) haveAccountDialog.findViewById(R.id.loginSI);
         final EditText passwordsi = (EditText) haveAccountDialog.findViewById(R.id.passwordSI);
+
+        loginsi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(loginsi.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        loginsi.setHint("");
+                    }else{
+                        loginsi.setHint(R.string.userName);
+                    }
+                }
+            }
+        });
+
+        passwordsi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(passwordsi.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        passwordsi.setHint("");
+                    }else{
+                        passwordsi.setHint(R.string.password);
+                    }
+                }
+            }
+        });
+
         Button signIn = (Button) haveAccountDialog.findViewById(R.id.signInButton);
         TextView closeHaveAccount = (TextView) haveAccountDialog.findViewById(R.id.closeHaveAccount);
         closeHaveAccount.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +167,35 @@ public class Startowa extends AppCompatActivity{
         Button register = (Button) registerDialog.findViewById(R.id.registerButton);
         final EditText loginU = (EditText) registerDialog.findViewById(R.id.login);
         final EditText password = (EditText) registerDialog.findViewById(R.id.password);
+
+        loginU.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(loginU.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        loginU.setHint("");
+                    }else{
+                        loginU.setHint(R.string.userName);
+                    }
+                }
+            }
+        });
+
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(password.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        password.setHint("");
+                    }else{
+                        password.setHint(R.string.password);
+                    }
+                }
+            }
+        });
+
         TextView closeRegister = (TextView) registerDialog.findViewById(R.id.closeRegister);
         closeRegister.setOnClickListener(new View.OnClickListener() {
             @Override

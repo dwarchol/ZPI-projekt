@@ -3,63 +3,49 @@ package com.hfad.zpiapp;
 import java.util.ArrayList;
 
 public class ZagadkaWybor extends Zagadka{
-    private String pytanie;
+    private String trescPytania;
     private String zdjecie;
-    private String opcja1;
-    private String opcja2;
-    private String opcja3;
-    private String opcja4;
+    private String poprawnaOdpowiedz;
+    private String odpowiedzA;
+    private String odpowiedzB;
+    private String odpowiedzC;
+    private String odpowiedzD;
+    public ZagadkaWybor(){
 
-    public ZagadkaWybor(String p, String z, String pO, double x, double y, String o1, String o2, String o3, String o4)
-    {
-        pytanie = p;
-        zdjecie = z;
-        poprawnaOdpowiedz = new ArrayList<String>();
-        poprawnaOdpowiedz.add(pO);
-        rozwiazana = false;
-        wspolrzednaX = x;
-        wspolrzednaY = y;
-        opcja1 = o1;
-        opcja2 = o2;
-        opcja3 = o3;
-        opcja4 = o4;
     }
+
+    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD)
+    {
+        this.index = index;
+        this.typ=typ;
+        this.trescPytania = trescPytania;
+        this.zdjecie = zdjecie;
+        this.poprawnaOdpowiedz = poprawnaOdpowiedz;
+        this.wspolrzednaLat = wspolrzednaLat;
+        this.wspolrzednaLng = wspolrzednaLng;
+        this.nazwa=nazwa;
+        this.poprzednia=poprzednia;
+        this.odpowiedzA = odpowiedzA;
+        this.odpowiedzB = odpowiedzB;
+        this.odpowiedzC = odpowiedzC;
+        this.odpowiedzD = odpowiedzD;
+    }
+
+    public String getTrescPytania(){ return trescPytania; }
+    public String getZdjecie(){ return zdjecie; }
+    public String getPoprawnaOdpowiedz() { return poprawnaOdpowiedz; }
+    public String getOdpowiedzA(){return odpowiedzA;}
+    public String getOdpowiedzB(){return odpowiedzB;}
+    public String getOdpowiedzC(){return odpowiedzC;}
+    public String getOdpowiedzD(){return odpowiedzD;}
 
     @Override
-    public void sprawdz() {
-        if(poprawnaOdpowiedz.get(0).equals(udzielonaOdpowiedz))
-        {
-            rozwiazana = true;
-        }
+    public boolean sprawdz(String str) {
+//        if(poprawnaOdpowiedz.get(0).equals(udzielonaOdpowiedz))
+//        {
+//            rozwiazana = true;
+//        }
+        return false;
     }
 
-    public String getOpcja1()
-    {
-        return opcja1;
-    }
-
-    public String getOpcja2()
-    {
-        return opcja2;
-    }
-
-    public String getOpcja3()
-    {
-        return opcja3;
-    }
-
-    public String getOpcja4()
-    {
-        return opcja4;
-    }
-
-    public String getPytanie()
-    {
-        return pytanie;
-    }
-
-    public String getZdjecie()
-    {
-        return zdjecie;
-    }
 }

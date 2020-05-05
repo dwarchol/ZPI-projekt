@@ -1,18 +1,29 @@
 package com.hfad.zpiapp;
 
 //import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.common.internal.Asserts;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions;
+
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.EventListener;
+
+import static android.content.ContentValues.TAG;
 
 public class FirebaseDB {
     FirebaseDatabase database;
@@ -68,7 +79,6 @@ public class FirebaseDB {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
                     ds.dataExists();
                 }
                 else

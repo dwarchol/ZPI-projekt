@@ -2,39 +2,46 @@ package com.hfad.zpiapp;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+
 public class ZagadkaPytanie extends Zagadka{
-    private String pytanie;
+    private String trescPytania;
     private String zdjecie;
+    private String poprawnaOdpowiedz;
+    public ZagadkaPytanie(){
 
-    public ZagadkaPytanie(String p, String z, ArrayList<String> pO, double x, double y)
-    {
-        pytanie = p;
-        zdjecie = z;
-        poprawnaOdpowiedz = pO;
-        rozwiazana = false;
-        wspolrzednaX = x;
-        wspolrzednaY = y;
     }
 
-    public void sprawdz()
+    public ZagadkaPytanie(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
     {
-        for(int i = 0; i < poprawnaOdpowiedz.size(); i++)
+        this.index = index;
+        this.typ=typ;
+        this.trescPytania = trescPytania;
+        this.zdjecie = zdjecie;
+        this.poprawnaOdpowiedz = poprawnaOdpowiedz;
+        this.wspolrzednaLat = wspolrzednaLat;
+        this.wspolrzednaLng = wspolrzednaLng;
+        this.nazwa=nazwa;
+        this.poprzednia=poprzednia;
+    }
+
+    public String getTrescPytania(){ return trescPytania; }
+    public String getZdjecie(){ return zdjecie; }
+    public String getPoprawnaOdpowiedz() { return poprawnaOdpowiedz; }
+
+    public boolean sprawdz(String Odp)
+    {
+        if(poprawnaOdpowiedz.equals(Odp))
         {
-            if(poprawnaOdpowiedz.get(i).equals(udzielonaOdpowiedz))
-            {
-                rozwiazana = true;
-            }
+                return true;
         }
+        return false;
     }
 
-    public String getPytanie()
-    {
-        return pytanie;
-    }
 
-    public String getZdjecie()
-    {
-        return zdjecie;
+    @NonNull
+    @Override
+    public String toString() {
+        return getIndex() + " " + getPoprzednia() + " " + getNazwa() + " " + getWspolrzednaLat() + " " + getWspolrzednaLng() + " " + getTrescPytania() + " " + getPoprawnaOdpowiedz() + " " + getZdjecie() + " " + getTyp();
     }
-
 }
