@@ -51,6 +51,12 @@
     <string name="wibracje">Wibracje</string>
     <string name="postep">Postęp w grze</string>
     <string name="loading">Weryfikacja</string>
-    <string name="NotifyCh">Nchanel</string>
-    <string name="NotifyD">Channel desription</string>
+    <string name="NotifyCh">Dźwięk i wibracje</string>
+    <string name="NotifyD">Powiadomienia zawierają dźwięk i wibracje</string>
+    <string name="NotifyCh2">Tylko dźwięk</string>
+    <string name="NotifyD2">Powiadomienia zawierają dźwięk</string>
+    <string name="NotifyCh3">Wibracje</string>
+    <string name="NotifyD3">Powiadomienia zawierają same wibracje</string>
+    <string name="NotifyCh4">Ciche powiadomienia</string>
+    <string name="NotifyD4">Powiadomienia tylko pojawiają się na ekranie </string>
 </resources>

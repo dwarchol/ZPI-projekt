@@ -89,7 +89,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
         sz.execute();*/
         powiadomienie = new Powiadomienie(this);
-       // powiadomienie.sendNotification("Tytuł","Opis");
+        //powiadomienie.sendNotificationWithIntent("Tytuł","Opis");
 
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {

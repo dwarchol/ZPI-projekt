@@ -32,9 +32,9 @@
         <activity
             android:name=".MapsActivity2"
             android:label="@string/title_activity_maps2"></activity>
-        <activity android:name=".KontoUzytkownika" />
-        <activity android:name=".Ustawienia" />
-        <activity android:name=".Glowna" />
+        <activity android:name=".KontoUzytkownika" android:parentActivityName=".Glowna"/>
+        <activity android:name=".Ustawienia" android:parentActivityName=".Glowna" />
+        <activity android:name=".Glowna" android:launchMode="singleInstance" />
         <activity
             android:name=".Startowa"
             android:theme="@style/StartTheme">
