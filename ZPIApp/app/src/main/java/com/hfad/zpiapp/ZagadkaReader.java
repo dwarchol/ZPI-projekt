@@ -22,23 +22,23 @@ public class ZagadkaReader {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                    // Log.w("xxxx", snapshot.child("typ").getValue().toString());
-                    if((int)snapshot.child("typ").getValue()==1){
+                    if((Long)snapshot.child("typ").getValue()==1){
                         ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
                         zagadkas.add(zagadka);
                     }
-                    if((int)snapshot.child("typ").getValue()==2){
+                    if((Long)snapshot.child("typ").getValue()==2){
                         ZagadkaWybor zagadka = snapshot.getValue(ZagadkaWybor.class);
                         zagadkas.add(zagadka);
                     }
-                    if((int)snapshot.child("typ").getValue()==3){
+                    if((Long)snapshot.child("typ").getValue()==3){
                         ZagadkaMLObiekty zagadka = snapshot.getValue(ZagadkaMLObiekty.class);
                         zagadkas.add(zagadka);
                     }
-                    if((int)snapshot.child("typ").getValue()==4){
+                    if((Long)snapshot.child("typ").getValue()==4){
                         ZagadkaMLTekst zagadka = snapshot.getValue(ZagadkaMLTekst.class);
                         zagadkas.add(zagadka);
                     }
-                    if((int)snapshot.child("typ").getValue()==5){
+                    if((Long)snapshot.child("typ").getValue()==5){
                         ZagadkaDotarcieNaMiejsce zagadka = snapshot.getValue(ZagadkaDotarcieNaMiejsce.class);
                         zagadkas.add(zagadka);
                     }
