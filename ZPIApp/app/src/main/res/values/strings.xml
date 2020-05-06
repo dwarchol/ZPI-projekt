@@ -51,4 +51,6 @@
     <string name="wibracje">Wibracje</string>
     <string name="postep">Postęp w grze</string>
     <string name="loading">Weryfikacja</string>
+    <string name="NotifyCh">Nchanel</string>
+    <string name="NotifyD">Channel desription</string>
 </resources>

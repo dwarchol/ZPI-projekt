@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -63,6 +64,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     DatabaseReference mDatabase;
     ArrayList<Zagadka> zagadkiLista = new ArrayList<Zagadka>();
 
+    Powiadomienie powiadomienie;
+
     @SuppressLint("WrongConstant")
     @Override
     protected synchronized void onCreate(Bundle savedInstanceState) {
@@ -85,7 +88,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         initMap();
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
         sz.execute();*/
-
+        powiadomienie = new Powiadomienie(this);
+       // powiadomienie.sendNotification("Tytuł","Opis");
 
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {

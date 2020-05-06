@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -32,8 +34,9 @@ public class Startowa extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startowa);
 
+        setContentView(R.layout.activity_startowa);
+        setSharedP();
         Button haveAccount = (Button) findViewById(R.id.haveAccount);
         Button register = (Button) findViewById(R.id.register);
 
@@ -159,6 +162,23 @@ public class Startowa extends AppCompatActivity{
         haveAccountDialog.show();
 
     }
+
+    public void setSharedP()
+    {
+        SharedPreferences preferences =getApplicationContext().getSharedPreferences("APP_SETTINGS",0);
+        SharedPreferences.Editor editor= preferences.edit();
+        if(!preferences.contains("notifyBool"))
+        editor.putBoolean("notifyBool",true);
+        if(!preferences.contains("darkModeBool"))
+        editor.putBoolean("darkModeBool",true);
+        if(!preferences.contains("soundBool"))
+            editor.putBoolean("soundBool",true);
+        if(!preferences.contains("vibrationBool"))
+            editor.putBoolean("vibrationBool",true);
+        editor.apply();
+    }
+
+
 
     public void registerMethod(View view)
     {
