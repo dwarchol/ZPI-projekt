@@ -6,6 +6,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
+    public ZagadkaDotarcieNaMiejsce(){
+
+    }
+
     public ZagadkaDotarcieNaMiejsce(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
     {
         this.index = index;
