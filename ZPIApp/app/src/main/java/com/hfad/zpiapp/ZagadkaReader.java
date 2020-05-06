@@ -38,7 +38,12 @@ public class ZagadkaReader {
                         ZagadkaMLTekst zagadka = snapshot.getValue(ZagadkaMLTekst.class);
                         zagadkas.add(zagadka);
                     }
-                    if((Long)snapshot.child("typ").getValue()==5){
+                    if((Long)snapshot.child("typ").getValue()==5) {
+                        ZagadkaStartowa zagadka = snapshot.getValue(ZagadkaStartowa.class);
+                        zagadkas.add(zagadka);
+                    }
+
+                    if((Long)snapshot.child("typ").getValue() == 6){
                         ZagadkaDotarcieNaMiejsce zagadka = snapshot.getValue(ZagadkaDotarcieNaMiejsce.class);
                         zagadkas.add(zagadka);
                     }

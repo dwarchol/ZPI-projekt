@@ -1,18 +1,12 @@
 package com.hfad.zpiapp;
 
-import android.location.Location;
-
-import com.google.android.gms.maps.model.LatLng;
-
-public class ZagadkaDotarcieNaMiejsce extends Zagadka{
-
-    private String trescPytania;
-
-    public ZagadkaDotarcieNaMiejsce(){
+public class ZagadkaStartowa extends Zagadka{
+    public ZagadkaStartowa(){
 
     }
 
-    public ZagadkaDotarcieNaMiejsce(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania)
+
+    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -20,10 +14,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         this.typ = typ;
         this.nazwa = nazwa;
         this.poprzednia = poprzednia;
-        this.trescPytania = trescPytania;
     }
-
-    public String getTrescPytania(){return trescPytania;}
 
     @Override
     public boolean sprawdz(String str) {
