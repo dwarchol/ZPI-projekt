@@ -113,13 +113,7 @@ public class Startowa extends AppCompatActivity{
                 haveAccountDialog.dismiss();
             }
         });
-       /* signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent MainPageIntent=new Intent(ctx, Glowna.class);
-                startActivity(MainPageIntent);
-            }
-        });*/
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

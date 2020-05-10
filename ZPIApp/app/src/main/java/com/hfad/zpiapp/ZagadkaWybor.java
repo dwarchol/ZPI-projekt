@@ -1,7 +1,12 @@
 package com.hfad.zpiapp;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -52,11 +57,26 @@ public class ZagadkaWybor extends Zagadka{
 //        }
         return false;
     }
-    @Override
+    /*@Override
     public PopupWindow showPopUp(LayoutInflater inflater) {
 
         PopupWindow pw=null;
         pw = new PopupWindow(inflater.inflate(R.layout.popup_gratulacje, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         return pw;
+    }*/
+
+    public void showPopUp(final Dialog d)
+    {
+        d.setContentView(R.layout.custom_popup_coordinates);
+        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button closeDialog = (Button) d.findViewById(R.id.closeCoordinates);
+       // ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                d.dismiss();
+            }
+        });
+        d.show();
     }
 }

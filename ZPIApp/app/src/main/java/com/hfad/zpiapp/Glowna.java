@@ -58,6 +58,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     ArrayList<Zagadka> zagadkiLista = new ArrayList<Zagadka>();
     protected LocationManager locationManager;
     private String provider;
+    Dialog doWszystkiego;
 
     Powiadomienie powiadomienie;
 
@@ -85,6 +86,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog = new Dialog(this);
         coordinatesDialog.setCancelable(true);
         coordinatesDialog.setCanceledOnTouchOutside(false);
+
+        doWszystkiego = new Dialog(this);
+        doWszystkiego.setCanceledOnTouchOutside(false);
+        doWszystkiego.setCancelable(true);
+
 
         initMap();
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
@@ -221,9 +227,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         {
             if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude()))
             {
-                LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
-                pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
+                pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
+                zagadkiLista.get(i).showPopUp(doWszystkiego);
             }
         }
     }
@@ -247,10 +254,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public boolean onMarkerClick(Marker marker) {
         int ktory = (int) marker.getTag();
         //TO DO Location check
-            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           /* LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
-
+*/
+        zagadkiLista.get(ktory).showPopUp(doWszystkiego);
         return false;
     }
 }
