@@ -87,10 +87,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setCancelable(true);
         coordinatesDialog.setCanceledOnTouchOutside(false);
 
-        doWszystkiego = new Dialog(this);
-        doWszystkiego.setCanceledOnTouchOutside(false);
-        doWszystkiego.setCancelable(true);
-
 
         initMap();
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
@@ -230,6 +226,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
+                doWszystkiego = new Dialog(this);
                 zagadkiLista.get(i).showPopUp(doWszystkiego);
             }
         }
@@ -258,6 +255,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
+        doWszystkiego = new Dialog(this);
         zagadkiLista.get(ktory).showPopUp(doWszystkiego);
         return false;
     }

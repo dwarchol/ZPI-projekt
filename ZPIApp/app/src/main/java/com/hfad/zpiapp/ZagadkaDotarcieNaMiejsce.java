@@ -42,8 +42,8 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         double lat = Double.parseDouble(wsp[0]);
         double lng = Double.parseDouble(wsp[1]);
 
-        double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
-        if(distance<0.01){
+        double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) + (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
+        if(distance<0.0008){
             return true;
         }
         else{
@@ -62,6 +62,8 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     public void showPopUp(final Dialog d)
     {
+        d.setCanceledOnTouchOutside(false);
+        d.setCancelable(true);
         d.setContentView(R.layout.popup_idz_do);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button closeDialog = (Button) d.findViewById(R.id.closeIdzDo);
