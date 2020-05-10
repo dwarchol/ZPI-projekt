@@ -85,29 +85,6 @@ public class KontoUzytkownika extends AppCompatActivity {
                     progressDialog.dismiss();
                     st.execute();
 
-                   /* TextRecognition tR = new TextRecognition();
-                    tR.detectTextFromImage(ctx,myPhoto);
-                    Log.println(Log.ASSERT,"cokolwiek", "naprawdę cokolwiek");
-                    String textFromImage = tR.getTextFromImage();
-                    Log.println(Log.ASSERT,"cokolwiek", textFromImage);
-
-
-                    museum = MuzeumWspolczesneRecognition.museum(textFromImage);
-                    progressDialog.dismiss();
-                    if(museum)
-                    {
-                        congratulationsDialog.setContentView(R.layout.popup_gratulacje);
-                        congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        congratulationsDialog.show();
-                    }
-                    else {
-                        badAnswerDialog.setContentView(R.layout.popup_zla_odpowiedz);
-                        badAnswerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        badAnswerDialog.show();
-                    }
-                    ///////////////////////////////////////////////////////////////////////////////////////////////////////analizuj
-                    /
-                    */
                 }
             }
         });
