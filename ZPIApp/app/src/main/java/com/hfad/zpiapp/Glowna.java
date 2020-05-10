@@ -13,8 +13,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -37,25 +39,9 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
-import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
-
 import java.io.Console;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,6 +56,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     SupportMapFragment mapFragment;
     DatabaseReference mDatabase;
     ArrayList<Zagadka> zagadkiLista = new ArrayList<Zagadka>();
+    protected LocationManager locationManager;
+    private String provider;
+    Dialog pytanieDialog;
 
     Powiadomienie powiadomienie;
 
@@ -83,6 +72,22 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         System.out.println(user.login);
         //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
+
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        //Choosing the best criteria depending on what is available.
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
+        //provider = LocationManager.GPS_PROVIDER; // We want to use the GPS
+
+        // Initialize the location fields
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Location location = locationManager.getLastKnownLocation(provider);
+            return;
+        }
+        
+        pytanieDialog = new Dialog(this);
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -204,10 +209,34 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            locationManager.requestLocationUpdates(provider, 400, 1, this);
+            Log.println(Log.ASSERT, "Reasuming", "End");
+        }
+        catch(SecurityException e)
+        {
+            Log.println(Log.ASSERT, "Reasuming", "PermissionNot");
+        }
+    }
+
+    @Override
     public void onLocationChanged(Location location) {
-        float zoomLevel = 10.0f;
+        float zoomLevel =14.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
         Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
+        Log.println(Log.ASSERT, "zmieniło się", "xdddd");
+
+        for(int i = 0; i < zagadkiLista.size(); i++)
+        {
+            if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude()))
+            {
+                pytanieDialog.setContentView(R.layout.popup_zrob_zdj);
+                pytanieDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                pytanieDialog.show();
+            }
+        }
     }
 
     @Override
@@ -236,7 +265,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
     public void showPopUpZagadka(int ktore){
-        Snackbar.make(findViewById(R.id.myMainLayout), "Jakis tekst " + ktore, Snackbar.LENGTH_SHORT).show();
+       // Snackbar.make(findViewById(R.id.myMainLayout), "Jakis tekst " + ktore, Snackbar.LENGTH_SHORT).show();
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
