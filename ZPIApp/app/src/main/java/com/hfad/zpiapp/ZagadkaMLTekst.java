@@ -45,6 +45,8 @@ public class ZagadkaMLTekst extends Zagadka{
 
     public void showPopUp(final Dialog d)
     {
+        d.setCanceledOnTouchOutside(false);
+        d.setCancelable(true);
         d.setContentView(R.layout.popup_zrob_zdj);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);

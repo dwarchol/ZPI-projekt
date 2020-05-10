@@ -51,6 +51,8 @@ public class ZagadkaStartowa extends Zagadka{
 
    public void showPopUp(final Dialog d)
    {
+       d.setCanceledOnTouchOutside(false);
+       d.setCancelable(true);
        d.setContentView(R.layout.custom_popup_coordinates);
        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
        Button closeDialog = (Button) d.findViewById(R.id.closeCoordinates);
