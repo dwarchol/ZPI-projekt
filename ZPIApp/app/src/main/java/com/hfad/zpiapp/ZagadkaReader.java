@@ -48,9 +48,9 @@ public class ZagadkaReader {
                         zagadkas.add(zagadka);
                     }
 
-                    ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
+                    //ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
              //       Log.w("ktorereader", zagadka.getNazwa());
-                    zagadkas.add(zagadka);
+                  //  zagadkas.add(zagadka);
                 }
                 myCallback.onCallback(zagadkas);
             }
