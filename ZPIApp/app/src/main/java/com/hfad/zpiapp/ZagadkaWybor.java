@@ -1,5 +1,10 @@
 package com.hfad.zpiapp;
 
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class ZagadkaWybor extends Zagadka{
@@ -47,5 +52,11 @@ public class ZagadkaWybor extends Zagadka{
 //        }
         return false;
     }
+    @Override
+    public PopupWindow showPopUp(LayoutInflater inflater) {
 
+        PopupWindow pw=null;
+        pw = new PopupWindow(inflater.inflate(R.layout.popup_gratulacje, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        return pw;
+    }
 }

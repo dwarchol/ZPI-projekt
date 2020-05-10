@@ -215,13 +215,15 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         float zoomLevel =14.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
         Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
-        Log.println(Log.ASSERT, "zmieniło się", "xdddd");
+
 
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
             if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude()))
             {
-                showPopUpZagadka(zagadkiLista.get(i).typ);
+                LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
+                pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
             }
         }
     }
@@ -243,47 +245,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        int tag = (int) marker.getTag();
-        showPopUpZagadka(tag);
+        int ktory = (int) marker.getTag();
+        //TO DO Location check
+            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
+            pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 
         return false;
-    }
-
-
-
-    public void showPopUpZagadka(int ktore){
-       // Snackbar.make(findViewById(R.id.myMainLayout), "Jakis tekst " + ktore, Snackbar.LENGTH_SHORT).show();
-
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        // TO DO pomyslec nad ustawianiem rozmiaru pop-up
-
-        PopupWindow pw=null;
-
-        if(zagadkiLista.get(ktore).getTyp()==1){
-            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText(((ZagadkaPytanie)zagadkiLista.get(ktore)).getTrescPytania());
-        }
-        if(zagadkiLista.get(ktore).getTyp()==2){
-            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
-        }
-        if(zagadkiLista.get(ktore).getTyp()==3){
-            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
-        }
-        if(zagadkiLista.get(ktore).getTyp()==4){
-            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
-        }
-        if(zagadkiLista.get(ktore).getTyp()==5){
-            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
-        }
-        if(zagadkiLista.get(ktore).getTyp()==6){
-            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
-        }
-        pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
     }
 }

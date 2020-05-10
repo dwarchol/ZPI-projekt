@@ -1,5 +1,8 @@
 package com.hfad.zpiapp;
 
+import android.view.LayoutInflater;
+import android.widget.PopupWindow;
+
 import java.util.List;
 
 public abstract class Zagadka {
@@ -44,5 +47,7 @@ public abstract class Zagadka {
             return false;
         }
     }
+
+    abstract public PopupWindow showPopUp(LayoutInflater inflater);
 
 }

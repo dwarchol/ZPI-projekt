@@ -1,5 +1,10 @@
 package com.hfad.zpiapp;
 
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
 public class ZagadkaMLObiekty extends Zagadka{
     private String trescPytania;
 
@@ -24,5 +29,12 @@ public class ZagadkaMLObiekty extends Zagadka{
     @Override
     public boolean sprawdz(String odp) {
         return false;
+    }
+    @Override
+    public PopupWindow showPopUp(LayoutInflater inflater) {
+
+        PopupWindow pw=null;
+        pw = new PopupWindow(inflater.inflate(R.layout.popup_zrob_zdj, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        return pw;
     }
 }

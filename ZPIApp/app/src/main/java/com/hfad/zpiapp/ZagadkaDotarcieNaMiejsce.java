@@ -1,6 +1,12 @@
 package com.hfad.zpiapp;
 
+import android.content.Context;
 import android.location.Location;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -40,4 +46,14 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         }
 
     }
+
+    @Override
+    public PopupWindow showPopUp(LayoutInflater inflater) {
+
+        PopupWindow pw=null;
+        pw = new PopupWindow(inflater.inflate(R.layout.popup_idz_do, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        return pw;
+    }
+
+
 }
