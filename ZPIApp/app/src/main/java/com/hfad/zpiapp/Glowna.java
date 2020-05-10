@@ -79,6 +79,15 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
 
+        try {
+            locationManager.requestLocationUpdates(provider, 400, 1, this);
+            Log.println(Log.ASSERT, "Reasuming", "End");
+        }
+        catch(SecurityException e)
+        {
+            Log.println(Log.ASSERT, "Reasuming", "PermissionNot");
+        }
+
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
@@ -87,6 +96,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setCancelable(true);
         coordinatesDialog.setCanceledOnTouchOutside(false);
 
+        doWszystkiego = new Dialog(this);
 
         initMap();
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
@@ -199,8 +209,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
-    @Override
-    protected void onResume() {
+   // @Override
+   /* protected void onResume() {
         super.onResume();
         try {
             locationManager.requestLocationUpdates(provider, 400, 1, this);
@@ -211,7 +221,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             Log.println(Log.ASSERT, "Reasuming", "PermissionNot");
         }
     }
-
+*/
     @Override
     public void onLocationChanged(Location location) {
         float zoomLevel =14.0f;
@@ -226,7 +236,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
+                Log.println(Log.ASSERT, "Reasuming", "xddddd");
+                Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
+               // pierwszePokazanie = false;
                 doWszystkiego = new Dialog(this);
+               // doWszystkiego.setContentView(null);
                 zagadkiLista.get(i).showPopUp(doWszystkiego);
             }
         }
@@ -255,7 +269,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
-        doWszystkiego = new Dialog(this);
+       doWszystkiego = new Dialog(this);
+      //  doWszystkiego.setContentView(null);
         zagadkiLista.get(ktory).showPopUp(doWszystkiego);
         return false;
     }
