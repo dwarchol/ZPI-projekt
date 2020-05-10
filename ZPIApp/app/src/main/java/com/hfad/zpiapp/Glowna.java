@@ -18,9 +18,14 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
@@ -53,6 +59,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -222,12 +229,45 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public boolean onMarkerClick(Marker marker) {
         int tag = (int) marker.getTag();
         showPopUpZagadka(tag);
+
         return false;
     }
 
 
 
     public void showPopUpZagadka(int ktore){
-        Toast.makeText(getApplicationContext(),"Kliknieto marker " + ktore,Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.myMainLayout), "Jakis tekst " + ktore, Snackbar.LENGTH_SHORT).show();
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        // TO DO pomyslec nad ustawianiem rozmiaru pop-up
+
+        PopupWindow pw=null;
+
+        if(zagadkiLista.get(ktore).getTyp()==1){
+            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText(((ZagadkaPytanie)zagadkiLista.get(ktore)).getTrescPytania());
+        }
+        if(zagadkiLista.get(ktore).getTyp()==2){
+            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
+        }
+        if(zagadkiLista.get(ktore).getTyp()==3){
+            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
+        }
+        if(zagadkiLista.get(ktore).getTyp()==4){
+            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
+        }
+        if(zagadkiLista.get(ktore).getTyp()==5){
+            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
+        }
+        if(zagadkiLista.get(ktore).getTyp()==6){
+            pw = new PopupWindow(inflater.inflate(R.layout.popup_pytania, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText("INNY TYP");
+        }
+        pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
     }
 }
