@@ -58,7 +58,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     ArrayList<Zagadka> zagadkiLista = new ArrayList<Zagadka>();
     protected LocationManager locationManager;
     private String provider;
-  //  Dialog pytanieDialog;
 
     Powiadomienie powiadomienie;
 
@@ -73,21 +72,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
 
-       // locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         //Choosing the best criteria depending on what is available.
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
-        //provider = LocationManager.GPS_PROVIDER; // We want to use the GPS
-
-        // Initialize the location fields
-        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Location location = locationManager.getLastKnownLocation(provider);
-            return;
-        }*/
-
-        //pytanieDialog = new Dialog(this);
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);

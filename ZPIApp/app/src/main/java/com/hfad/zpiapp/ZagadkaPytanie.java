@@ -31,10 +31,11 @@ public class ZagadkaPytanie extends Zagadka{
 
     public boolean sprawdz(String Odp)
     {
-        String[] odpowiedzi = Odp.split(",");
+        String[] odpowiedzi = poprawnaOdpowiedz.split(",");
+        Odp = Odp.toUpperCase();
 
         for(int i=0;i<odpowiedzi.length; i++){
-            if(poprawnaOdpowiedz.equals(odpowiedzi[i]))
+            if(Odp.equals(odpowiedzi[i]))
             {
                 return true;
             }
