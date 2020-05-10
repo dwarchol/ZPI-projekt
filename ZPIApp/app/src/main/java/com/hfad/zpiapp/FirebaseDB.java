@@ -1,12 +1,17 @@
 package com.hfad.zpiapp;
 
 //import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.common.internal.Asserts;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,9 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions;
 
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.EventListener;
+
+import static android.content.ContentValues.TAG;
+
 public class FirebaseDB {
     FirebaseDatabase database;
     DatabaseReference dbreference;
+    Uzytkownik user;
 
     public interface DataStatus{
 
@@ -33,6 +45,13 @@ public class FirebaseDB {
         database = FirebaseDatabase.getInstance();
         dbreference = database.getReference();
     }
+    public FirebaseDB(Uzytkownik user)
+    {
+        database=FirebaseDatabase.getInstance();
+        dbreference=database.getReference();
+        this.user=user;
+    }
+
 
     public void addUser(final Uzytkownik us, final DataStatus ds)
     {
@@ -60,7 +79,6 @@ public class FirebaseDB {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
                     ds.dataExists();
                 }
                 else
@@ -78,11 +96,12 @@ public class FirebaseDB {
 public void checkIfUserExistsAndLogin(final String l, final String p, final DataStatus ds)
 {
     dbreference=database.getReference().child("users");
-    dbreference.child(l).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
+    dbreference.child(l).addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists() && p.equals(dataSnapshot.getValue(String.class)) )
+            if (dataSnapshot.exists() && p.equals(dataSnapshot.getValue(Uzytkownik.class).password) )
             {
+                user = dataSnapshot.getValue(Uzytkownik.class);
                 ds.dataExists();
             }
             else
@@ -94,6 +113,25 @@ public void checkIfUserExistsAndLogin(final String l, final String p, final Data
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             ds.databaseFailure();
+        }
+    });
+}
+
+public void updateUser()
+{
+    dbreference=database.getReference().child("users");
+    dbreference.child(user.login).setValue(user).addOnSuccessListener(
+            new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                   System.out.println("Zmieniono uzytkownika");
+                }
+            }
+
+    ).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            System.out.println("Nie zmieniono uzytkownika");
         }
     });
 }

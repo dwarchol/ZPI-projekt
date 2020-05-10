@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +29,14 @@ public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
     Dialog registerDialog;
     Context ctx;
+    Uzytkownik user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startowa);
 
+        setContentView(R.layout.activity_startowa);
+        setSharedP();
         Button haveAccount = (Button) findViewById(R.id.haveAccount);
         Button register = (Button) findViewById(R.id.register);
 
@@ -46,6 +50,7 @@ public class Startowa extends AppCompatActivity{
         haveAccountDialog.setCanceledOnTouchOutside(false);
         registerDialog.setCanceledOnTouchOutside(false);
         ctx = this;
+
     }
 
     public void moveButton(final Button button)
@@ -71,6 +76,35 @@ public class Startowa extends AppCompatActivity{
         haveAccountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final EditText loginsi = (EditText) haveAccountDialog.findViewById(R.id.loginSI);
         final EditText passwordsi = (EditText) haveAccountDialog.findViewById(R.id.passwordSI);
+
+        loginsi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(loginsi.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        loginsi.setHint("");
+                    }else{
+                        loginsi.setHint(R.string.userName);
+                    }
+                }
+            }
+        });
+
+        passwordsi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(passwordsi.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        passwordsi.setHint("");
+                    }else{
+                        passwordsi.setHint(R.string.password);
+                    }
+                }
+            }
+        });
+
         Button signIn = (Button) haveAccountDialog.findViewById(R.id.signInButton);
         TextView closeHaveAccount = (TextView) haveAccountDialog.findViewById(R.id.closeHaveAccount);
         closeHaveAccount.setOnClickListener(new View.OnClickListener() {
@@ -79,13 +113,7 @@ public class Startowa extends AppCompatActivity{
                 haveAccountDialog.dismiss();
             }
         });
-       /* signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent MainPageIntent=new Intent(ctx, Glowna.class);
-                startActivity(MainPageIntent);
-            }
-        });*/
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,8 +135,9 @@ public class Startowa extends AppCompatActivity{
                         }
                         @Override
                         public void dataExists() {
-                            Toast.makeText(getApplicationContext(),R.string.LogIn,Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(),R.string.LogIn,Toast.LENGTH_SHORT).show();
                             final Intent MainPageIntent=new Intent(ctx, Glowna.class);
+                            MainPageIntent.putExtra("Uzytkownik",fbdb.user);
                             startActivity(MainPageIntent);
                         }
                         @Override
@@ -128,6 +157,23 @@ public class Startowa extends AppCompatActivity{
 
     }
 
+    public void setSharedP()
+    {
+        SharedPreferences preferences =getApplicationContext().getSharedPreferences("APP_SETTINGS",0);
+        SharedPreferences.Editor editor= preferences.edit();
+        if(!preferences.contains("notifyBool"))
+        editor.putBoolean("notifyBool",true);
+        if(!preferences.contains("darkModeBool"))
+        editor.putBoolean("darkModeBool",true);
+        if(!preferences.contains("soundBool"))
+            editor.putBoolean("soundBool",true);
+        if(!preferences.contains("vibrationBool"))
+            editor.putBoolean("vibrationBool",true);
+        editor.apply();
+    }
+
+
+
     public void registerMethod(View view)
     {
         registerDialog.setContentView(R.layout.custom_popup_register);
@@ -135,6 +181,35 @@ public class Startowa extends AppCompatActivity{
         Button register = (Button) registerDialog.findViewById(R.id.registerButton);
         final EditText loginU = (EditText) registerDialog.findViewById(R.id.login);
         final EditText password = (EditText) registerDialog.findViewById(R.id.password);
+
+        loginU.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(loginU.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        loginU.setHint("");
+                    }else{
+                        loginU.setHint(R.string.userName);
+                    }
+                }
+            }
+        });
+
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(password.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        password.setHint("");
+                    }else{
+                        password.setHint(R.string.password);
+                    }
+                }
+            }
+        });
+
         TextView closeRegister = (TextView) registerDialog.findViewById(R.id.closeRegister);
         closeRegister.setOnClickListener(new View.OnClickListener() {
             @Override
