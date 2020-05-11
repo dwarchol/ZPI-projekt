@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,7 @@ public class ZagadkaPytanie extends Zagadka{
     {
         String[] odpowiedzi = poprawnaOdpowiedz.split(",");
         Odp = Odp.toUpperCase();
-
+        Log.println(Log.ASSERT, "Reasuming", "sprawdzamPytanie");
         for(int i=0;i<odpowiedzi.length; i++){
             if(Odp.equals(odpowiedzi[i]))
             {

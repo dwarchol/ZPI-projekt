@@ -31,11 +31,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="com.google.android.gms.maps.SupportMapFragment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MapsActivity2"
@@ -46,6 +42,11 @@
         <activity
             android:name=".Startowa"
             android:theme="@style/StartTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>
