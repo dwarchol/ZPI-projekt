@@ -13,6 +13,7 @@ public abstract class Zagadka {
     protected int typ;      //1 - pytanie, 2- wybor, 3- mlObiekty 4- mlTekst 5-dotarcieNaMiejsce
     protected String nazwa;
     protected int poprzednia;
+    protected String ciekawostka;
 
     public abstract boolean sprawdz(String odp);
 
@@ -33,6 +34,8 @@ public abstract class Zagadka {
     public double getWspolrzednaLng(){ return wspolrzednaLng; }
 
     public int getPoprzednia() { return poprzednia; }
+
+    public String getCiekawostka() {return  ciekawostka;}
 
     public boolean czyNaMiejscu(String str)
     {
