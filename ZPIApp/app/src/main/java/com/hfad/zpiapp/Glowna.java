@@ -280,6 +280,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
@@ -287,6 +288,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -322,6 +324,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     Dialog badAnswerDialog;
     Dialog congratulationsDialog;
     Dialog curiosityDialog;
+    static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
+    Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
 
     Powiadomienie powiadomienie;
 
@@ -504,6 +508,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
+                if(zagadkiLista.get(i).typ == 4 )
+                {
+                    ((ZagadkaMLTekst)zagadkiLista.get(i)).setContext(this);
+                }
                // doWszystkiego.setContentView(null);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
             }
@@ -560,4 +568,30 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         curiosityDialog.setContentView(R.layout.popup_ciekawostka);
         curiosityDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
+
+    public void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            myPhoto = imageBitmap;
+            //FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
+            final Button takePhoto = (Button) doWszystkiego.findViewById(R.id.zrobZdjecieButton);
+            takePhoto.setText("Wyślij");
+            ImageView photo = (ImageView) doWszystkiego.findViewById(R.id.miejsceNaZdj);
+            photo.setImageBitmap(imageBitmap);
+            photo.setVisibility(View.VISIBLE);
+
+
+        }
+
+    }
+
 }

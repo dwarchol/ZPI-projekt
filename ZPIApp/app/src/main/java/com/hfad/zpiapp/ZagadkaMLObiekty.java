@@ -1,6 +1,7 @@
 package com.hfad.zpiapp;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+
 public class ZagadkaMLObiekty extends Zagadka{
     private String trescPytania;
+    Context ctx;
 
     public ZagadkaMLObiekty(){
 
@@ -58,5 +61,10 @@ public class ZagadkaMLObiekty extends Zagadka{
             }
         });
         d.show();
+    }
+
+    public void setContext(Context c)
+    {
+        this.ctx = c;
     }
 }

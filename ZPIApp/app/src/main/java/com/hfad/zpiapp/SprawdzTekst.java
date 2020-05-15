@@ -19,15 +19,18 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     Dialog loadingDialog;
     ProgressBar circle;
     Bitmap image;
-    boolean museum = false;
+    boolean czyPoprawna = false;
     Dialog badAnswerDialog;
     Dialog congratulationsDialog;
     KontoUzytkownika ku;
     String textFromImage;
-    public SprawdzTekst(Context c, Bitmap img)
+    int indexZagadki;
+
+    public SprawdzTekst(Context c, Bitmap img, int index)
     {
         this.ctx=c;
         this.image=img;
+        this.indexZagadki = index;
         loadingDialog= new Dialog(ctx);
         loadingDialog.setContentView(R.layout.popup_sprawdzanie);
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -72,9 +75,15 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     protected void onPostExecute(Void red)
     {
         loadingDialog.dismiss();
-        museum = MuzeumWspolczesneRecognition.museum(textFromImage);
+        if(indexZagadki == 82) {
+            czyPoprawna = MuzeumWspolczesneRecognition.museum(textFromImage);
+        }
+        else
+        {
+            czyPoprawna = SolnyRecognition.solny(textFromImage);
+        }
 
-        if(museum)
+        if(czyPoprawna)
         {
             congratulationsDialog.setContentView(R.layout.popup_gratulacje);
             congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -1,6 +1,9 @@
 package com.hfad.zpiapp;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -12,6 +15,9 @@ import android.widget.TextView;
 
 public class ZagadkaMLTekst extends Zagadka{
     private String trescPytania;
+    Context ctx;
+    Glowna ac;
+    Bitmap myPhoto;
 
     public ZagadkaMLTekst(){
 
@@ -49,14 +55,30 @@ public class ZagadkaMLTekst extends Zagadka{
         d.setCancelable(true);
         d.setContentView(R.layout.popup_zrob_zdj);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);
+        final Button takePhoto = (Button) d.findViewById(R.id.zrobZdjecieButton);
         ((TextView)d.findViewById(R.id.zrobZdjecie_title)).setText(getTrescPytania());
-        closeDialog.setOnClickListener(new View.OnClickListener() {
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                d.dismiss();
+                String textOnButton = takePhoto.getText().toString();
+                if(textOnButton.equals("OK"))
+                {
+                    ((Glowna)ctx).dispatchTakePictureIntent();
+                }
+                else if(textOnButton.equals("Wyślij"))
+                {
+                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,index);
+                    d.dismiss();
+                    st.execute();
+                }
             }
         });
         d.show();
+    }
+
+    public void setContext(Context c)
+    {
+        this.ctx = c;
     }
 }
