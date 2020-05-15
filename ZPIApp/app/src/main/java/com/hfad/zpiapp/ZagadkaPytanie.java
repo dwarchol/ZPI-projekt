@@ -95,6 +95,20 @@ public class ZagadkaPytanie extends Zagadka{
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
         final EditText odpowiedz = d.findViewById(R.id.odpowiedz_editText);
 
+        odpowiedz.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(odpowiedz.getText().toString().isEmpty()){
+                    if(hasFocus){
+                        odpowiedz.setHint("");
+                    }else{
+                        odpowiedz.setHint(R.string.userName);
+                    }
+                }
+            }
+        });
+
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
