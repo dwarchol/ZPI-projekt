@@ -22,11 +22,13 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     boolean czyPoprawna = false;
     Dialog badAnswerDialog;
     Dialog congratulationsDialog;
+    Dialog curiosityDialog;
     KontoUzytkownika ku;
     String textFromImage;
     int indexZagadki;
+    ZagadkaMLTekst mojaZagadka;
 
-    public SprawdzTekst(Context c, Bitmap img, int index)
+    public SprawdzTekst(Context c, Bitmap img, int index,ZagadkaMLTekst zagadkaMLTekst, Dialog cD, Dialog curD, Dialog bAD)
     {
         this.ctx=c;
         this.image=img;
@@ -35,9 +37,15 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
         loadingDialog.setContentView(R.layout.popup_sprawdzanie);
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         circle=loadingDialog.findViewById(R.id.loadingCircle);
+        mojaZagadka = zagadkaMLTekst;
 
-        badAnswerDialog = new Dialog(ctx);
-        congratulationsDialog = new Dialog(ctx);
+        badAnswerDialog = bAD;
+        if(zagadkaMLTekst==null)
+        {
+            Log.println(Log.ASSERT, "nulle", "mulle");
+        }
+        congratulationsDialog = cD;
+        curiosityDialog = curD;
     }
     @Override
     protected void onPreExecute() {
@@ -45,27 +53,22 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     }
     @Override
     protected Void doInBackground(Void... voids) {
-        Log.println(Log.ASSERT, "yyy", "yyy");
         publishProgress(0);
         CountDownLatch cdl = new CountDownLatch(1);
         publishProgress(30);
-        Log.println(Log.ASSERT, "textRec", "textRec");
         TextRecognition tR = new TextRecognition(ctx,image,cdl);
         publishProgress(60);
         Executor executor = Executors.newFixedThreadPool(1);
         publishProgress(70);
         executor.execute(tR);
         publishProgress(80);
-        Log.println(Log.ASSERT, "Almost", "Almost");
         try {
             cdl.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         publishProgress(90);
-        Log.println(Log.ASSERT, "BeforeText", "BeforeText");
         textFromImage= tR.getTextFromImage();
-        Log.println(Log.ASSERT, "AfterText", "AfterText");
         publishProgress(100);
         return null;
     }
@@ -92,16 +95,10 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
         Log.println(Log.ASSERT, "TuZmienie", "TuZmienie");
         if(czyPoprawna)
         {
-            congratulationsDialog.setContentView(R.layout.popup_gratulacje);
-            congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            congratulationsDialog.show();
-            Toast.makeText(ctx,textFromImage,Toast.LENGTH_LONG).show();
+            mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog);
         }
         else {
-            badAnswerDialog.setContentView(R.layout.popup_zla_odpowiedz);
-            badAnswerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            badAnswerDialog.show();
-            Toast.makeText(ctx,textFromImage,Toast.LENGTH_LONG).show();
+            mojaZagadka.showFailed(badAnswerDialog);
         }
     }
 }

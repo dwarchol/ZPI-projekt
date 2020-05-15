@@ -19,6 +19,7 @@ public class ZagadkaMLTekst extends Zagadka{
     Context ctx;
     Glowna ac;
     Bitmap myPhoto;
+    ZagadkaMLTekst zagadka;
 
     public ZagadkaMLTekst(){
 
@@ -52,6 +53,7 @@ public class ZagadkaMLTekst extends Zagadka{
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
+        zagadka = this;
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
         d.setContentView(R.layout.popup_zrob_zdj);
@@ -69,12 +71,10 @@ public class ZagadkaMLTekst extends Zagadka{
                 }
                 else if(textOnButton.equals("Wyślij"))
                 {
-                    Log.println(Log.ASSERT, "sending", "sending");
-                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,index);
+                    myPhoto = ((Glowna)ctx).myPhoto;
+                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,index,zagadka,cD,curD,bAD);
                     d.dismiss();
-                    Log.println(Log.ASSERT, "Exec", "Exec");
                     st.execute();
-                    Log.println(Log.ASSERT, "yuuu", "yuuu");
                 }
             }
         });

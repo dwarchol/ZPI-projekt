@@ -543,6 +543,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 */
            ustawDialogi();
        doWszystkiego = new Dialog(this);
+        if(zagadkiLista.get(ktory).typ == 4 )
+        {
+            ((ZagadkaMLTekst)zagadkiLista.get(ktory)).setContext(this);
+        }
       //  doWszystkiego.setContentView(null);
         zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
         return false;
