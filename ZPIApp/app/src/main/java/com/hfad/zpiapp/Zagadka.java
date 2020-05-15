@@ -2,7 +2,10 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -53,5 +56,45 @@ public abstract class Zagadka {
     }
 
    // abstract public PopupWindow showPopUp(LayoutInflater inflater);
-   abstract public void showPopUp(Dialog d, final Dialog bAD, final Dialog cD);
+   abstract public void showPopUp(Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD);
+
+    public void showCongratulations(final Dialog cD, final Dialog curD)
+    {
+        final Button showCuriosity = (Button) cD.findViewById(R.id.closeGratulacje);
+        showCuriosity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cD.dismiss();
+                showCuriosity(curD);
+            }
+        });
+        cD.show();
+    }
+
+    public void showFailed(final Dialog bAD)
+    {
+        Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
+        showPopupAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bAD.dismiss();
+               // showPopUp(d, bAD, cD);
+            }
+        });
+        bAD.show();
+    }
+
+    public void showCuriosity(final Dialog curD)
+    {
+        final Button closeCuriosity = (Button)curD.findViewById(R.id.closeCoiekawostka);
+        TextView curiosityText = (TextView)curD.findViewById(R.id.ciekawostka_text);
+        curiosityText.setText(ciekawostka);
+        closeCuriosity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                curD.dismiss();
+            }
+        });
+        curD.show();
+    }
 }

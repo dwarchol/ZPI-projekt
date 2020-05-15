@@ -49,7 +49,7 @@ public class ZagadkaStartowa extends Zagadka{
         return pw;
     }*/
 
-   public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD)
+   public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
    {
        d.setCanceledOnTouchOutside(false);
        d.setCancelable(true);

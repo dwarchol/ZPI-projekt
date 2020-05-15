@@ -40,6 +40,7 @@ public class ZagadkaPytanie extends Zagadka{
         this.wspolrzednaLng = wspolrzednaLng;
         this.nazwa=nazwa;
         this.poprzednia=poprzednia;
+        this.ciekawostka = "";
     }
 
     public String getTrescPytania(){ return trescPytania; }
@@ -84,7 +85,7 @@ public class ZagadkaPytanie extends Zagadka{
         return pw;
     }*/
 
-    public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD)
+    public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
@@ -94,23 +95,6 @@ public class ZagadkaPytanie extends Zagadka{
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
         final EditText odpowiedz = d.findViewById(R.id.odpowiedz_editText);
 
-     /*   Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
-        showPopupAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bAD.dismiss();
-                showPopUp(d, bAD, cD);
-            }
-        });
-
-        Button showCuriosity = (Button) cD.findViewById(R.id.closeCoiekawostka);
-        showCuriosity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cD.dismiss();
-            }
-        });*/
-
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,11 +103,13 @@ public class ZagadkaPytanie extends Zagadka{
                d.dismiss();
                if(czyPoprawnaOdp)
                {
-                    cD.show();
+                   //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+                   showCongratulations(cD,curD);
+                   /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                }
                else
                {
-                    bAD.show();
+                   showFailed(bAD);
                }
             }
         });
