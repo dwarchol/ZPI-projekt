@@ -326,6 +326,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     Dialog curiosityDialog;
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
+    String obecneWspolrzedne;
 
     Powiadomienie powiadomienie;
 
@@ -494,7 +495,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         float zoomLevel =14.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
         Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
-
+        obecneWspolrzedne = location.getLatitude()+","+location.getLongitude();
 
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
@@ -508,9 +509,13 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
-                if(zagadkiLista.get(i).typ == 4 )
+                if(zagadkiLista.get(i).typ == 4)
                 {
                     ((ZagadkaMLTekst)zagadkiLista.get(i)).setContext(this);
+                }
+                if(zagadkiLista.get(i).typ == 6)
+                {
+                    ((ZagadkaDotarcieNaMiejsce)zagadkiLista.get(i)).setContext(this);
                 }
                // doWszystkiego.setContentView(null);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);

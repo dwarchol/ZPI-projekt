@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     private String trescPytania;
     private String poprawnaOdpowiedz;
+    Context ctx;
 
     public ZagadkaDotarcieNaMiejsce(){
 
@@ -40,14 +42,25 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     @Override
     public boolean sprawdz(String str) {
+        Log.println(Log.ASSERT, "liczonko", str);
         String[] wsp = str.split(",");
+        wsp[0] = wsp[0].substring(0,9);
+        wsp[1] = wsp[1].substring(0,9);
+        Log.println(Log.ASSERT, "liczonko", wsp[0]);
         double lat = Double.parseDouble(wsp[0]);
         double lng = Double.parseDouble(wsp[1]);
+        Log.println(Log.ASSERT, "liczonko", Double.toString(lat));
 
+        if (poprawnaOdpowiedz == null) {
+
+            Log.println(Log.ASSERT, "liczonko", "ugh");
+        }
+        Log.println(Log.ASSERT, "liczonko", poprawnaOdpowiedz);
         String[] wspCelu = poprawnaOdpowiedz.split(",");
         double latCelu = Double.parseDouble(wspCelu[0]);
         double lngCelu = Double.parseDouble(wspCelu[1]);
 
+        Log.println(Log.ASSERT, "liczonko", "liczonko");
         double distance = Math.sqrt((latCelu-lat)*(latCelu-lat) + (lngCelu-lng)*(lngCelu-lng));
         if(distance<0.0008){
             return true;
@@ -72,16 +85,36 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         d.setCancelable(true);
         d.setContentView(R.layout.popup_idz_do);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Button closeDialog = (Button) d.findViewById(R.id.closeIdzDo);
+        Button juzJestDialog = (Button) d.findViewById(R.id.closeIdzDo);
         ((TextView)d.findViewById(R.id.idzDo_title)).setText(getTrescPytania());
-        closeDialog.setOnClickListener(new View.OnClickListener() {
+        juzJestDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //d.dismiss();
+                String mojaOdp = ((Glowna)ctx).obecneWspolrzedne;
+                if(mojaOdp==null)
+                {
+                    Log.println(Log.ASSERT, "null", "null");
+                }
+                boolean czyPoprawnaOdp = sprawdz(mojaOdp);
                 d.dismiss();
+                if(czyPoprawnaOdp)
+                {
+                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+                    showCongratulations(cD,curD);
+                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
+                }
+                else
+                {
+                    showFailed(bAD);
+                }
             }
         });
         d.show();
     }
 
-
+    public void setContext(Context c)
+    {
+        this.ctx = c;
+    }
 }
