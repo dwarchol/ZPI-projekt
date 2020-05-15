@@ -319,6 +319,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     protected LocationManager locationManager;
     private String provider;
     Dialog doWszystkiego;
+    Dialog badAnswerDialog;
+    Dialog congratulationsDialog;
 
     Powiadomienie powiadomienie;
 
@@ -357,6 +359,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setCanceledOnTouchOutside(false);
 
         doWszystkiego = new Dialog(this);
+
+        badAnswerDialog = new Dialog(this);
+        badAnswerDialog.setCanceledOnTouchOutside(false);
+        badAnswerDialog.setCancelable(true);
+        badAnswerDialog.setContentView(R.layout.popup_zla_odpowiedz);
+        badAnswerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        congratulationsDialog = new Dialog(this);
+        congratulationsDialog.setCanceledOnTouchOutside(false);
+        congratulationsDialog.setCancelable(true);
+        congratulationsDialog.setContentView(R.layout.popup_gratulacje);
+        congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         initMap();
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
@@ -501,7 +515,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 doWszystkiego = new Dialog(this);
                // doWszystkiego.setContentView(null);
-                zagadkiLista.get(i).showPopUp(doWszystkiego);
+                zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog);
             }
         }
     }
@@ -531,7 +545,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 */
        doWszystkiego = new Dialog(this);
       //  doWszystkiego.setContentView(null);
-        zagadkiLista.get(ktory).showPopUp(doWszystkiego);
+        zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog);
         return false;
     }
 }

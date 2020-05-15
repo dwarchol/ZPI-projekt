@@ -77,7 +77,7 @@ public class ZagadkaWybor extends Zagadka{
         return pw;
     }*/
 
-    public void showPopUp(final Dialog d)
+    public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD)
     {
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);

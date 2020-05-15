@@ -18,16 +18,18 @@ import com.google.android.gms.maps.model.LatLng;
 public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     private String trescPytania;
+    private String poprawnaOdpowiedz;
 
     public ZagadkaDotarcieNaMiejsce(){
 
     }
 
-    public ZagadkaDotarcieNaMiejsce(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania)
+    public ZagadkaDotarcieNaMiejsce(int index, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
         this.wspolrzednaLng = wspolrzednaLng;
+        this.poprawnaOdpowiedz = poprawnaOdpowiedz;
         this.typ = typ;
         this.nazwa = nazwa;
         this.poprzednia = poprzednia;
@@ -42,7 +44,11 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         double lat = Double.parseDouble(wsp[0]);
         double lng = Double.parseDouble(wsp[1]);
 
-        double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) + (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
+        String[] wspCelu = poprawnaOdpowiedz.split(",");
+        double latCelu = Double.parseDouble(wspCelu[0]);
+        double lngCelu = Double.parseDouble(wspCelu[1]);
+
+        double distance = Math.sqrt((latCelu-lat)*(latCelu-lat) + (lngCelu-lng)*(lngCelu-lng));
         if(distance<0.0008){
             return true;
         }
@@ -60,7 +66,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         return pw;
     }*/
 
-    public void showPopUp(final Dialog d)
+    public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD)
     {
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);

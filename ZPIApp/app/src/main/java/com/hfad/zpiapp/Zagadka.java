@@ -53,5 +53,5 @@ public abstract class Zagadka {
     }
 
    // abstract public PopupWindow showPopUp(LayoutInflater inflater);
-   abstract public void showPopUp(Dialog d);
+   abstract public void showPopUp(Dialog d, final Dialog bAD, final Dialog cD);
 }

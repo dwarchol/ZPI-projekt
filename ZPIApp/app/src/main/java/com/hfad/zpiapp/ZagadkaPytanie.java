@@ -24,6 +24,7 @@ public class ZagadkaPytanie extends Zagadka{
     private String trescPytania;
     private String zdjecie;
     private String poprawnaOdpowiedz;
+
     public ZagadkaPytanie(){
 
     }
@@ -83,7 +84,7 @@ public class ZagadkaPytanie extends Zagadka{
         return pw;
     }*/
 
-    public void showPopUp(final Dialog d)
+    public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD)
     {
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
@@ -91,10 +92,39 @@ public class ZagadkaPytanie extends Zagadka{
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button closeDialog = (Button) d.findViewById(R.id.closePytanie);
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
+        final EditText odpowiedz = d.findViewById(R.id.odpowiedz_editText);
+
+     /*   Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
+        showPopupAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bAD.dismiss();
+                showPopUp(d, bAD, cD);
+            }
+        });
+
+        Button showCuriosity = (Button) cD.findViewById(R.id.closeCoiekawostka);
+        showCuriosity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cD.dismiss();
+            }
+        });*/
+
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                d.dismiss();
+               String mojaOdp = odpowiedz.getText().toString();
+               boolean czyPoprawnaOdp = sprawdz(mojaOdp);
+               d.dismiss();
+               if(czyPoprawnaOdp)
+               {
+                    cD.show();
+               }
+               else
+               {
+                    bAD.show();
+               }
             }
         });
         d.show();
