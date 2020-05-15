@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +69,12 @@ public class ZagadkaMLTekst extends Zagadka{
                 }
                 else if(textOnButton.equals("Wyślij"))
                 {
+                    Log.println(Log.ASSERT, "sending", "sending");
                     SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,index);
                     d.dismiss();
+                    Log.println(Log.ASSERT, "Exec", "Exec");
                     st.execute();
+                    Log.println(Log.ASSERT, "yuuu", "yuuu");
                 }
             }
         });

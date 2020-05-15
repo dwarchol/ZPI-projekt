@@ -45,22 +45,27 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     }
     @Override
     protected Void doInBackground(Void... voids) {
+        Log.println(Log.ASSERT, "yyy", "yyy");
         publishProgress(0);
         CountDownLatch cdl = new CountDownLatch(1);
         publishProgress(30);
+        Log.println(Log.ASSERT, "textRec", "textRec");
         TextRecognition tR = new TextRecognition(ctx,image,cdl);
         publishProgress(60);
         Executor executor = Executors.newFixedThreadPool(1);
         publishProgress(70);
         executor.execute(tR);
         publishProgress(80);
+        Log.println(Log.ASSERT, "Almost", "Almost");
         try {
             cdl.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         publishProgress(90);
+        Log.println(Log.ASSERT, "BeforeText", "BeforeText");
         textFromImage= tR.getTextFromImage();
+        Log.println(Log.ASSERT, "AfterText", "AfterText");
         publishProgress(100);
         return null;
     }
@@ -75,6 +80,7 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     protected void onPostExecute(Void red)
     {
         loadingDialog.dismiss();
+        Log.println(Log.ASSERT, "Ending", "Ending");
         if(indexZagadki == 82) {
             czyPoprawna = MuzeumWspolczesneRecognition.museum(textFromImage);
         }
@@ -83,6 +89,7 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
             czyPoprawna = SolnyRecognition.solny(textFromImage);
         }
 
+        Log.println(Log.ASSERT, "TuZmienie", "TuZmienie");
         if(czyPoprawna)
         {
             congratulationsDialog.setContentView(R.layout.popup_gratulacje);

@@ -81,7 +81,7 @@ public class KontoUzytkownika extends AppCompatActivity {
                 else if(textOnButton.equals("Wyślij"))
                 {
 
-                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto);
+                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,82);
                     progressDialog.dismiss();
                     st.execute();
 
