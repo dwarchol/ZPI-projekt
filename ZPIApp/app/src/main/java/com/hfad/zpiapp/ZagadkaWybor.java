@@ -55,6 +55,7 @@ public class ZagadkaWybor extends Zagadka{
     @Override
     public boolean sprawdz(String odp) {
         odp=odp.toUpperCase();
+        Log.i("chosen",getPoprawnaOdpowiedz());
         if(odp.equals(getPoprawnaOdpowiedz())){
             return true;
         }
@@ -79,6 +80,7 @@ public class ZagadkaWybor extends Zagadka{
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
+        final boolean[] ifChecked = {false};
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
         //d.setContentView(R.layout.custom_popup_coordinates);
@@ -94,8 +96,11 @@ public class ZagadkaWybor extends Zagadka{
                             RadioButton option=
                                     (RadioButton) d.findViewById(checkbox.getCheckedRadioButtonId());
                             Log.i("chosen",option.getText().toString());
+
+                            Log.i("right", String.valueOf(poprawnaOdpowiedz));
+                            ifChecked[0] =true;
                             if(option.getText().equals(poprawnaOdpowiedz)){
-                               // Log.i("chosen",option.getText().toString());
+                               // Log.i("chosen poprawna",option.getText().toString());
                             }
                         }
                     });
@@ -105,10 +110,10 @@ public class ZagadkaWybor extends Zagadka{
         xd.add(d.findViewById(R.id.option3));
         xd.add(d.findViewById(R.id.option4));
                     checkbox.addChildrenForAccessibility(xd);
-        ((RadioButton) checkbox.getChildAt(0)).setText(getOdpowiedzA());
-        ((RadioButton) checkbox.getChildAt(1)).setText(getOdpowiedzB());
-        ((RadioButton) checkbox.getChildAt(2)).setText(getOdpowiedzC());
-        ((RadioButton) checkbox.getChildAt(3)).setText(getOdpowiedzD());
+        ((RadioButton) checkbox.getChildAt(0)).setText("A");//getOdpowiedzA());
+        ((RadioButton) checkbox.getChildAt(1)).setText("B");//getOdpowiedzB());
+        ((RadioButton) checkbox.getChildAt(2)).setText("C");//getOdpowiedzC());
+        ((RadioButton) checkbox.getChildAt(3)).setText("D");//getOdpowiedzD());
         RadioButton option1 =(RadioButton) d.findViewById(R.id.option1);
         RadioButton option2 =(RadioButton) d.findViewById(R.id.option2);
         RadioButton option3 =(RadioButton) d.findViewById(R.id.option3);
@@ -118,7 +123,28 @@ public class ZagadkaWybor extends Zagadka{
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // d.dismiss();
+                RadioButton option=
+                        (RadioButton) d.findViewById(checkbox.getCheckedRadioButtonId());
+                String option1="";
+                if(ifChecked[0]) {
+                    option1 = ((RadioButton) d.findViewById(checkbox.getCheckedRadioButtonId())).getText().toString();
+                    //Log.i("chosen",option.getText().toString());
+
+                }
+
+                boolean czyPoprawnaOdp = sprawdz(option1);
                 d.dismiss();
+                if(czyPoprawnaOdp)
+                {
+                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+                    showCongratulations(cD,curD);
+                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
+                }
+                else
+                {
+                    showFailed(bAD);
+                }
             }
         });
         d.show();
