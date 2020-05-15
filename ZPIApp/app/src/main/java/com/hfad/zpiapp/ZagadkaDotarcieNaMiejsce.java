@@ -39,6 +39,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
     }
 
     public String getTrescPytania(){return trescPytania;}
+    public String getPoprawnaOdpowiedz(){return poprawnaOdpowiedz;}
 
     @Override
     public boolean sprawdz(String str) {
