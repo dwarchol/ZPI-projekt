@@ -59,4 +59,5 @@
     <string name="NotifyD3">Powiadomienia zawierają same wibracje</string>
     <string name="NotifyCh4">Ciche powiadomienia</string>
     <string name="NotifyD4">Powiadomienia tylko pojawiają się na ekranie </string>
+    <string name="juz">Już jestem!</string>
 </resources>

@@ -95,7 +95,9 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
         Log.println(Log.ASSERT, "TuZmienie", "TuZmienie");
         if(czyPoprawna)
         {
+            //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog);
+            /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
         else {
             mojaZagadka.showFailed(badAnswerDialog);
