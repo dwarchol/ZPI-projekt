@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 public class Uzytkownik implements Serializable {
     String login;
     String password;
-   public ArrayList<Integer> odznaki;
-   public ArrayList<ArrayList<Integer>> zagadki;
+
+   public ArrayList<Integer> zagadki;
 
 
 
@@ -25,31 +25,23 @@ public class Uzytkownik implements Serializable {
         login="";
         password="";
     }
-    public Uzytkownik(String l, String p, ArrayList<Integer> od, ArrayList<Integer> zag)
+    public Uzytkownik(String l, String p, ArrayList<Integer> zagadki)
     {
         this.login=l;
         this.password=p;
-        this.odznaki=new ArrayList<>(od);
-        this.zagadki=new ArrayList(zag);
+
+        this.zagadki=new ArrayList(zagadki);
 
     }
     public Uzytkownik(String l, String p)
     {
         login=l;
         password=p;
-        odznaki=new ArrayList<Integer>();
-        zagadki= new ArrayList<ArrayList<Integer>>();
-        ArrayList a1 = new ArrayList<Integer>();
-        a1.add(0);
-        a1.add(0);
-        ArrayList a2 = new ArrayList<Integer>();
-        a2.add(0);
-        a2.add(0);
-        zagadki.add(a1);
-        zagadki.add(a2);
-        for(int i=0;i<20;i++)
+
+        zagadki= new ArrayList<Integer>();
+        for(int i=0;i<44;i++)
         {
-            odznaki.add(0);
+            zagadki.add(0);
         }
 
     }
@@ -69,21 +61,21 @@ public class Uzytkownik implements Serializable {
         this.login = login;
     }
 
-    public ArrayList<Integer> getOdznaki() {
-        return odznaki;
-    }
 
-    public void setOdznaki(ArrayList<Integer> odznaki) {
-        this.odznaki = odznaki;
-    }
-
-    public ArrayList<ArrayList<Integer>> getZagadki() {
+    public ArrayList<Integer> getZagadki() {
         return zagadki;
     }
 
-    public void setZagadki(ArrayList<ArrayList<Integer>> zagadki) {
+    public void setZagadki(ArrayList<Integer> zagadki) {
         this.zagadki = zagadki;
     }
+
+    public void setRozwiązana(int i)
+    {
+        zagadki.set(i,1);
+        uaktualnijWBazie();
+    }
+
 
     public void uaktualnijWBazie()
     {

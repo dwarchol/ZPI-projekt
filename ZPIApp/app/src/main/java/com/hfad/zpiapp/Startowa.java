@@ -13,6 +13,7 @@ import android.os.SystemClock;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.ContentView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Startowa extends AppCompatActivity{
@@ -35,8 +38,10 @@ public class Startowa extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_startowa);
         setSharedP();
+
         Button haveAccount = (Button) findViewById(R.id.haveAccount);
         Button register = (Button) findViewById(R.id.register);
 
