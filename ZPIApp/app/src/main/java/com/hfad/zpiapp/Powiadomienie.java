@@ -103,7 +103,7 @@ public class Powiadomienie {
         NotificationCompat.Builder builder;
         if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==true) {
                     builder = new NotificationCompat.Builder(ctx, CHANNEL_ID)
-                            .setSmallIcon(R.drawable.bookblack)
+                            .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -113,7 +113,7 @@ public class Powiadomienie {
         else
             if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==false) {
                         builder = new NotificationCompat.Builder(ctx, CHANNEL_ID2)
-                                .setSmallIcon(R.drawable.bookblack)
+                                .setSmallIcon(R.drawable.book)
                         .setContentTitle(Title)
                         .setContentText(Description)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -125,7 +125,7 @@ public class Powiadomienie {
 
                 if(preferences.getBoolean("soundBool",true)==false && preferences.getBoolean("vibrationBool",true)==true) {
                             builder = new NotificationCompat.Builder(ctx, CHANNEL_ID3)
-                                    .setSmallIcon(R.drawable.bookblack)
+                                    .setSmallIcon(R.drawable.book)
                             .setContentTitle(Title)
                             .setContentText(Description)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -136,7 +136,7 @@ public class Powiadomienie {
                 else
                 if(preferences.getBoolean("soundBool",true)==false && preferences.getBoolean("vibrationBool",true)==false) {
                             builder = new NotificationCompat.Builder(ctx, CHANNEL_ID4)
-                            .setSmallIcon(R.drawable.bookblack)
+                            .setSmallIcon(R.drawable.book)
                             .setContentTitle(Title)
                             .setContentText(Description)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -166,7 +166,7 @@ public class Powiadomienie {
         NotificationCompat.Builder builder;
         if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==true) {
             builder = new NotificationCompat.Builder(ctx, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.bookblack)
+                    .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -176,7 +176,7 @@ public class Powiadomienie {
         else
         if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==false) {
             builder = new NotificationCompat.Builder(ctx, CHANNEL_ID2)
-                    .setSmallIcon(R.drawable.bookblack)
+                    .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -188,7 +188,7 @@ public class Powiadomienie {
 
         if(preferences.getBoolean("soundBool",true)==false && preferences.getBoolean("vibrationBool",true)==true) {
             builder = new NotificationCompat.Builder(ctx, CHANNEL_ID3)
-                    .setSmallIcon(R.drawable.bookblack)
+                    .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -199,7 +199,7 @@ public class Powiadomienie {
         else
         if(preferences.getBoolean("soundBool",true)==false && preferences.getBoolean("vibrationBool",true)==false) {
             builder = new NotificationCompat.Builder(ctx, CHANNEL_ID4)
-                    .setSmallIcon(R.drawable.bookblack)
+                    .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)

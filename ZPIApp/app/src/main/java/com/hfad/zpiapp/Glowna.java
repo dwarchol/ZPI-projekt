@@ -307,6 +307,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -335,6 +336,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @Override
     protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sound= new Odtwarzacz(this.getApplicationContext());
+
         user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
         //  user.odznaki.set(0,1);
         //user.uaktualnijWBazie();
@@ -371,7 +374,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
         sz.execute();*/
         powiadomienie = new Powiadomienie(this);
-        sound= new Odtwarzacz(this.getApplicationContext());
+
         //powiadomienie.sendNotificationWithIntent("Tytuł","Opis");
 
         ZagadkaReader zagadkaReader = new ZagadkaReader();
@@ -511,7 +514,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
-                if(zagadkiLista.get(i).typ==3)
+              /*  if(zagadkiLista.get(i).typ==3)
                 {
                     ((ZagadkaMLObiekty)zagadkiLista.get(i)).setContext(this);
                 }
@@ -523,7 +526,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 {
                     ((ZagadkaDotarcieNaMiejsce)zagadkiLista.get(i)).setContext(this);
                 }
-               // doWszystkiego.setContentView(null);
+               // doWszystkiego.setContentView(null);*/
+                zagadkiLista.get(i).setContext(this);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
                 sound.spotSound();
             }

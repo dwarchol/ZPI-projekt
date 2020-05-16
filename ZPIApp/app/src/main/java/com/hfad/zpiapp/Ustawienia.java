@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class Ustawienia extends AppCompatActivity {
     SharedPreferences preferences;
@@ -60,13 +61,17 @@ public class Ustawienia extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    recreate();
                     editor.putBoolean("darkModeBool", true);
-                    // do dopisania zmiana stylu
+
                 }
                 else
                 {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    recreate();
                     editor.putBoolean("darkModeBool", false);
-                    //do dopisania zmiana stylu
+
 
                 }
                 editor.apply();
