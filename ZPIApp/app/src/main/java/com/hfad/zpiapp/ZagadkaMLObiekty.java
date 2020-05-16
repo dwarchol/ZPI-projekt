@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -10,21 +11,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ZagadkaMLObiekty extends Zagadka{
     private String trescPytania;
+    private String poprawnaOdpowiedz;
     Context ctx;
-
+    Glowna ac;
+    Bitmap myPhoto;
+    ZagadkaMLObiekty zagadka;
     public ZagadkaMLObiekty(){
 
     }
 
-    public ZagadkaMLObiekty(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
+    public ZagadkaMLObiekty(int index, String trescPytania, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
     {
         this.index = index;
         this.typ=typ;
         this.trescPytania = trescPytania;
+        this.poprawnaOdpowiedz=poprawnaOdpowiedz;
         this.wspolrzednaLat = wspolrzednaLat;
         this.wspolrzednaLng = wspolrzednaLng;
         this.nazwa=nazwa;
@@ -36,7 +42,15 @@ public class ZagadkaMLObiekty extends Zagadka{
 
     @Override
     public boolean sprawdz(String odp) {
+        String[] toCheck = odp.split(" ");
+        Toast.makeText(ctx,odp,Toast.LENGTH_LONG).show();
+        for (String s: toCheck)
+        {
+            if(poprawnaOdpowiedz.contains(s))
+                return true;
+        }
         return false;
+
     }
    /* @Override
     public PopupWindow showPopUp(LayoutInflater inflater) {
@@ -48,18 +62,32 @@ public class ZagadkaMLObiekty extends Zagadka{
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
+        zagadka=this;
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
         d.setContentView(R.layout.popup_zrob_zdj);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);
+       // Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);
         ((TextView)d.findViewById(R.id.zrobZdjecie_title)).setText(getTrescPytania());
-        closeDialog.setOnClickListener(new View.OnClickListener() {
+        final Button takePhoto = (Button) d.findViewById(R.id.zrobZdjecieButton);
+        takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                d.dismiss();
+                String textOnButton = takePhoto.getText().toString();
+                if(textOnButton.equals("OK"))
+                {
+                    ((Glowna)ctx).dispatchTakePictureIntent();
+                }
+                else if(textOnButton.equals("Wyślij"))
+                {
+                    myPhoto = ((Glowna)ctx).myPhoto;
+                    SprawdzZdjecie sz = new SprawdzZdjecie(ctx,myPhoto,index,zagadka,cD,curD,bAD);
+                    d.dismiss();
+                    sz.execute();
+                }
             }
         });
+
         d.show();
     }
 

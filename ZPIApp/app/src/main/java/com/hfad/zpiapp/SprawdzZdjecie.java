@@ -9,50 +9,96 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class SprawdzZdjecie extends AsyncTask<Void, Void, Void> {
+public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
     Context ctx;
+    Dialog loadingDialog;
+    ProgressBar circle;
     Bitmap image;
+    boolean czyPoprawna = false;
+    Dialog badAnswerDialog;
+    Dialog congratulationsDialog;
+    Dialog curiosityDialog;
     KontoUzytkownika ku;
-    String s;
-    public SprawdzZdjecie(Context c)
+    String labelFromImage;
+    int indexZagadki;
+    ZagadkaMLObiekty mojaZagadka;
+    public SprawdzZdjecie(Context c, Bitmap img, int index, ZagadkaMLObiekty zagadkaMLObiekty, Dialog cD, Dialog curD, Dialog bAD)
     {
         this.ctx=c;
-    }
+        this.image=img;
+        this.indexZagadki = index;
+        loadingDialog= new Dialog(ctx);
+        loadingDialog.setContentView(R.layout.popup_sprawdzanie);
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        circle=loadingDialog.findViewById(R.id.loadingCircle);
+        mojaZagadka = zagadkaMLObiekty;
 
+        badAnswerDialog = bAD;
+        if(zagadkaMLObiekty==null)
+        {
+            Log.println(Log.ASSERT, "nulle", "mnlle");
+        }
+        congratulationsDialog = cD;
+        curiosityDialog = curD;
+    }
+    @Override
+    protected void onPreExecute() {
+        loadingDialog.show();
+    }
     @Override
     protected Void doInBackground(Void... voids) {
-
+        publishProgress(0);
         final CountDownLatch cdl = new CountDownLatch(1);
-        Bitmap icon = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.skytower1);
-        MLLandmark ml = new MLLandmark(icon, ctx,  3,cdl);
+        publishProgress(30);
+
+        MLLandmark ml = new MLLandmark(image, ctx, cdl);
+        publishProgress(50);
+
         Executor executor = Executors.newFixedThreadPool(1);
         System.out.println("execute");
         executor.execute(ml);
         try {
             cdl.await();
+            publishProgress(75);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        s=ml.sb.toString();
+        publishProgress(89);
+        labelFromImage=ml.sb.toString();
+        publishProgress(100);
         return null;
 
     }
-
+    @Override
+    protected void onProgressUpdate(Integer... progress)
+    {
+        circle.setProgress(progress[0]);
+    }
     @Override
     protected void onPostExecute(Void res) {
-      Dialog  congratulationsDialog = new Dialog(ctx);
-        congratulationsDialog.setContentView(R.layout.popup_gratulacje);
-        congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        congratulationsDialog.show();
-        Toast.makeText(ctx,s,Toast.LENGTH_LONG).show();
+        loadingDialog.dismiss();
+        Log.println(Log.ASSERT, "Ending", "Ending");
+       czyPoprawna=mojaZagadka.sprawdz(labelFromImage);
+
+        Log.println(Log.ASSERT, "TuZmienie", "TuZmienie");
+        if(czyPoprawna)
+        {
+            //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+            mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog);
+            /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
+        }
+        else {
+            mojaZagadka.showFailed(badAnswerDialog);
+        }
     }
 
 }

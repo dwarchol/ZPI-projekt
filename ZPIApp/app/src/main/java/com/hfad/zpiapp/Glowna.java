@@ -509,6 +509,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
+                if(zagadkiLista.get(i).typ==3)
+                {
+                    ((ZagadkaMLObiekty)zagadkiLista.get(i)).setContext(this);
+                }
                 if(zagadkiLista.get(i).typ == 4)
                 {
                     ((ZagadkaMLTekst)zagadkiLista.get(i)).setContext(this);
@@ -547,6 +551,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
            ustawDialogi();
+        if(zagadkiLista.get(ktory).typ == 3 )
+        {
+            ((ZagadkaMLObiekty)zagadkiLista.get(ktory)).setContext(this);
+        }
        doWszystkiego = new Dialog(this);
         if(zagadkiLista.get(ktory).typ == 4 )
         {
@@ -587,6 +595,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");

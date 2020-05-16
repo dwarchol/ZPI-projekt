@@ -29,10 +29,10 @@ public class MLLandmark implements Runnable {
     FirebaseVisionImageLabeler detector ;
     CountDownLatch cdl;
     int index;
-    public MLLandmark(Bitmap photo,Context ctx, int i, CountDownLatch cdl)
+    public MLLandmark(Bitmap photo,Context ctx, CountDownLatch cdl)
     {
         this.cdl=cdl;
-        this.index=i;
+
         image = FirebaseVisionImage.fromBitmap(photo);
         detector= FirebaseVision.getInstance()
                 .getOnDeviceImageLabeler();
@@ -60,8 +60,8 @@ public class MLLandmark implements Runnable {
                                 sb.append(text + " ");
                             }
                             //System.out.println(index);
-                            System.out.println("Something fucked up");
-                            System.out.println(cdl.getCount());
+                            //System.out.println("Something fucked up");
+                           // System.out.println(cdl.getCount());
 
                             //System.out.println(sb.toString());
                             // Toast.makeText(ctx, sb, Toast.LENGTH_LONG).show();
