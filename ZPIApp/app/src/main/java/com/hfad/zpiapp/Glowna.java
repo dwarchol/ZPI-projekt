@@ -376,7 +376,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         powiadomienie = new Powiadomienie(this);
 
         //powiadomienie.sendNotificationWithIntent("Tytuł","Opis");
-
+        ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {
             @Override
