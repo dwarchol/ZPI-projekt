@@ -10,6 +10,6 @@
         android:width="5dp"
         android:color="@color/azure" />
 
-    <solid android:color="@color/lightBlue" />
+    <solid android:color="@color/blue" />
 
 </shape>

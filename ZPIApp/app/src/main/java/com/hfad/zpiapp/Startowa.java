@@ -13,6 +13,7 @@ import android.os.SystemClock;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.ContentView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
@@ -33,10 +37,14 @@ public class Startowa extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setSharedP();
+
 
         setContentView(R.layout.activity_startowa);
-        setSharedP();
+
+
         Button haveAccount = (Button) findViewById(R.id.haveAccount);
         Button register = (Button) findViewById(R.id.register);
 
@@ -165,6 +173,17 @@ public class Startowa extends AppCompatActivity{
         editor.putBoolean("notifyBool",true);
         if(!preferences.contains("darkModeBool"))
         editor.putBoolean("darkModeBool",true);
+        else
+        {
+            if(preferences.getBoolean("darkModeBool",true)==true)
+            {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else
+            {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
         if(!preferences.contains("soundBool"))
             editor.putBoolean("soundBool",true);
         if(!preferences.contains("vibrationBool"))

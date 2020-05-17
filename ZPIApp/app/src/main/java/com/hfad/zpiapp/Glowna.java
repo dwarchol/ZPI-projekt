@@ -302,19 +302,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
-import com.squareup.picasso.Picasso;
-
 import java.io.Console;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
     Dialog coordinatesDialog;
+    Odtwarzacz sound;
     Uzytkownik user;
     GoogleMap mMap;
     SupportMapFragment mapFragment;
@@ -329,7 +329,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
-    ImageView iv;
 
     Powiadomienie powiadomienie;
 
@@ -337,6 +336,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @Override
     protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sound= new Odtwarzacz(this.getApplicationContext());
+
         user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
         //  user.odznaki.set(0,1);
         //user.uaktualnijWBazie();
@@ -373,6 +374,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
         sz.execute();*/
         powiadomienie = new Powiadomienie(this);
+
         //powiadomienie.sendNotificationWithIntent("Tytuł","Opis");
 
         ZagadkaReader zagadkaReader = new ZagadkaReader();
@@ -385,7 +387,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
-        ZagadkaWybor zwb=new ZagadkaWybor(doWszystkiego);
+
     }
 
     public void drawMaps(){
@@ -407,25 +409,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             mMap.addCircle(circleOptions);
         }
     }
-    public void drawMapsInOrder(int index){
-        mMap.setOnMarkerClickListener(this);
-        for(int i=0;i<zagadkiLista.size();i++){
-            Log.w("lista_punktow",zagadkiLista.get(i).toString());
-            LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
-            MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa);
 
-            Marker marker = mMap.addMarker(markerOptions);
-            marker.setTag(i);
-
-            CircleOptions circleOptions = new CircleOptions();
-            circleOptions.center(point);
-            circleOptions.radius(50);
-            circleOptions.strokeColor(Color.BLACK);
-            circleOptions.fillColor(0x0ff000);
-            circleOptions.strokeWidth(1);
-            mMap.addCircle(circleOptions);
-        }
-    }
     public void settingsMethod(View view)
     {
         final Intent settingsIntent=new Intent(this,Ustawienia.class);
@@ -530,7 +514,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
-                if(zagadkiLista.get(i).typ==3)
+              /*  if(zagadkiLista.get(i).typ==3)
                 {
                     ((ZagadkaMLObiekty)zagadkiLista.get(i)).setContext(this);
                 }
@@ -542,9 +526,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 {
                     ((ZagadkaDotarcieNaMiejsce)zagadkiLista.get(i)).setContext(this);
                 }
-               // doWszystkiego.setContentView(null);
-                ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
+               // doWszystkiego.setContentView(null);*/
+                zagadkiLista.get(i).setContext(this);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
+                sound.spotSound();
             }
         }
     }
@@ -573,7 +558,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
            ustawDialogi();
-        if(zagadkiLista.get(ktory).typ == 3 )
+       /* if(zagadkiLista.get(ktory).typ == 3 )
         {
             ((ZagadkaMLObiekty)zagadkiLista.get(ktory)).setContext(this);
         }
@@ -582,9 +567,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         {
             ((ZagadkaMLTekst)zagadkiLista.get(ktory)).setContext(this);
         }
-      //  doWszystkiego.setContentView(null);
-        ZagadkaWybor zwb=new ZagadkaWybor(doWszystkiego);
+      //  doWszystkiego.setContentView(null);*/
+       zagadkiLista.get(ktory).setContext(this);
         zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
+        sound.spotSound();
         return false;
     }
 
@@ -610,6 +596,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
     public void dispatchTakePictureIntent() {
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED)
+        {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},1888);
+        }
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -618,8 +608,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             myPhoto = imageBitmap;
@@ -629,9 +620,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             ImageView photo = (ImageView) doWszystkiego.findViewById(R.id.miejsceNaZdj);
             photo.setImageBitmap(imageBitmap);
             photo.setVisibility(View.VISIBLE);
-
-
         }
+
 
     }
 
