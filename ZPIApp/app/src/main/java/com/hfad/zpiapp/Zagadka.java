@@ -20,6 +20,7 @@ public abstract class Zagadka {
     protected String ciekawostka;
     Context ctx;
 
+
     public abstract boolean sprawdz(String odp);
 
     public int getIndex() {return index;}
@@ -76,6 +77,7 @@ public abstract class Zagadka {
 
     public void showFailed(final Dialog bAD)
     {
+
         ((Glowna)ctx).sound.wrongSound();
         Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
         showPopupAgain.setOnClickListener(new View.OnClickListener() {
