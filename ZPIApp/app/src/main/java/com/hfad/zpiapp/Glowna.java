@@ -302,6 +302,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
+
 import java.io.Console;
 import java.util.ArrayList;
 
@@ -327,6 +329,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
+    ImageView iv;
 
     Powiadomienie powiadomienie;
 
@@ -382,7 +385,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
-
+        ZagadkaWybor zwb=new ZagadkaWybor(doWszystkiego);
     }
 
     public void drawMaps(){
@@ -404,7 +407,25 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             mMap.addCircle(circleOptions);
         }
     }
+    public void drawMapsInOrder(int index){
+        mMap.setOnMarkerClickListener(this);
+        for(int i=0;i<zagadkiLista.size();i++){
+            Log.w("lista_punktow",zagadkiLista.get(i).toString());
+            LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+            MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa);
 
+            Marker marker = mMap.addMarker(markerOptions);
+            marker.setTag(i);
+
+            CircleOptions circleOptions = new CircleOptions();
+            circleOptions.center(point);
+            circleOptions.radius(50);
+            circleOptions.strokeColor(Color.BLACK);
+            circleOptions.fillColor(0x0ff000);
+            circleOptions.strokeWidth(1);
+            mMap.addCircle(circleOptions);
+        }
+    }
     public void settingsMethod(View view)
     {
         final Intent settingsIntent=new Intent(this,Ustawienia.class);
@@ -522,6 +543,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                     ((ZagadkaDotarcieNaMiejsce)zagadkiLista.get(i)).setContext(this);
                 }
                // doWszystkiego.setContentView(null);
+                ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
             }
         }
@@ -561,6 +583,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             ((ZagadkaMLTekst)zagadkiLista.get(ktory)).setContext(this);
         }
       //  doWszystkiego.setContentView(null);
+        ZagadkaWybor zwb=new ZagadkaWybor(doWszystkiego);
         zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
         return false;
     }
