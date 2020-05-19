@@ -341,7 +341,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
         //  user.odznaki.set(0,1);
         //user.uaktualnijWBazie();
-        System.out.println(user.login);
+       // System.out.println(user.login);
         //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
 
@@ -375,7 +375,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         sz.execute();*/
         powiadomienie = new Powiadomienie(this);
 
-        //powiadomienie.sendNotificationWithIntent("Tytuł","Opis");
+       // powiadomienie.sendNotificationWithIntent("Tytuł","Opis powiadomienia");
         ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {

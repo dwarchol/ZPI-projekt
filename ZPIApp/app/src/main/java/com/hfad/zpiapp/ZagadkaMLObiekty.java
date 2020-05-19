@@ -3,8 +3,10 @@ package com.hfad.zpiapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import android.widget.Toast;
 
 public class ZagadkaMLObiekty extends Zagadka{
     private String trescPytania;
-    private String poprawnaOdpowiedz;
+    public String poprawnaOdpowiedz;
     Context ctx;
     Glowna ac;
     Bitmap myPhoto;
@@ -35,6 +37,7 @@ public class ZagadkaMLObiekty extends Zagadka{
         this.wspolrzednaLng = wspolrzednaLng;
         this.nazwa=nazwa;
         this.poprzednia=poprzednia;
+
     }
 
 
@@ -63,6 +66,7 @@ public class ZagadkaMLObiekty extends Zagadka{
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
         zagadka=this;
+
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
         d.setContentView(R.layout.popup_zrob_zdj);
@@ -77,6 +81,7 @@ public class ZagadkaMLObiekty extends Zagadka{
                 if(textOnButton.equals("OK"))
                 {
                     ((Glowna)ctx).dispatchTakePictureIntent();
+
                 }
                 else if(textOnButton.equals("Wyślij"))
                 {

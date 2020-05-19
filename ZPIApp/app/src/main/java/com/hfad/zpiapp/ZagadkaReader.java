@@ -32,7 +32,9 @@ public class ZagadkaReader {
                     }
                     if((Long)snapshot.child("typ").getValue()==3){
                         ZagadkaMLObiekty zagadka = snapshot.getValue(ZagadkaMLObiekty.class);
+                       // Log.w("xxxx", zagadka.poprawnaOdpowiedz);
                         zagadkas.add(zagadka);
+
                     }
                     if((Long)snapshot.child("typ").getValue()==4){
                         ZagadkaMLTekst zagadka = snapshot.getValue(ZagadkaMLTekst.class);

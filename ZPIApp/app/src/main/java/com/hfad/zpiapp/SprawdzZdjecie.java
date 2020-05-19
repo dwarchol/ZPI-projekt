@@ -52,6 +52,7 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
     }
     @Override
     protected void onPreExecute() {
+       System.out.println(mojaZagadka.poprawnaOdpowiedz);
         loadingDialog.show();
     }
     @Override
@@ -93,11 +94,12 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
         if(czyPoprawna)
         {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-            mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog);
+
+            mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
         else {
-            mojaZagadka.showFailed(badAnswerDialog);
+            mojaZagadka.showFailed(badAnswerDialog,ctx);
         }
     }
 

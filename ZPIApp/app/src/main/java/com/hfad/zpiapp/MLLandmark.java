@@ -86,6 +86,7 @@ public class MLLandmark implements Runnable {
                 });
 
         System.out.println("at the end "+cdl.getCount());
+       // sb.append("Skyscraper ");
     }
 
 }

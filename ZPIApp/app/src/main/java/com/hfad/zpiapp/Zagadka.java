@@ -63,7 +63,35 @@ public abstract class Zagadka {
 
     public void showCongratulations(final Dialog cD, final Dialog curD)
     {
-        ((Glowna)ctx).sound.correctSound();
+        if(ctx!=null)
+            {
+                ((Glowna) ctx).sound.correctSound();
+            }
+            else
+            {
+                System.out.println("Nulllik");
+            }
+        final Button showCuriosity = (Button) cD.findViewById(R.id.closeGratulacje);
+        showCuriosity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cD.dismiss();
+                showCuriosity(curD);
+            }
+        });
+        cD.show();
+    }
+
+    public void showCongratulations(final Dialog cD, final Dialog curD, Context ctx)
+    {
+        if(ctx!=null)
+        {
+            ((Glowna) ctx).sound.correctSound();
+        }
+        else
+        {
+          //  System.out.println("Nulllik");
+        }
         final Button showCuriosity = (Button) cD.findViewById(R.id.closeGratulacje);
         showCuriosity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +113,20 @@ public abstract class Zagadka {
             public void onClick(View view) {
                 bAD.dismiss();
                // showPopUp(d, bAD, cD);
+            }
+        });
+        bAD.show();
+    }
+    public void showFailed(final Dialog bAD, Context ctx)
+    {
+
+          ((Glowna)ctx).sound.wrongSound();
+        Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
+        showPopupAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bAD.dismiss();
+                // showPopUp(d, bAD, cD);
             }
         });
         bAD.show();

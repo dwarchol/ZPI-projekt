@@ -96,11 +96,11 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
         if(czyPoprawna)
         {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-            mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog);
+            mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
         else {
-            mojaZagadka.showFailed(badAnswerDialog);
+            mojaZagadka.showFailed(badAnswerDialog,ctx);
         }
     }
 }
