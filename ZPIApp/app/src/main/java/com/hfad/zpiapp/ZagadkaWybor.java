@@ -40,6 +40,7 @@ public class ZagadkaWybor extends Zagadka{
     public ZagadkaWybor(final Dialog d){
         d.setContentView(R.layout.popup_checkbox);
         iv=d.findViewById(R.id.photoCheckBox);
+       // Picasso.get().load(getZdjecie()).into(iv);
         Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 

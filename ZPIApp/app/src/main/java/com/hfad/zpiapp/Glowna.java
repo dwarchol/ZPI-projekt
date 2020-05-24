@@ -383,7 +383,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             public void onCallback(ArrayList<Zagadka> zag) {
                 Log.w("ktorereader", zag.get(0).getNazwa());
                 zagadkiLista=zag;
-                drawMaps();
+              //  drawMaps();
+                drawMapsStartowe();
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
@@ -407,6 +408,27 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             circleOptions.fillColor(0x0ff000);
             circleOptions.strokeWidth(1);
             mMap.addCircle(circleOptions);
+        }
+    }
+    public void drawMapsStartowe(){
+        mMap.setOnMarkerClickListener(this);
+        for(int i=0;i<zagadkiLista.size();i++) {
+
+            Log.w("lista_punktow", zagadkiLista.get(i).toString());
+            LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+            MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa);
+
+                Marker marker = mMap.addMarker(markerOptions);
+
+                marker.setTag(i);
+            //}
+            CircleOptions circleOptions = new CircleOptions();
+            circleOptions.center(point);
+            circleOptions.radius(50);            circleOptions.strokeColor(Color.BLACK);
+            circleOptions.fillColor(0x0ff000);
+            circleOptions.strokeWidth(1);
+            mMap.addCircle(circleOptions);
+
         }
     }
 
@@ -504,6 +526,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
+           // if(zagadkiLista.get(i).typ==5)
             if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude()))
             {
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
