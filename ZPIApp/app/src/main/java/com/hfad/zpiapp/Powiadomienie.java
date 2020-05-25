@@ -15,6 +15,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class Powiadomienie {
+    String Title="Hej, zagadka w pobliżu!";
+    String Description="Dasz radę ją rozwiązać?";
     Context ctx;
     static String CHANNEL_ID = "SV";
     static String CHANNEL_ID2 = "S";
@@ -94,7 +96,7 @@ public class Powiadomienie {
             notificationManager.createNotificationChannel(channel);
         }
     }
-    public void sendNotification(String Title, String Description) //mozna dodać zdjęcie, inny dźwięk, inny wzór wibracji etc.
+    public void sendNotification() //mozna dodać zdjęcie, inny dźwięk, inny wzór wibracji etc.
     {
         // Create an explicit intent for an Activity in your app
        // Intent intent = new Intent(ctx, AlertDetails.class);
@@ -155,7 +157,7 @@ public class Powiadomienie {
                 notificationId++;
         }
 
-    public void sendNotificationWithIntent(String Title, String Description) //mozna dodać zdjęcie, inny dźwięk, inny wzór wibracji etc.
+    public void sendNotificationWithIntent() //mozna dodać zdjęcie, inny dźwięk, inny wzór wibracji etc.
     {
         // Create an explicit intent for an Activity in your app
        // PackageManager pm = ctx.getPackageManager();
