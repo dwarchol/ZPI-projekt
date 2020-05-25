@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -71,6 +72,13 @@ public class ZagadkaMLObiekty extends Zagadka{
         d.setCancelable(true);
         d.setContentView(R.layout.popup_zrob_zdj);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                ((Glowna)ctx).popUpSemafor=false;
+            }
+        });
        // Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);
         ((TextView)d.findViewById(R.id.zrobZdjecie_title)).setText(getTrescPytania());
         final Button takePhoto = (Button) d.findViewById(R.id.zrobZdjecieButton);

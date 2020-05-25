@@ -330,6 +330,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     Dialog badAnswerDialog;
     Dialog congratulationsDialog;
     Dialog curiosityDialog;
+    boolean popUpSemafor=false;
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
@@ -341,7 +342,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sound= new Odtwarzacz(this.getApplicationContext());
-
+        popUpSemafor=false;
         user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
         //  user.odznaki.set(0,1);
         //user.uaktualnijWBazie();
@@ -483,6 +484,27 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             coordinatesDialog.dismiss();
             return;
         }
+        if(doWszystkiego!=null && doWszystkiego.isShowing())
+        {
+            doWszystkiego.dismiss();
+            popUpSemafor=false;
+            System.out.println(popUpSemafor);
+        }
+        if(badAnswerDialog!=null && badAnswerDialog.isShowing())
+        {
+            badAnswerDialog.dismiss();
+            popUpSemafor=false;
+            System.out.println(popUpSemafor);
+        }
+        if(congratulationsDialog!=null && congratulationsDialog.isShowing())
+        {
+            congratulationsDialog.dismiss();
+            popUpSemafor=false;
+            System.out.println(popUpSemafor);
+        }
+
+
+
         super.onBackPressed();
     }
 
@@ -544,8 +566,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
            // if(zagadkiLista.get(i).typ==5)
-            if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude()))
+            if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude())&&!popUpSemafor)
             {
+                popUpSemafor=true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
@@ -554,6 +577,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
+
               /*  if(zagadkiLista.get(i).typ==3)
                 {
                     ((ZagadkaMLObiekty)zagadkiLista.get(i)).setContext(this);

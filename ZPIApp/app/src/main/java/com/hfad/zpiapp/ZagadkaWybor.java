@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -113,6 +114,13 @@ public class ZagadkaWybor extends Zagadka{
 
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                ((Glowna)ctx).popUpSemafor=false;
+            }
+        });
 
         iv=d.findViewById(R.id.photoCheckBox);
         Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
@@ -221,11 +229,14 @@ public class ZagadkaWybor extends Zagadka{
                 if(czyPoprawnaOdp)
                 {
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+                    ((Glowna) ctx).user.setRozwiązana(index);
+                    ((Glowna) ctx).popUpSemafor=false;
                     showCongratulations(cD,curD);
                     /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                 }
                 else
                 {
+                    ((Glowna) ctx).popUpSemafor=false;
                     showFailed(bAD);
                 }
             }

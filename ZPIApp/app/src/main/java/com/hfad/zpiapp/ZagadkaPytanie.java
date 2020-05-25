@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
@@ -95,6 +96,13 @@ public class ZagadkaPytanie extends Zagadka{
         d.setCancelable(true);
         d.setContentView(R.layout.popup_pytania);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                ((Glowna)ctx).popUpSemafor=false;
+            }
+        });
         Button closeDialog = (Button) d.findViewById(R.id.closePytanie);
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
         final EditText odpowiedz = d.findViewById(R.id.odpowiedz_editText);
@@ -131,11 +139,15 @@ public class ZagadkaPytanie extends Zagadka{
                if(czyPoprawnaOdp)
                {
                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+
+                   ((Glowna) ctx).user.setRozwiązana(index);
+                   ((Glowna) ctx).popUpSemafor=false;
                    showCongratulations(cD,curD);
                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                }
                else
                {
+                   ((Glowna) ctx).popUpSemafor=false;
                    showFailed(bAD);
                }
             }

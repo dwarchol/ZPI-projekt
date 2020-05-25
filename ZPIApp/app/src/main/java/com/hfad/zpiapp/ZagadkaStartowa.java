@@ -1,6 +1,7 @@
 package com.hfad.zpiapp;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -37,9 +38,12 @@ public class ZagadkaStartowa extends Zagadka{
 
         double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
         if(distance<0.01){
+            ((Glowna) ctx).user.setRozwiązana(index);
+            ((Glowna) ctx).popUpSemafor=false;
             return true;
         }
         else{
+            ((Glowna) ctx).popUpSemafor=false;
             return false;
         }
 
@@ -63,6 +67,13 @@ public class ZagadkaStartowa extends Zagadka{
            @Override
            public void onClick(View view) {
                d.dismiss();
+           }
+       });
+       d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+           @Override
+           public void onDismiss(DialogInterface dialog) {
+
+               ((Glowna)ctx).popUpSemafor=false;
            }
        });
        d.show();
