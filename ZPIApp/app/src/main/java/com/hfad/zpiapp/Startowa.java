@@ -1,10 +1,12 @@
 package com.hfad.zpiapp;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
@@ -26,14 +28,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ContentView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
     Dialog registerDialog;
     Context ctx;
     Uzytkownik user;
+    int CAMERA_PERMISSION = 1;
+    int ACCESS_FINE_LOCATION_PERMISSION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,43 @@ public class Startowa extends AppCompatActivity{
         registerDialog.setCanceledOnTouchOutside(false);
         ctx = this;
 
+        
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
+        {
+            requestLocationPermission();
+        }
+
+    }
+
+    private void requestCameraPermission()
+    {
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+    }
+
+    private void requestLocationPermission()
+    {
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults)
+    {
+        if(requestCode == CAMERA_PERMISSION)
+        {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+        }
+        else if(requestCode == ACCESS_FINE_LOCATION_PERMISSION)
+        {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)
+                {
+                    requestCameraPermission();
+                }
+            }
+        }
     }
 
     public void moveButton(final Button button)
@@ -271,6 +315,7 @@ public class Startowa extends AppCompatActivity{
                            fbdb.addUser(us, new FirebaseDB.DataStatus() {
                                @Override
                                public void dataInserted() {
+                                   registerDialog.dismiss();
                                    Toast.makeText(getApplicationContext(),R.string.rejestracja,Toast.LENGTH_LONG).show();
                                }
                                @Override
