@@ -398,7 +398,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void drawMaps(){
         mMap.setOnMarkerClickListener(this);
         for(int i=0;i<zagadkiLista.size();i++){
-            Log.w("lista_punktow",zagadkiLista.get(i).toString());
+           // Log.w("lista_punktow",zagadkiLista.get(i).toString());
             LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
             MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa);
 
@@ -419,23 +419,26 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,207,115,false);
         for(int i=0;i<zagadkiLista.size();i++) {
-
-            Log.w("lista_punktow", zagadkiLista.get(i).toString());
-            LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
-            MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
+            //TO DO temporary
+            Log.w("lista",zagadkiLista.get(i).index + "");
+            if(user.jestWAktywnych(zagadkiLista.get(i).index)){
+                Log.w("lista_punktow_inside", zagadkiLista.get(i).nazwa + " " + zagadkiLista.get(i).index);
+                LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+                MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
 
                 Marker marker = mMap.addMarker(markerOptions);
 
                 marker.setTag(i);
-            //}
-            CircleOptions circleOptions = new CircleOptions();
-            circleOptions.center(point);
-            circleOptions.radius(50);            circleOptions.strokeColor(Color.BLACK);
-            circleOptions.fillColor(Color.argb(75,51,153,255));
-            circleOptions.strokeWidth(1);
-            circleOptions.strokeColor(TRANSPARENT);
-            mMap.addCircle(circleOptions);
-
+                //}
+                CircleOptions circleOptions = new CircleOptions();
+                circleOptions.center(point);
+                circleOptions.radius(50);
+                circleOptions.strokeColor(Color.BLACK);
+                circleOptions.fillColor(Color.argb(75,51,153,255));
+                circleOptions.strokeWidth(1);
+                circleOptions.strokeColor(TRANSPARENT);
+                mMap.addCircle(circleOptions);
+            }
         }
     }
 
