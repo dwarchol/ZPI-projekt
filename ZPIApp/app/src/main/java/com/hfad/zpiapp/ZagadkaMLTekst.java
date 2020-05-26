@@ -26,7 +26,7 @@ public class ZagadkaMLTekst extends Zagadka{
 
     }
 
-    public ZagadkaMLTekst(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka)
+    public ZagadkaMLTekst(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.typ=typ;
@@ -36,6 +36,7 @@ public class ZagadkaMLTekst extends Zagadka{
         this.nazwa=nazwa;
         this.poprzednia=poprzednia;
         this.ciekawostka = ciekawostka;
+        this.nastepna = nastepna;
     }
 
 
@@ -81,7 +82,7 @@ public class ZagadkaMLTekst extends Zagadka{
                 else if(textOnButton.equals("Wyślij"))
                 {
                     myPhoto = ((Glowna)ctx).myPhoto;
-                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,index,zagadka,cD,curD,bAD);
+                    SprawdzTekst st = new SprawdzTekst(ctx,myPhoto,index,zagadka,cD,curD,bAD,nastepna);
                     d.dismiss();
                     st.execute();
                 }

@@ -18,6 +18,7 @@ public abstract class Zagadka {
     protected String nazwa;
     protected int poprzednia;
     protected String ciekawostka;
+    protected int nastepna;
     Context ctx;
 
 

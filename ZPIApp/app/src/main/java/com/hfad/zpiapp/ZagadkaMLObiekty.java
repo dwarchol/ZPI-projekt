@@ -28,7 +28,7 @@ public class ZagadkaMLObiekty extends Zagadka{
 
     }
 
-    public ZagadkaMLObiekty(int index, String trescPytania, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka)
+    public ZagadkaMLObiekty(int index, String trescPytania, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.typ=typ;
@@ -39,6 +39,7 @@ public class ZagadkaMLObiekty extends Zagadka{
         this.nazwa=nazwa;
         this.poprzednia=poprzednia;
         this.ciekawostka = ciekawostka;
+        this.nastepna = nastepna;
     }
 
 
@@ -94,7 +95,7 @@ public class ZagadkaMLObiekty extends Zagadka{
                 else if(textOnButton.equals("Wyślij"))
                 {
                     myPhoto = ((Glowna)ctx).myPhoto;
-                    SprawdzZdjecie sz = new SprawdzZdjecie(ctx,myPhoto,index,zagadka,cD,curD,bAD);
+                    SprawdzZdjecie sz = new SprawdzZdjecie(ctx,myPhoto,index,zagadka,cD,curD,bAD,nastepna);
                     d.dismiss();
                     sz.execute();
                 }

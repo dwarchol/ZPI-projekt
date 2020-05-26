@@ -76,12 +76,15 @@ public class Uzytkownik implements Serializable {
         this.zagadki = zagadki;
     }
 
-    public void setRozwiązana(int i)
+    public void setRozwiązana(int i, int nastepna)
     {
         zagadki.set(i,1);
 
         zagadkiRozwiazane.add(i);
         zagadkiAktualne.remove(Integer.valueOf(i));
+        if(nastepna != -1){
+            zagadkiAktualne.add(nastepna);
+        }
         uaktualnijWBazie();
     }
 

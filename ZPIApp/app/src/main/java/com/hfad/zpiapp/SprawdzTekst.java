@@ -27,8 +27,9 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     String textFromImage;
     int indexZagadki;
     ZagadkaMLTekst mojaZagadka;
+    int nastepna;
 
-    public SprawdzTekst(Context c, Bitmap img, int index,ZagadkaMLTekst zagadkaMLTekst, Dialog cD, Dialog curD, Dialog bAD)
+    public SprawdzTekst(Context c, Bitmap img, int index,ZagadkaMLTekst zagadkaMLTekst, Dialog cD, Dialog curD, Dialog bAD, int nastepna)
     {
         this.ctx=c;
         this.image=img;
@@ -38,7 +39,7 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         circle=loadingDialog.findViewById(R.id.loadingCircle);
         mojaZagadka = zagadkaMLTekst;
-
+        this.nastepna = nastepna;
         badAnswerDialog = bAD;
         if(zagadkaMLTekst==null)
         {
@@ -96,7 +97,7 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
         if(czyPoprawna)
         {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-            ((Glowna) ctx).user.setRozwiązana(indexZagadki);
+            ((Glowna) ctx).user.setRozwiązana(indexZagadki, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie

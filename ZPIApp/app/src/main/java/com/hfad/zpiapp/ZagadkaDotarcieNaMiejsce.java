@@ -27,7 +27,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     }
 
-    public ZagadkaDotarcieNaMiejsce(int index, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania, String ciekawostka)
+    public ZagadkaDotarcieNaMiejsce(int index, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania, String ciekawostka,int nastepna)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -38,6 +38,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         this.poprzednia = poprzednia;
         this.trescPytania = trescPytania;
         this.ciekawostka = ciekawostka;
+        this.nastepna = nastepna;
     }
 
     public String getTrescPytania(){return trescPytania;}
@@ -111,7 +112,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                 if(czyPoprawnaOdp)
                 {
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-                    ((Glowna) ctx).user.setRozwiązana(index);
+                    ((Glowna) ctx).user.setRozwiązana(index,nastepna);
                     ((Glowna) ctx).popUpSemafor=false;
                     showCongratulations(cD,curD);
                     /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie

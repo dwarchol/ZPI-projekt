@@ -45,7 +45,7 @@ public class ZagadkaWybor extends Zagadka{
         Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 
-    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka)
+    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.typ=typ;
@@ -61,6 +61,7 @@ public class ZagadkaWybor extends Zagadka{
         this.odpowiedzC = odpowiedzC;
         this.odpowiedzD = odpowiedzD;
         this.ciekawostka = ciekawostka;
+        this.nastepna = nastepna;
     }
 
     public String getTrescPytania(){ return trescPytania; }
@@ -223,7 +224,7 @@ public class ZagadkaWybor extends Zagadka{
                 if(czyPoprawnaOdp)
                 {
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-                    ((Glowna) ctx).user.setRozwiązana(index);
+                    ((Glowna) ctx).user.setRozwiązana(index,nastepna);
                     ((Glowna) ctx).popUpSemafor=false;
                     showCongratulations(cD,curD);
                     /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie

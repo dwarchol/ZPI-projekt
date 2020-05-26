@@ -419,10 +419,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,207,115,false);
         for(int i=0;i<zagadkiLista.size();i++) {
-            //TO DO temporary
-            Log.w("lista",zagadkiLista.get(i).index + "");
-            if(user.jestWAktywnych(zagadkiLista.get(i).index)){
-                Log.w("lista_punktow_inside", zagadkiLista.get(i).nazwa + " " + zagadkiLista.get(i).index);
+            if(user.jestWAktywnych(zagadkiLista.get(i).index)){             //Mozna usunac zeby były wszystkie zagadki
                 LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                 MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
 

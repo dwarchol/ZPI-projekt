@@ -20,7 +20,7 @@ public class ZagadkaStartowa extends Zagadka{
     }
 
 
-    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka)
+    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -29,6 +29,7 @@ public class ZagadkaStartowa extends Zagadka{
         this.nazwa = nazwa;
         this.poprzednia = poprzednia;
         this.ciekawostka = ciekawostka;
+        this.nastepna = nastepna;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ZagadkaStartowa extends Zagadka{
 
         double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
         if(distance<0.01){
-            ((Glowna) ctx).user.setRozwiązana(index);
+            ((Glowna) ctx).user.setRozwiązana(index, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
             return true;
         }
