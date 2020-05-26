@@ -36,13 +36,15 @@
         </activity>
         <activity
             android:name=".MapsActivity2"
-            android:label="@string/title_activity_maps2"></activity>
-        <activity android:name=".KontoUzytkownika" android:parentActivityName=".Glowna"/>
-        <activity android:name=".Ustawienia" android:parentActivityName=".Glowna" />
-        <activity android:name=".Glowna"  />
+            android:label="@string/title_activity_maps2"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".KontoUzytkownika" android:parentActivityName=".Glowna" android:screenOrientation="portrait"/>
+        <activity android:name=".Ustawienia" android:parentActivityName=".Glowna" android:screenOrientation="portrait"/>
+        <activity android:name=".Glowna" android:screenOrientation="portrait" />
         <activity
             android:name=".Startowa"
-            android:theme="@style/StartTheme">
+            android:theme="@style/StartTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

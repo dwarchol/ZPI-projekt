@@ -264,6 +264,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -334,6 +335,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
+    int obecnaZagadka = 0;
 
     Powiadomienie powiadomienie;
 
@@ -543,19 +545,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
-   // @Override
-   /* protected void onResume() {
-        super.onResume();
-        try {
-            locationManager.requestLocationUpdates(provider, 400, 1, this);
-            Log.println(Log.ASSERT, "Reasuming", "End");
-        }
-        catch(SecurityException e)
-        {
-            Log.println(Log.ASSERT, "Reasuming", "PermissionNot");
-        }
-    }
-*/
     @Override
     public void onLocationChanged(Location location) {
         float zoomLevel =14.0f;
@@ -568,6 +557,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
            // if(zagadkiLista.get(i).typ==5)
             if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude())&&!popUpSemafor)
             {
+                KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+                if( myKM.inKeyguardRestrictedInputMode() && i != obecnaZagadka) {
+                    powiadomienie.sendNotificationWithIntent();
+                    obecnaZagadka = i;
+                }
                 popUpSemafor=true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);

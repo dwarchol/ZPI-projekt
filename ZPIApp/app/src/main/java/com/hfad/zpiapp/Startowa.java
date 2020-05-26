@@ -66,12 +66,15 @@ public class Startowa extends AppCompatActivity{
         registerDialog.setCanceledOnTouchOutside(false);
         ctx = this;
 
-        
+
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
         {
             requestLocationPermission();
         }
-
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)
+        {
+            requestCameraPermission();
+        }
     }
 
     private void requestCameraPermission()
