@@ -49,6 +49,7 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
         }
         congratulationsDialog = cD;
         curiosityDialog = curD;
+
     }
     @Override
     protected void onPreExecute() {

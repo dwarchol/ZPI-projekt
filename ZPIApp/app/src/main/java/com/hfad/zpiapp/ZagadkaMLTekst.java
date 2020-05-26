@@ -25,7 +25,7 @@ public class ZagadkaMLTekst extends Zagadka{
 
     }
 
-    public ZagadkaMLTekst(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
+    public ZagadkaMLTekst(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka)
     {
         this.index = index;
         this.typ=typ;
@@ -34,6 +34,7 @@ public class ZagadkaMLTekst extends Zagadka{
         this.wspolrzednaLng = wspolrzednaLng;
         this.nazwa=nazwa;
         this.poprzednia=poprzednia;
+        this.ciekawostka = ciekawostka;
     }
 
 

@@ -19,7 +19,7 @@ public class ZagadkaStartowa extends Zagadka{
     }
 
 
-    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
+    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -27,6 +27,7 @@ public class ZagadkaStartowa extends Zagadka{
         this.typ = typ;
         this.nazwa = nazwa;
         this.poprzednia = poprzednia;
+        this.ciekawostka = ciekawostka;
     }
 
     @Override

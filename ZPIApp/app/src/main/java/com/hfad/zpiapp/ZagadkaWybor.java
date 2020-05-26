@@ -43,7 +43,7 @@ public class ZagadkaWybor extends Zagadka{
         Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 
-    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD)
+    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka)
     {
         this.index = index;
         this.typ=typ;
@@ -58,6 +58,7 @@ public class ZagadkaWybor extends Zagadka{
         this.odpowiedzB = odpowiedzB;
         this.odpowiedzC = odpowiedzC;
         this.odpowiedzD = odpowiedzD;
+        this.ciekawostka = ciekawostka;
     }
 
     public String getTrescPytania(){ return trescPytania; }
@@ -93,7 +94,7 @@ public class ZagadkaWybor extends Zagadka{
         return pw;
     }*/
     public  Drawable LoadImageFromWebOperations(String url,ImageView iv) {
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
+        Picasso.get().load(url).into(iv);
         return iv.getDrawable();
     }
 
@@ -114,7 +115,7 @@ public class ZagadkaWybor extends Zagadka{
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
 
         iv=d.findViewById(R.id.photoCheckBox);
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
+        Picasso.get().load(getZdjecie()).into(iv);
 
         Drawable myDrawable = iv.getDrawable();
 
@@ -150,35 +151,28 @@ public class ZagadkaWybor extends Zagadka{
        // option1.setButtonDrawable(myDrawable);
         if(getOdpowiedzA().startsWith("http")) {
             ((RadioButton) checkbox.getChildAt(0)).setText("A");//getOdpowiedzA());
-            ((RadioButton) checkbox.getChildAt(1)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(1)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(1)).setClickable(false);//.setActivated(false);
             ((RadioButton) checkbox.getChildAt(2)).setText("B");//getOdpowiedzB());
-            ((RadioButton) checkbox.getChildAt(3)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(3)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(3)).setClickable(false);
             ((RadioButton) checkbox.getChildAt(4)).setText("C");//getOdpowiedzC());
-            ((RadioButton) checkbox.getChildAt(5)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(5)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(5)).setClickable(false);
             ((RadioButton) checkbox.getChildAt(6)).setText("D");//getOdpowiedzD());
-            ((RadioButton) checkbox.getChildAt(7)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(7)).setButtonDrawable(myDrawable);
-            ((RadioButton) checkbox.getChildAt(7)).setClickable(false);
+
+            ImageView iv1;
+            iv1 =d.findViewById(R.id.photoOdp1);
+            Picasso.get().load(getOdpowiedzA()).into(iv1);
+            ImageView iv2;
+            iv2 =d.findViewById(R.id.photoOdp2);
+            Picasso.get().load(getOdpowiedzB()).into(iv2);
+            ImageView iv3;
+            iv3 =d.findViewById(R.id.photoOdp3);
+            Picasso.get().load(getOdpowiedzC()).into(iv3);
+            ImageView iv4;
+            iv4 =d.findViewById(R.id.photoOdp4);
+            Picasso.get().load(getOdpowiedzD()).into(iv4);
         }
         else{
             ((RadioButton) checkbox.getChildAt(0)).setText("A. "+getOdpowiedzA());
-            ((RadioButton) checkbox.getChildAt(1)).setText("A. "+getOdpowiedzA());
             ((RadioButton) checkbox.getChildAt(2)).setText("B. "+getOdpowiedzB());
-            ((RadioButton) checkbox.getChildAt(3)).setText("B. "+getOdpowiedzB());
             ((RadioButton) checkbox.getChildAt(4)).setText("C. "+getOdpowiedzC());
-            ((RadioButton) checkbox.getChildAt(4)).setText("C. "+getOdpowiedzC());
-            ((RadioButton) checkbox.getChildAt(5)).setText("D. "+getOdpowiedzD());
             ((RadioButton) checkbox.getChildAt(6)).setText("D. "+getOdpowiedzD());
-            d.findViewById(R.id.option11).setVisibility(View.GONE);
-            d.findViewById(R.id.option22).setVisibility(View.GONE);
-            d.findViewById(R.id.option33).setVisibility(View.GONE);
-            d.findViewById(R.id.option44).setVisibility(View.GONE);
         }
         RadioButton option1 =(RadioButton) d.findViewById(R.id.option1);
         RadioButton option2 =(RadioButton) d.findViewById(R.id.option2);

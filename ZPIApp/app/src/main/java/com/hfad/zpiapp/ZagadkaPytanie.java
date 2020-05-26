@@ -29,7 +29,7 @@ public class ZagadkaPytanie extends Zagadka{
 
     }
 
-    public ZagadkaPytanie(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia)
+    public ZagadkaPytanie(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka)
     {
         this.index = index;
         this.typ=typ;
@@ -40,7 +40,7 @@ public class ZagadkaPytanie extends Zagadka{
         this.wspolrzednaLng = wspolrzednaLng;
         this.nazwa=nazwa;
         this.poprzednia=poprzednia;
-        this.ciekawostka = "";
+        this.ciekawostka = ciekawostka;
     }
 
     public String getTrescPytania(){ return trescPytania; }
@@ -55,7 +55,6 @@ public class ZagadkaPytanie extends Zagadka{
         for(int i=0;i<odpowiedzi.length; i++){
             if(Odp.equals(odpowiedzi[i]))
             {
-
                 return true;
             }
         }
