@@ -297,6 +297,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -312,6 +314,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import static android.graphics.Color.TRANSPARENT;
+
 public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
     Dialog coordinatesDialog;
     Odtwarzacz sound;
@@ -326,6 +330,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     Dialog badAnswerDialog;
     Dialog congratulationsDialog;
     Dialog curiosityDialog;
+    boolean popUpSemafor=false;
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
@@ -337,7 +342,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sound= new Odtwarzacz(this.getApplicationContext());
-
+        popUpSemafor=false;
         user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
         //  user.odznaki.set(0,1);
         //user.uaktualnijWBazie();
@@ -374,8 +379,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
        /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
         sz.execute();*/
         powiadomienie = new Powiadomienie(this);
-
-       // powiadomienie.sendNotificationWithIntent("Tytuł","Opis powiadomienia");
+        //powiadomienie.sendNotificationWithIntent();
         ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {
@@ -383,7 +387,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             public void onCallback(ArrayList<Zagadka> zag) {
                 Log.w("ktorereader", zag.get(0).getNazwa());
                 zagadkiLista=zag;
-                drawMaps();
+              //  drawMaps();
+                drawMapsStartowe();
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
@@ -409,6 +414,30 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             mMap.addCircle(circleOptions);
         }
     }
+    public void drawMapsStartowe(){
+        mMap.setOnMarkerClickListener(this);
+        Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
+        icon=Bitmap.createScaledBitmap(icon,207,115,false);
+        for(int i=0;i<zagadkiLista.size();i++) {
+
+            Log.w("lista_punktow", zagadkiLista.get(i).toString());
+            LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+            MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
+
+                Marker marker = mMap.addMarker(markerOptions);
+
+                marker.setTag(i);
+            //}
+            CircleOptions circleOptions = new CircleOptions();
+            circleOptions.center(point);
+            circleOptions.radius(50);            circleOptions.strokeColor(Color.BLACK);
+            circleOptions.fillColor(Color.argb(75,51,153,255));
+            circleOptions.strokeWidth(1);
+            circleOptions.strokeColor(TRANSPARENT);
+            mMap.addCircle(circleOptions);
+
+        }
+    }
 
     public void settingsMethod(View view)
     {
@@ -419,13 +448,24 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void userMethod(View view)
     {
         final Intent userIntent=new Intent(this,KontoUzytkownika.class);
+        int zrobione=0;
+        for (int i:user.zagadki
+             ) {
+            if(i==1)
+                zrobione++;
+
+        }
+
+
+                userIntent.putExtra("prog",zrobione);
+                userIntent.putExtra("size",user.zagadki.size());
         startActivity(userIntent);
     }
 
     public void coordinatesMethod(View view)
     {
         coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
-        coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -444,6 +484,27 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             coordinatesDialog.dismiss();
             return;
         }
+        if(doWszystkiego!=null && doWszystkiego.isShowing())
+        {
+            doWszystkiego.dismiss();
+            popUpSemafor=false;
+            System.out.println(popUpSemafor);
+        }
+        if(badAnswerDialog!=null && badAnswerDialog.isShowing())
+        {
+            badAnswerDialog.dismiss();
+            popUpSemafor=false;
+            System.out.println(popUpSemafor);
+        }
+        if(congratulationsDialog!=null && congratulationsDialog.isShowing())
+        {
+            congratulationsDialog.dismiss();
+            popUpSemafor=false;
+            System.out.println(popUpSemafor);
+        }
+
+
+
         super.onBackPressed();
     }
 
@@ -504,8 +565,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
-            if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude()))
+           // if(zagadkiLista.get(i).typ==5)
+            if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude())&&!popUpSemafor)
             {
+                popUpSemafor=true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
@@ -514,6 +577,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
+
               /*  if(zagadkiLista.get(i).typ==3)
                 {
                     ((ZagadkaMLObiekty)zagadkiLista.get(i)).setContext(this);
@@ -580,19 +644,19 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         badAnswerDialog.setCanceledOnTouchOutside(false);
         badAnswerDialog.setCancelable(true);
         badAnswerDialog.setContentView(R.layout.popup_zla_odpowiedz);
-        badAnswerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        badAnswerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         congratulationsDialog = new Dialog(this);
         congratulationsDialog.setCanceledOnTouchOutside(false);
         congratulationsDialog.setCancelable(true);
         congratulationsDialog.setContentView(R.layout.popup_gratulacje);
-        congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        congratulationsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         curiosityDialog = new Dialog(this);
         curiosityDialog.setCanceledOnTouchOutside(false);
         curiosityDialog.setCancelable(true);
         curiosityDialog.setContentView(R.layout.popup_ciekawostka);
-        curiosityDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        curiosityDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
     }
 
     public void dispatchTakePictureIntent() {

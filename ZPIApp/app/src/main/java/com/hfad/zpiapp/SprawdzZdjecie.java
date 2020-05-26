@@ -95,11 +95,13 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
         if(czyPoprawna)
         {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-
+            ((Glowna) ctx).user.setRozwiązana(indexZagadki);
+            ((Glowna) ctx).popUpSemafor=false;
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
         else {
+            ((Glowna) ctx).popUpSemafor=false;
             mojaZagadka.showFailed(badAnswerDialog,ctx);
         }
     }

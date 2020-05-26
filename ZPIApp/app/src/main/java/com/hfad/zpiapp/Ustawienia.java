@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -115,5 +116,7 @@ public class Ustawienia extends AppCompatActivity {
     {
         super.onBackPressed();
     }
+
+
 
 }

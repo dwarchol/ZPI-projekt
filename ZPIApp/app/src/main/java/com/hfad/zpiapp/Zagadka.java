@@ -101,6 +101,7 @@ public abstract class Zagadka {
             }
         });
         cD.show();
+
     }
 
     public void showFailed(final Dialog bAD)

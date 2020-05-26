@@ -2,7 +2,9 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.text.Layout;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -19,6 +22,8 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import androidx.annotation.NonNull;
+
+import com.squareup.picasso.Picasso;
 
 public class ZagadkaPytanie extends Zagadka{
     private String trescPytania;
@@ -90,6 +95,13 @@ public class ZagadkaPytanie extends Zagadka{
         d.setCancelable(true);
         d.setContentView(R.layout.popup_pytania);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                ((Glowna)ctx).popUpSemafor=false;
+            }
+        });
         Button closeDialog = (Button) d.findViewById(R.id.closePytanie);
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
         final EditText odpowiedz = d.findViewById(R.id.odpowiedz_editText);
@@ -107,6 +119,15 @@ public class ZagadkaPytanie extends Zagadka{
                 }
             }
         });
+        ImageView iv=d.findViewById(R.id.photoPytanie);
+         if(getIndex()==101 ||getIndex()==92|| getIndex()==22 || getIndex()==33||getIndex()==93 ||getIndex()==53 ) {
+            //http://i.imgur.com/DvpvklR.png
+            Picasso.get().load(getZdjecie()).into(iv);//"https://fotopolska.eu/foto/27/27965.jpg","https://polska-org.pl/foto/8458/Epitafia_kartusze_i_pomniki_Wroclaw_8458498.jpg"
+            iv.setVisibility(View.VISIBLE);
+        }
+       // else
+
+
 
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,11 +138,15 @@ public class ZagadkaPytanie extends Zagadka{
                if(czyPoprawnaOdp)
                {
                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+
+                   ((Glowna) ctx).user.setRozwiązana(index);
+                   ((Glowna) ctx).popUpSemafor=false;
                    showCongratulations(cD,curD);
                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                }
                else
                {
+                   ((Glowna) ctx).popUpSemafor=false;
                    showFailed(bAD);
                }
             }

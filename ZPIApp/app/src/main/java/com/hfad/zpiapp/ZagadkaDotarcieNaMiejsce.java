@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -87,6 +88,13 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         d.setCancelable(true);
         d.setContentView(R.layout.popup_idz_do);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                ((Glowna)ctx).popUpSemafor=false;
+            }
+        });
         Button juzJestDialog = (Button) d.findViewById(R.id.closeIdzDo);
         ((TextView)d.findViewById(R.id.idzDo_title)).setText(getTrescPytania());
         juzJestDialog.setOnClickListener(new View.OnClickListener() {
@@ -103,11 +111,14 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                 if(czyPoprawnaOdp)
                 {
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
+                    ((Glowna) ctx).user.setRozwiązana(index);
+                    ((Glowna) ctx).popUpSemafor=false;
                     showCongratulations(cD,curD);
                     /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                 }
                 else
                 {
+                    ((Glowna) ctx).popUpSemafor=false;
                     showFailed(bAD);
                 }
             }
