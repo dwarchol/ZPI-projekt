@@ -1,29 +1,19 @@
 package com.hfad.zpiapp;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
-import android.text.Layout;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.zip.Inflater;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
-
-import com.squareup.picasso.Picasso;
 
 public class ZagadkaPytanie extends Zagadka{
     private String trescPytania;
@@ -152,6 +142,9 @@ public class ZagadkaPytanie extends Zagadka{
                }
             }
         });
-        d.show();
+        if(!((Glowna)ctx).isFinishing())
+        {
+            d.show();
+        }
     }
 }

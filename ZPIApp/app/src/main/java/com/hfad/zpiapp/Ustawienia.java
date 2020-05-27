@@ -2,15 +2,13 @@ package com.hfad.zpiapp;
 
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -115,6 +113,9 @@ public class Ustawienia extends AppCompatActivity {
     public void comeBackMethod(View view)
     {
         super.onBackPressed();
+      /* Intent i = new Intent(this,Glowna.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);*/
     }
 
 

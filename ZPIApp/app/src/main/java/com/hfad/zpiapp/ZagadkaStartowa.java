@@ -4,15 +4,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 public class ZagadkaStartowa extends Zagadka{
     public ZagadkaStartowa(){
@@ -78,6 +71,9 @@ public class ZagadkaStartowa extends Zagadka{
                ((Glowna)ctx).popUpSemafor=false;
            }
        });
-       d.show();
+       if(!((Glowna)ctx).isFinishing())
+       {
+           d.show();
+       }
    }
 }

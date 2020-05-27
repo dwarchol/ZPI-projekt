@@ -260,6 +260,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         return false;
     }
 }*/
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -272,46 +273,33 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-//import android.support.v7.app.ActionBar;
-//import android.support.v7.app.AppCompatActivity;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
-import java.io.Console;
+
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
@@ -320,6 +308,9 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import static android.graphics.Color.TRANSPARENT;
+
+//import android.support.v7.app.ActionBar;
+//import android.support.v7.app.AppCompatActivity;
 
 public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener, LifecycleObserver {
     Dialog coordinatesDialog;
@@ -373,7 +364,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        View customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
+        getSupportActionBar().setCustomView(customView);
+        Toolbar parent = (Toolbar) customView.getParent();
+        parent.setPadding(0,0,0,0);
+        parent.setContentInsetsAbsolute(0,0);
 
         coordinatesDialog = new Dialog(this);
         coordinatesDialog.setCancelable(true);
@@ -387,7 +382,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         initMap();
 
         powiadomienie = new Powiadomienie(this);
-
+        powiadomienie.sendNotificationWithIntent();
         ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {
@@ -465,22 +460,17 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     {
         final Intent settingsIntent=new Intent(this,Ustawienia.class);
         startActivity(settingsIntent);
+
     }
 
     public void userMethod(View view)
     {
         final Intent userIntent=new Intent(this,KontoUzytkownika.class);
-        int zrobione=0;
-        for (int i:user.zagadki
-             ) {
-            if(i==1)
-                zrobione++;
-
-        }
 
 
-                userIntent.putExtra("prog",zrobione);
-                userIntent.putExtra("size",user.zagadki.size());
+
+                userIntent.putExtra("prog",user.zagadkiRozwiazane!=null?user.zagadkiRozwiazane.size():0);
+
         startActivity(userIntent);
     }
 
@@ -534,6 +524,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapGoogle);
         mapFragment.getMapAsync(this);
+
 
     }
 
@@ -686,4 +677,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
+@Override
+public void onRestart()
+{
+    super.onRestart();
+    this.getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+}
 }

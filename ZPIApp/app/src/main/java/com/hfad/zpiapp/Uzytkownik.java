@@ -1,16 +1,7 @@
 package com.hfad.zpiapp;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
-
-import androidx.annotation.NonNull;
 
 public class Uzytkownik implements Serializable {
     String login;
@@ -26,12 +17,13 @@ public class Uzytkownik implements Serializable {
         login="";
         password="";
     }
-    public Uzytkownik(String l, String p, ArrayList<Integer> zagadki)
+    public Uzytkownik(String l, String p, ArrayList<Integer> zagadkiW,  ArrayList<Integer> zagadkiR)
     {
         this.login=l;
         this.password=p;
 
-        this.zagadki=new ArrayList(zagadki);
+        this.zagadkiRozwiazane= new ArrayList<>(zagadkiR);
+        this.zagadkiAktualne= new ArrayList<>(zagadkiW);
 
     }
     public Uzytkownik(String l, String p)
@@ -44,7 +36,7 @@ public class Uzytkownik implements Serializable {
         {
             zagadki.add(0);
         }
-        zagadkiRozwiazane = new ArrayList<>();
+        zagadkiRozwiazane = new ArrayList<>(11);
         zagadkiAktualne = new ArrayList<>();
         for(int i=10;i<101;i=i+10){
             zagadkiAktualne.add(i);
@@ -79,7 +71,10 @@ public class Uzytkownik implements Serializable {
     public void setRozwiązana(int i, int nastepna)
     {
         zagadki.set(i,1);
-
+        if(zagadkiRozwiazane==null)
+        {
+            zagadkiRozwiazane=new ArrayList<>(11);
+        }
         zagadkiRozwiazane.add(i);
         zagadkiAktualne.remove(Integer.valueOf(i));
         if(nastepna != -1){

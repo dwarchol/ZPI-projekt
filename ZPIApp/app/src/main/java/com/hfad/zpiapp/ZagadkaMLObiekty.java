@@ -4,15 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,8 +105,11 @@ public class ZagadkaMLObiekty extends Zagadka{
                 }
             }
         });
+        if(!((Glowna)ctx).isFinishing())
+        {
+            d.show();
+        }
 
-        d.show();
     }
 
     public void setContext(Context c)

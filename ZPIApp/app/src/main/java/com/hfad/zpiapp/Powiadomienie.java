@@ -7,9 +7,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
-import android.util.EventLogTags;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -42,9 +41,11 @@ public class Powiadomienie {
             CharSequence name = ctx.getString(R.string.NotifyCh);
             String description = ctx.getString(R.string.NotifyD);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[] {200,1000});
             NotificationManager notificationManager = ctx.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
@@ -71,10 +72,12 @@ public class Powiadomienie {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = ctx.getString(R.string.NotifyCh3);
             String description = ctx.getString(R.string.NotifyD3);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID3, name, importance);
             channel.setDescription(description);
             channel.setSound(null,null);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[] {200,1000});
             channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
             NotificationManager notificationManager = ctx.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
@@ -103,6 +106,7 @@ public class Powiadomienie {
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
         NotificationCompat.Builder builder;
+
         if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==true) {
                     builder = new NotificationCompat.Builder(ctx, CHANNEL_ID)
                             .setSmallIcon(R.drawable.book)
@@ -162,6 +166,7 @@ public class Powiadomienie {
         // Create an explicit intent for an Activity in your app
        // PackageManager pm = ctx.getPackageManager();
        // Intent launchIntent = pm.getLaunchIntentForPackage(BuildConfig.APPLICATION_ID);
+        System.out.println("mudafaka "+preferences.getBoolean("vibrationBool",true));
          Intent intent = new Intent(ctx, Glowna.class);
         intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
@@ -171,8 +176,10 @@ public class Powiadomienie {
                     .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingIntent)
+                    .setVibrate(new long[]{200,1000})
+                    .setLights(Color.WHITE,3000,1000)
                     .setAutoCancel(true);
         }
         else
@@ -193,9 +200,10 @@ public class Powiadomienie {
                     .setSmallIcon(R.drawable.book)
                     .setContentTitle(Title)
                     .setContentText(Description)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                      .setContentIntent(pendingIntent)
                     .setSound(null)
+                    .setVibrate(new long[] {200,1000})
                     .setAutoCancel(true);
         }
         else

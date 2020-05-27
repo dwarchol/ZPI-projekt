@@ -1,6 +1,5 @@
 package com.hfad.zpiapp;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -10,12 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,7 +19,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class ZagadkaWybor extends Zagadka{
@@ -236,7 +231,10 @@ public class ZagadkaWybor extends Zagadka{
                 }
             }
         });
-        d.show();
+        if(!((Glowna)ctx).isFinishing())
+        {
+            d.show();
+        }
     }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
