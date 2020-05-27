@@ -571,12 +571,14 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
         Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
         obecneWspolrzedne = location.getLatitude()+","+location.getLongitude();
+        boolean czyWLokacji = false;
 
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
            // if(zagadkiLista.get(i).typ==5)
             if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude())&&!popUpSemafor)
             {
+                czyWLokacji = true;
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
                 if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
@@ -596,6 +598,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
                 sound.spotSound();
             }
+        }
+        if(!czyWLokacji)
+        {
+            obecnaZagadka = 0;
         }
     }
 
