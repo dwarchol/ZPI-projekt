@@ -71,14 +71,6 @@ public class ZagadkaMLTekst extends Zagadka{
         final Button takePhoto = (Button) d.findViewById(R.id.zrobZdjecieButton);
         ((TextView)d.findViewById(R.id.zrobZdjecie_title)).setText(getTrescPytania());
 
-        TextView close = (TextView) d.findViewById(R.id.closeZrobZdjecie);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                d.dismiss();
-            }
-        });
-
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

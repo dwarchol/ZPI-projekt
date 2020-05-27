@@ -83,15 +83,6 @@ public class ZagadkaMLObiekty extends Zagadka{
        // Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);
         ((TextView)d.findViewById(R.id.zrobZdjecie_title)).setText(getTrescPytania());
         final Button takePhoto = (Button) d.findViewById(R.id.zrobZdjecieButton);
-
-        TextView close = (TextView) d.findViewById(R.id.closeZrobZdjecie);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                d.dismiss();
-            }
-        });
-
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
