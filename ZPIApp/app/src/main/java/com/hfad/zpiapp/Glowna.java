@@ -314,10 +314,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import static android.graphics.Color.TRANSPARENT;
 
-public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
+public class Glowna extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener, LifecycleObserver {
     Dialog coordinatesDialog;
     Odtwarzacz sound;
     Uzytkownik user;
@@ -336,7 +340,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
     int obecnaZagadka = 0;
-
+    boolean isInBackground;
     Powiadomienie powiadomienie;
 
     @SuppressLint("WrongConstant")
@@ -377,11 +381,13 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         doWszystkiego = new Dialog(this);
 
+
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+
         initMap();
-       /* SprawdzZdjecie sz = new SprawdzZdjecie(this);
-        sz.execute();*/
+
         powiadomienie = new Powiadomienie(this);
-        //powiadomienie.sendNotificationWithIntent();
+
         ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {
@@ -396,6 +402,20 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Log.w("ZAGADKI", "" +zagadkiLista.size());
 
     }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    public void onMoveToForeground() {
+        // app moved to foreground
+        isInBackground=false;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    public void onMoveToBackground() {
+        // app moved to background
+        isInBackground =true;
+    }
+
 
     public void drawMaps(){
         mMap.setOnMarkerClickListener(this);
@@ -421,7 +441,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,207,115,false);
         for(int i=0;i<zagadkiLista.size();i++) {
-            if(user.jestWAktywnych(zagadkiLista.get(i).index)){             //Mozna usunac zeby były wszystkie zagadki
+          //  if(user.jestWAktywnych(zagadkiLista.get(i).index)){             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
                 LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                 MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
 
@@ -437,7 +457,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 circleOptions.strokeWidth(1);
                 circleOptions.strokeColor(TRANSPARENT);
                 mMap.addCircle(circleOptions);
-            }
+          //  }//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
@@ -558,7 +578,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             if(zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude())&&!popUpSemafor)
             {
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-                if( myKM.inKeyguardRestrictedInputMode() && i != obecnaZagadka) {
+                if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
                 }
@@ -566,25 +586,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
-                Log.println(Log.ASSERT, "Reasuming", "xddddd");
+                Log.println(Log.ASSERT, "Reasuming", Boolean.toString(isInBackground));
                 Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
+                Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
-
-              /*  if(zagadkiLista.get(i).typ==3)
-                {
-                    ((ZagadkaMLObiekty)zagadkiLista.get(i)).setContext(this);
-                }
-                if(zagadkiLista.get(i).typ == 4)
-                {
-                    ((ZagadkaMLTekst)zagadkiLista.get(i)).setContext(this);
-                }
-                if(zagadkiLista.get(i).typ == 6)
-                {
-                    ((ZagadkaDotarcieNaMiejsce)zagadkiLista.get(i)).setContext(this);
-                }
-               // doWszystkiego.setContentView(null);*/
                 zagadkiLista.get(i).setContext(this);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
                 sound.spotSound();
@@ -616,16 +623,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
            ustawDialogi();
-       /* if(zagadkiLista.get(ktory).typ == 3 )
-        {
-            ((ZagadkaMLObiekty)zagadkiLista.get(ktory)).setContext(this);
-        }
-       doWszystkiego = new Dialog(this);
-        if(zagadkiLista.get(ktory).typ == 4 )
-        {
-            ((ZagadkaMLTekst)zagadkiLista.get(ktory)).setContext(this);
-        }
-      //  doWszystkiego.setContentView(null);*/
        zagadkiLista.get(ktory).setContext(this);
         zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
         sound.spotSound();
