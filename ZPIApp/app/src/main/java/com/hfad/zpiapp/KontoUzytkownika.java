@@ -45,9 +45,6 @@ public class KontoUzytkownika extends AppCompatActivity {
         System.out.println(postep);
         sb.setMax(size);
         sb.setProgress(postep);
-        progressDialog = new Dialog(this);
-        progressDialog.setCancelable(true);
-        progressDialog.setCanceledOnTouchOutside(false);
 
         ctx = this;
     }
