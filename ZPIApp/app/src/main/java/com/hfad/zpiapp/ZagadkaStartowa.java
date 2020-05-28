@@ -39,7 +39,6 @@ public class ZagadkaStartowa extends Zagadka{
 
         double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
         if(distance<0.01){
-            ((Glowna) ctx).user.setRozwiązana(index, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
             return true;
         }
@@ -70,7 +69,7 @@ public class ZagadkaStartowa extends Zagadka{
            @Override
            public void onClick(View view) {
                ((Glowna) ctx).showNext(nastepna);
-               ((Glowna) ctx).user.setRozwiązana(index,nastepna);
+               ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                Log.println(Log.ASSERT, "Reasuming", "o jprdl");
                d.dismiss();
            }

@@ -130,9 +130,9 @@ public class ZagadkaPytanie extends Zagadka{
                {
                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
 
-                   ((Glowna) ctx).user.setRozwiązana(index,nastepna);
+                   ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                    ((Glowna) ctx).popUpSemafor=false;
-                   showCongratulations(cD,curD);
+                   showCongratulations(cD,curD,ctx);
                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                }
                else

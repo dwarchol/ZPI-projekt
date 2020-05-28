@@ -96,7 +96,7 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
         if(czyPoprawna)
         {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-            ((Glowna) ctx).user.setRozwiązana(indexZagadki, nastepna);
+            ((Glowna) ctx).user.setRozwiazana(indexZagadki, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie

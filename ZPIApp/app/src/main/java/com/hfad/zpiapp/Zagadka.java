@@ -65,29 +65,8 @@ public abstract class Zagadka {
    // abstract public PopupWindow showPopUp(LayoutInflater inflater);
    abstract public void showPopUp(Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD);
 
-    public void showCongratulations(final Dialog cD, final Dialog curD)
-    {
-        Log.println(Log.ASSERT, "Reasuming", "fuck");
-        if(ctx!=null)
-            {
-                ((Glowna) ctx).sound.correctSound();
-            }
-            else
-            {
-                System.out.println("Nulllik");
-            }
-        final Button showCuriosity = (Button) cD.findViewById(R.id.closeGratulacje);
-        showCuriosity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cD.dismiss();
-                showCuriosity(curD);
-            }
-        });
-        cD.show();
-    }
 
-    public void showCongratulations(final Dialog cD, final Dialog curD, Context ctx)
+    public void showCongratulations(final Dialog cD, final Dialog curD, final Context ctx)
     {
         if(ctx!=null)
         {
@@ -102,27 +81,13 @@ public abstract class Zagadka {
             @Override
             public void onClick(View view) {
                 cD.dismiss();
-                showCuriosity(curD);
+                showCuriosity(curD,ctx);
             }
         });
         cD.show();
 
     }
 
-    public void showFailed(final Dialog bAD)
-    {
-
-        ((Glowna)ctx).sound.wrongSound();
-        Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
-        showPopupAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bAD.dismiss();
-               // showPopUp(d, bAD, cD);
-            }
-        });
-        bAD.show();
-    }
     public void showFailed(final Dialog bAD, Context ctx)
     {
 
@@ -138,7 +103,7 @@ public abstract class Zagadka {
         bAD.show();
     }
 
-    public void showCuriosity(final Dialog curD)
+    public void showCuriosity(final Dialog curD, final Context ctx)
     {
         final Button closeCuriosity = (Button)curD.findViewById(R.id.closeCoiekawostka);
         TextView curiosityText = (TextView)curD.findViewById(R.id.ciekawostka_text);

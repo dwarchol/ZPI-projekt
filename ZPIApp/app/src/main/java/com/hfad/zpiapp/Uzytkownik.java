@@ -37,7 +37,6 @@ public class Uzytkownik implements Serializable {
         for(int i=10;i<101;i=i+10){
             zagadkiAktualne.add(i);
         }
-        //zagadkiAktualne.add(22);
     }
     public String getPassword() {
         return password;
@@ -55,10 +54,9 @@ public class Uzytkownik implements Serializable {
         this.login = login;
     }
 
-    public void setRozwiązana(int i, int nastepna)
+    public void setRozwiazana(int i, int nastepna)
     {
         Log.println(Log.ASSERT, "Reasuming", "chuj");
-        //zagadki.set(i,1);
         if(zagadkiRozwiazane==null)
         {
             zagadkiRozwiazane=new ArrayList<>(11);
@@ -68,6 +66,7 @@ public class Uzytkownik implements Serializable {
         if(nastepna != -1){
             zagadkiAktualne.add(nastepna);
         }
+        //uaktualnijWBazie();
     }
 
 
