@@ -1,5 +1,7 @@
 package com.hfad.zpiapp;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -41,7 +43,7 @@ public class Uzytkownik implements Serializable {
         for(int i=10;i<101;i=i+10){
             zagadkiAktualne.add(i);
         }
-        zagadkiAktualne.add(22);
+        //zagadkiAktualne.add(22);
     }
     public String getPassword() {
         return password;
@@ -70,7 +72,8 @@ public class Uzytkownik implements Serializable {
 
     public void setRozwiązana(int i, int nastepna)
     {
-        zagadki.set(i,1);
+        Log.println(Log.ASSERT, "Reasuming", "chuj");
+        //zagadki.set(i,1);
         if(zagadkiRozwiazane==null)
         {
             zagadkiRozwiazane=new ArrayList<>(11);
@@ -80,7 +83,6 @@ public class Uzytkownik implements Serializable {
         if(nastepna != -1){
             zagadkiAktualne.add(nastepna);
         }
-        uaktualnijWBazie();
     }
 
 

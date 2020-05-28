@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +45,8 @@ public abstract class Zagadka {
 
     public String getCiekawostka() {return  ciekawostka;}
 
+    public int getNastepna() {return  nastepna;}
+
     public boolean czyNaMiejscu(String str)
     {
         String[] wsp = str.split(",");
@@ -64,6 +67,7 @@ public abstract class Zagadka {
 
     public void showCongratulations(final Dialog cD, final Dialog curD)
     {
+        Log.println(Log.ASSERT, "Reasuming", "fuck");
         if(ctx!=null)
             {
                 ((Glowna) ctx).sound.correctSound();
@@ -122,7 +126,7 @@ public abstract class Zagadka {
     public void showFailed(final Dialog bAD, Context ctx)
     {
 
-          ((Glowna)ctx).sound.wrongSound();
+        ((Glowna)ctx).sound.wrongSound();
         Button showPopupAgain = (Button) bAD.findViewById(R.id.closeZlaOdpowiedz);
         showPopupAgain.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -104,6 +104,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                 d.dismiss();
                 if(czyPoprawnaOdp)
                 {
+                    Log.println(Log.ASSERT, "Reasuming", "chujchuj");
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
                     ((Glowna) ctx).user.setRozwiązana(index,nastepna);
                     ((Glowna) ctx).popUpSemafor=false;

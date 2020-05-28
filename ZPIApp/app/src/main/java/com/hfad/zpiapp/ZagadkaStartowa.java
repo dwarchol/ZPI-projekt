@@ -4,16 +4,20 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ZagadkaStartowa extends Zagadka{
+    String trescPytania;
+
     public ZagadkaStartowa(){
 
     }
 
 
-    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
+    public ZagadkaStartowa(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -24,6 +28,8 @@ public class ZagadkaStartowa extends Zagadka{
         this.ciekawostka = ciekawostka;
         this.nastepna = nastepna;
     }
+
+    public String getTrescPytania(){ return trescPytania; }
 
     @Override
     public boolean sprawdz(String str) {
@@ -55,19 +61,23 @@ public class ZagadkaStartowa extends Zagadka{
    {
        d.setCanceledOnTouchOutside(false);
        d.setCancelable(true);
-       d.setContentView(R.layout.custom_popup_coordinates);
+       d.setContentView(R.layout.popup_idz_do);
        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-       Button closeDialog = (Button) d.findViewById(R.id.closeCoordinates);
+       ((TextView)d.findViewById(R.id.idzDo_title)).setText(getTrescPytania());
+       Button closeDialog = (Button) d.findViewById(R.id.closeIdzDo);
+       closeDialog.setText("OK");
        closeDialog.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+               ((Glowna) ctx).showNext(nastepna);
+               ((Glowna) ctx).user.setRozwiązana(index,nastepna);
+               Log.println(Log.ASSERT, "Reasuming", "o jprdl");
                d.dismiss();
            }
        });
        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
            @Override
            public void onDismiss(DialogInterface dialog) {
-
                ((Glowna)ctx).popUpSemafor=false;
            }
        });
@@ -76,4 +86,17 @@ public class ZagadkaStartowa extends Zagadka{
            d.show();
        }
    }
+    @Override
+    public boolean czyNaMiejscu(String str) {
+        String[] wsp = str.split(",");
+        double lat = Double.parseDouble(wsp[0]);
+        double lng = Double.parseDouble(wsp[1]);
+
+        double distance = Math.sqrt((wspolrzednaLat - lat) * (wspolrzednaLat - lat) + (wspolrzednaLng - lng) * (wspolrzednaLng - lng));
+        if (distance < 0.0015) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
