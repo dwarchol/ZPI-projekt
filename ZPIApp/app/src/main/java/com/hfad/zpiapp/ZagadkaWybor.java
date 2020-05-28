@@ -227,7 +227,7 @@ public class ZagadkaWybor extends Zagadka{
                 else
                 {
                     ((Glowna) ctx).popUpSemafor=false;
-                    showFailed(bAD);
+                    showFailed(bAD,ctx);
                 }
             }
         });

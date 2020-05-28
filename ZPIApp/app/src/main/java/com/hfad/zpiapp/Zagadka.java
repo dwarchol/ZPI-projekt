@@ -147,6 +147,7 @@ public abstract class Zagadka {
             @Override
             public void onClick(View view) {
                 curD.dismiss();
+                ((Glowna)ctx).user.uaktualnijWBazie();
             }
         });
         curD.show();

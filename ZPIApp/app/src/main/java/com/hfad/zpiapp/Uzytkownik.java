@@ -9,7 +9,6 @@ public class Uzytkownik implements Serializable {
     String login;
     String password;
 
-   public ArrayList<Integer> zagadki;
    public ArrayList<Integer> zagadkiRozwiazane;
    public ArrayList<Integer> zagadkiAktualne;
 
@@ -33,11 +32,6 @@ public class Uzytkownik implements Serializable {
         login=l;
         password=p;
 
-        zagadki= new ArrayList<Integer>();
-        for(int i=0;i<110;i++)
-        {
-            zagadki.add(0);
-        }
         zagadkiRozwiazane = new ArrayList<>(11);
         zagadkiAktualne = new ArrayList<>();
         for(int i=10;i<101;i=i+10){
@@ -59,15 +53,6 @@ public class Uzytkownik implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-
-    public ArrayList<Integer> getZagadki() {
-        return zagadki;
-    }
-
-    public void setZagadki(ArrayList<Integer> zagadki) {
-        this.zagadki = zagadki;
     }
 
     public void setRozwiązana(int i, int nastepna)
