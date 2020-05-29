@@ -91,6 +91,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         });
         Button juzJestDialog = (Button) d.findViewById(R.id.closeIdzDo);
         ((TextView)d.findViewById(R.id.idzDo_title)).setText(getTrescPytania());
+        ((TextView)d.findViewById(R.id.ciekawostka_text)).setVisibility(View.GONE);
         juzJestDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

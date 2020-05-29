@@ -36,8 +36,8 @@ public class ZagadkaWybor extends Zagadka{
     public ZagadkaWybor(final Dialog d){
         d.setContentView(R.layout.popup_checkbox);
         iv=d.findViewById(R.id.photoCheckBox);
-       // Picasso.get().load(getZdjecie()).into(iv);
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
+        Picasso.get().load(getZdjecie()).into(iv);
+       // Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 
     public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka, int nastepna)

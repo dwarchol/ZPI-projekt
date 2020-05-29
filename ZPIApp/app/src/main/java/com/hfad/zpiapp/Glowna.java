@@ -45,6 +45,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
+//import androidx.lifecycle.ProcessLifecycleOwner;
 
 import static android.graphics.Color.TRANSPARENT;
 
@@ -216,7 +217,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void userMethod(View view)
     {
         final Intent userIntent=new Intent(this,KontoUzytkownika.class);
-
 
 
                 userIntent.putExtra("prog",user.zagadkiRozwiazane!=null?user.zagadkiRozwiazane.size():0);

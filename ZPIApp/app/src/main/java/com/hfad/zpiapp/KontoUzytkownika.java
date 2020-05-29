@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,14 @@ public class KontoUzytkownika extends AppCompatActivity {
         System.out.println(postep);
         sb.setMax(47);
         sb.setProgress(postep);
+        for(int i=0;i<((Glowna) ctx).user.zagadkiRozwiazane.size();i++){
+
+            //((Glowna) ctx).zagadkiLista
+        }
+        ListView lv= findViewById(R.id.ciekawostkiUsera);
+        // ((TextView)progressDialog.findViewById(R.id.pytanie_title))//.setText(((Glowna) ctx).user.get(0));
+        lv.addView(findViewById(R.id.odznazki_textView));
+
 
         ctx = this;
     }
