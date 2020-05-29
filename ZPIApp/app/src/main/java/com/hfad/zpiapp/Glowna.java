@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -103,6 +104,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         View customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
+        TextView wspolrzedneUzytkownka = customView.findViewById(R.id.coordinates);
+        wspolrzedneUzytkownka.setText(user.wspolrzedne);
         getSupportActionBar().setCustomView(customView);
         Toolbar parent = (Toolbar) customView.getParent();
         parent.setPadding(0,0,0,0);
@@ -226,7 +229,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
         coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
-        //////////////////////////////////////////////////////////////////////////////////////////////podzielone na pół
+        TextView wspolrzedneNapis = coordinatesDialog.findViewById(R.id.coordinates_text);
+        StringBuilder sB = new StringBuilder("");
+        sB.append(user.wspolrzedne.substring(0,22));
+        sB.append("\n");
+        sB.append(user.wspolrzedne.substring(23));
+        wspolrzedneNapis.setText(sB.toString());
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
