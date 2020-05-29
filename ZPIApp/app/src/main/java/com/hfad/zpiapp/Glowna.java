@@ -226,6 +226,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
         coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
+        //////////////////////////////////////////////////////////////////////////////////////////////podzielone na pół
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
