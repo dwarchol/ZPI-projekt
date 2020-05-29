@@ -66,7 +66,7 @@ public class Uzytkownik implements Serializable {
         if(nastepna != -1){
             zagadkiAktualne.add(nastepna);
         }
-        //uaktualnijWBazie();
+        uaktualnijWBazie();
     }
 
 

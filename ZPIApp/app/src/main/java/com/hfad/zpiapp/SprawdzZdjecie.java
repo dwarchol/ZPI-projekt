@@ -1,18 +1,13 @@
 package com.hfad.zpiapp;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -98,6 +93,7 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
             ((Glowna) ctx).user.setRozwiazana(indexZagadki, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
+
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }

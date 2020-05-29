@@ -2,14 +2,9 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import java.util.List;
 
 public abstract class Zagadka {
     protected int index;
@@ -108,11 +103,15 @@ public abstract class Zagadka {
         final Button closeCuriosity = (Button)curD.findViewById(R.id.closeCoiekawostka);
         TextView curiosityText = (TextView)curD.findViewById(R.id.ciekawostka_text);
         curiosityText.setText(ciekawostka);
+        ((Glowna)ctx).mMap.clear();
+        ((Glowna)ctx).drawMapsStartowe();
         closeCuriosity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 curD.dismiss();
-                ((Glowna)ctx).user.uaktualnijWBazie();
+              //  ((Glowna)ctx).user.uaktualnijWBazie();
+
+
             }
         });
         curD.show();

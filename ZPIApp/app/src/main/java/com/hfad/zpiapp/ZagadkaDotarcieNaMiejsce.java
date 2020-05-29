@@ -108,6 +108,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
                     ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                     ((Glowna) ctx).popUpSemafor=false;
+
                     showCongratulations(cD,curD,ctx);
                     /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                 }

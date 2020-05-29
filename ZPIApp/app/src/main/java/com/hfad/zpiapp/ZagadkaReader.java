@@ -1,8 +1,5 @@
 package com.hfad.zpiapp;
 
-import android.util.Log;
-
-import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,13 +12,14 @@ import java.util.concurrent.CountDownLatch;
 public class ZagadkaReader {
     final ArrayList<Zagadka> zagadkas = new ArrayList<>();
     private CountDownLatch countDownLatch;
-    public void readData(final MyCallback myCallback){
 
-        ValueEventListener listener = new ValueEventListener() {
+    public void readData(final MyCallback myCallback){
+        DatabaseReference zagadkiRef = FirebaseDatabase.getInstance().getReference();
+        zagadkiRef.child("zagadki").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                   // Log.w("xxxx", snapshot.child("typ").getValue().toString());
+                    // Log.w("xxxx", snapshot.child("typ").getValue().toString());
                     if((Long)snapshot.child("typ").getValue()==1){
                         ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
                         zagadkas.add(zagadka);
@@ -32,7 +30,7 @@ public class ZagadkaReader {
                     }
                     if((Long)snapshot.child("typ").getValue()==3){
                         ZagadkaMLObiekty zagadka = snapshot.getValue(ZagadkaMLObiekty.class);
-                       // Log.w("xxxx", zagadka.poprawnaOdpowiedz);
+                        // Log.w("xxxx", zagadka.poprawnaOdpowiedz);
                         zagadkas.add(zagadka);
 
                     }
@@ -51,16 +49,16 @@ public class ZagadkaReader {
                     }
 
                     //ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
-             //       Log.w("ktorereader", zagadka.getNazwa());
-                  //  zagadkas.add(zagadka);
+                    //       Log.w("ktorereader", zagadka.getNazwa());
+                    //  zagadkas.add(zagadka);
                 }
                 myCallback.onCallback(zagadkas);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        };
-        DatabaseReference zagadkiRef = FirebaseDatabase.getInstance().getReference();
-        zagadkiRef.child("zagadki").addListenerForSingleValueEvent(listener);
+        });
+  ;
+
     }
 }

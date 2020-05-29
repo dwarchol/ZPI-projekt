@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -99,6 +98,7 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
             //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
             ((Glowna) ctx).user.setRozwiazana(indexZagadki, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
+
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
             /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
