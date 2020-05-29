@@ -297,6 +297,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void showNext(int kolejnaZagadkaDoPokazania)
     {
         Log.println(Log.ASSERT, "Reasuming", "kurwa mać");
+        boolean czyDzwiek = true;
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
             if(zagadkiLista.get(i).index == kolejnaZagadkaDoPokazania && !popUpSemafor)
@@ -305,6 +306,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
+                    czyDzwiek = false;
                 }
                 popUpSemafor=true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -318,7 +320,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 doWszystkiego = new Dialog(this);
                 zagadkiLista.get(i).setContext(this);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
-                sound.spotSound();
+                if(czyDzwiek) {
+                    sound.spotSound();
+                }
+
             }
         }
     }
@@ -330,6 +335,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
         obecneWspolrzedne = location.getLatitude()+","+location.getLongitude();
         boolean czyWLokacji = false;
+        boolean czyDzwiek = true;
 
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
@@ -341,6 +347,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
+                    czyDzwiek = false;
                 }
                 popUpSemafor=true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -354,7 +361,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 doWszystkiego = new Dialog(this);
                 zagadkiLista.get(i).setContext(this);
                 zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
-                sound.spotSound();
+                if(czyDzwiek) {
+                    sound.spotSound();
+                }
             }
         }
         if(!czyWLokacji)
