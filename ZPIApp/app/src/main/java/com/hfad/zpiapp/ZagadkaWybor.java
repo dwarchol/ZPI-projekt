@@ -122,6 +122,14 @@ public class ZagadkaWybor extends Zagadka{
         iv=d.findViewById(R.id.photoCheckBox);
         Picasso.get().load(getZdjecie()).into(iv);
 
+        TextView close = (TextView) d.findViewById(R.id.closeCheckbox);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                d.dismiss();
+            }
+        });
+
         Drawable myDrawable = iv.getDrawable();
 
 

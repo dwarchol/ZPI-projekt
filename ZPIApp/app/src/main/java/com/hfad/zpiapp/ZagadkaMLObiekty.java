@@ -43,7 +43,6 @@ public class ZagadkaMLObiekty extends Zagadka{
     @Override
     public boolean sprawdz(String odp) {
         String[] toCheck = odp.split(" ");
-        Toast.makeText(ctx,odp,Toast.LENGTH_LONG).show();
         for (String s: toCheck)
         {
             if(poprawnaOdpowiedz.contains(s))

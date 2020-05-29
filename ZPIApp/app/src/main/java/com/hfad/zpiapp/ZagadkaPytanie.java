@@ -97,6 +97,14 @@ public class ZagadkaPytanie extends Zagadka{
         ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
         final EditText odpowiedz = d.findViewById(R.id.odpowiedz_editText);
 
+        TextView close = (TextView) d.findViewById(R.id.closePytanieGora);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                d.dismiss();
+            }
+        });
+
         odpowiedz.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
