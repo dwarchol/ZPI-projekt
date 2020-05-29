@@ -10,14 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ZagadkaStartowa extends Zagadka{
-    String trescPytania;
 
     public ZagadkaStartowa(){
 
     }
 
 
-    public ZagadkaStartowa(int index, String trescPytania, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
+    public ZagadkaStartowa(int index, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -29,7 +28,6 @@ public class ZagadkaStartowa extends Zagadka{
         this.nastepna = nastepna;
     }
 
-    public String getTrescPytania(){ return trescPytania; }
 
     @Override
     public boolean sprawdz(String str) {
@@ -62,7 +60,7 @@ public class ZagadkaStartowa extends Zagadka{
        d.setCancelable(true);
        d.setContentView(R.layout.popup_idz_do);
        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-       ((TextView)d.findViewById(R.id.idzDo_title)).setText(getTrescPytania());
+       ((TextView)d.findViewById(R.id.idzDo_title)).setText(getCiekawostka());
        Button closeDialog = (Button) d.findViewById(R.id.closeIdzDo);
        closeDialog.setText("OK");
        closeDialog.setOnClickListener(new View.OnClickListener() {
