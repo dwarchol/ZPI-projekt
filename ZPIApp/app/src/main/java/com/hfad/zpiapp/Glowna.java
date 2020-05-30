@@ -555,5 +555,6 @@ public void onRestart()
 {
     super.onRestart();
     this.getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+    this.drawMapsStartowe();
 }
 }

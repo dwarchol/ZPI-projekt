@@ -112,6 +112,7 @@ public class Ustawienia extends AppCompatActivity {
 
     public void comeBackMethod(View view)
     {
+
         super.onBackPressed();
       /* Intent i = new Intent(this,Glowna.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
