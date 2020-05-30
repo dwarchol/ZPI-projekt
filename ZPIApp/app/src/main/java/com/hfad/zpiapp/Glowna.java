@@ -1,10 +1,13 @@
 package com.hfad.zpiapp;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -17,6 +20,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,9 +49,10 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
-//import androidx.lifecycle.ProcessLifecycleOwner;
 
 import static android.graphics.Color.TRANSPARENT;
+
+//import androidx.lifecycle.ProcessLifecycleOwner;
 
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
@@ -63,7 +68,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     protected LocationManager locationManager;
     private String provider;
     Dialog doWszystkiego;
+    int gpsOn;
     Dialog badAnswerDialog;
+    AlertDialog GPSdialog;
     Dialog congratulationsDialog;
     Dialog curiosityDialog;
     boolean popUpSemafor=false;
@@ -77,7 +84,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @SuppressLint("WrongConstant")
     @Override
     protected synchronized void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        checkGPS();
+
+
         sound= new Odtwarzacz(this.getApplicationContext());
         popUpSemafor=false;
         user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
@@ -111,6 +122,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Toolbar parent = (Toolbar) customView.getParent();
         parent.setPadding(0,0,0,0);
         parent.setContentInsetsAbsolute(0,0);
+
 
         coordinatesDialog = new Dialog(this);
         coordinatesDialog.setCancelable(true);
@@ -152,6 +164,56 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         // app moved to background
         isInBackground =true;
     }
+    public void checkGPS()
+    {
+        try {
+            gpsOn = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+        }
+        catch(Exception e)
+        {
+            Log.i("GPS Failure","Sum Ting Wong");
+        }
+        if(gpsOn==0)
+        {
+            forceGPSOn();
+        }
+    }
+
+    public void forceGPSOn()
+    {
+
+
+       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("GPS jest wyłączony!");
+        builder.setMessage("Do użytkowania aplikacji niezbędna jest włączona lokalizacja, czy chcesz ją włączyć?");
+        builder.setPositiveButton("Włącz", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 12);
+
+            }
+        }).setNegativeButton("Nie, Dziękuję", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+
+            }
+        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                checkGPS();
+                dialog.dismiss();
+            }
+        });
+        GPSdialog=  builder.create();
+        GPSdialog.show();
+        if(GPSdialog.isShowing())
+        {
+            System.out.println("Mudafaka working");
+        }
+
+    }
 
 
     public void drawMaps(){
@@ -174,7 +236,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         }
     }
     public void drawMapsStartowe(){
+        //checkGPS();
         mMap.setOnMarkerClickListener(this);
+
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,190,105,false);
         for(int i=0;i<zagadkiLista.size();i++) {
@@ -269,11 +333,16 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             congratulationsDialog.dismiss();
             popUpSemafor=false;
             System.out.println(popUpSemafor);
+
         }
 
 
+            super.onBackPressed();
 
-        super.onBackPressed();
+
+
+
+
     }
 
     public void initMap(){
@@ -348,6 +417,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     @Override
     public void onLocationChanged(Location location) {
+
         float zoomLevel =14.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
         Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
@@ -407,6 +477,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        checkGPS();
         int ktory = (int) marker.getTag();
         //TO DO Location check
            /* LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -466,6 +537,14 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             ImageView photo = (ImageView) doWszystkiego.findViewById(R.id.miejsceNaZdj);
             photo.setImageBitmap(imageBitmap);
             photo.setVisibility(View.VISIBLE);
+        }
+        if(requestCode==12)
+        {
+            if(GPSdialog!=null)
+            {
+                GPSdialog.dismiss();
+            }
+           checkGPS();
         }
 
 
