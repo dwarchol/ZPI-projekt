@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -44,6 +45,14 @@ public class KontoUzytkownika extends AppCompatActivity {
         System.out.println(postep);
         sb.setMax(47);
         sb.setProgress(postep);
+        //sb.setEnabled(false);
+        sb.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        sb.setClickable(false);
        ListView lv= findViewById(R.id.ciekawostkiUsera);
         ArrayList<Zagadka> alt =new ArrayList<>();
         //ArrayList<String> ciekawostki =new ArrayList<>();

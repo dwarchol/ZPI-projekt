@@ -12,13 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="50dp"
         android:text="@string/postep"
+        android:textColor="@color/textColor"
+        android:textSize="22dp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintStart_toStartOf="@+id/seekBar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="22dp"
-        android:textColor="@color/textColor"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -27,6 +27,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="3dp"
         android:layout_marginTop="15dp"
+        android:clickable="false"
+
         app:layout_constraintBottom_toTopOf="@+id/odznazki_textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postep_gView" />
@@ -50,8 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
+        android:divider="#FFCC00"
+        android:dividerHeight="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
