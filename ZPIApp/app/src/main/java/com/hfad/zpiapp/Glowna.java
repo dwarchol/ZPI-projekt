@@ -295,7 +295,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         for (int i = 0; i < user.zagadkiRozwiazane.size(); i++) {
             for (int j = 0; j < zagadkiLista.size(); j++) {
                 if (user.zagadkiRozwiazane.get(i).equals(zagadkiLista.get(j).index)) {
-                    ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                    if(zagadkiLista.get(j).index%10!=0) {
+                        ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                    }
                 }
                 // if((zagadkiLista.get(i).index)== user.zagadkiRozwiazane.get(j)){
                 //    ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);

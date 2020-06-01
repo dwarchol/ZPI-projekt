@@ -82,7 +82,7 @@ public class Uzytkownik implements Serializable {
         {
             zagadkiRozwiazane=new ArrayList<>(11);
         }
-        if(i%10!=0) {
+
             zagadkiRozwiazane.add(i);
             zagadkiAktualne.remove(Integer.valueOf(i));
             if (nastepna != -1) {
@@ -98,7 +98,7 @@ public class Uzytkownik implements Serializable {
                     kolejneMiejsca.remove(0);
                 }
             }
-        }
+
         uaktualnijWBazie();
     }
 
