@@ -82,22 +82,21 @@ public class Uzytkownik implements Serializable {
         {
             zagadkiRozwiazane=new ArrayList<>(11);
         }
-        zagadkiRozwiazane.add(i);
-        zagadkiAktualne.remove(Integer.valueOf(i));
-        if(nastepna != -1){
-            zagadkiAktualne.add(nastepna);
-        }
-        else
-        {
-            int miejsce = kolejneMiejsca.get(0);
-            uzupelnijNapisOCyfre( wspolrzedneDoDostania.get(miejsce - 1),miejsce);
-            wspolrzedneDoDostania.remove(miejsce - 1);
-            kolejneMiejsca.remove(0);
-            if(i == 53 || i== 62 || i ==82 || i == 12)
-            {
-                uzupelnijNapisOCyfre( wspolrzedneDoDostania.get(miejsce - 1),miejsce);
+        if(i%10!=0) {
+            zagadkiRozwiazane.add(i);
+            zagadkiAktualne.remove(Integer.valueOf(i));
+            if (nastepna != -1) {
+                zagadkiAktualne.add(nastepna);
+            } else {
+                int miejsce = kolejneMiejsca.get(0);
+                uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
                 wspolrzedneDoDostania.remove(miejsce - 1);
                 kolejneMiejsca.remove(0);
+                if (i == 53 || i == 62 || i == 82 || i == 12) {
+                    uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
+                    wspolrzedneDoDostania.remove(miejsce - 1);
+                    kolejneMiejsca.remove(0);
+                }
             }
         }
         uaktualnijWBazie();
