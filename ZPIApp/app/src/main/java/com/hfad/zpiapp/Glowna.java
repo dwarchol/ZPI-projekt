@@ -278,13 +278,37 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
-    public void userMethod(View view)
-    {
-        final Intent userIntent=new Intent(this,KontoUzytkownika.class);
+    public void userMethod(View view) {
+        final Intent userIntent = new Intent(this, KontoUzytkownika.class);
+        ArrayList<String> ciek = new ArrayList<>();
+        for (int i = 0; i < zagadkiLista.size(); i++) {
+            ciek.add(zagadkiLista.get(i).ciekawostka);
+        }
 
+        ArrayList<String> ciekawostkiToKonto = new ArrayList<>();
 
-                userIntent.putExtra("prog",user.zagadkiRozwiazane!=null?user.zagadkiRozwiazane.size():0);
+        if(user.zagadkiRozwiazane==null)
+        {
+            Log.i("empty","xd");
+            user.zagadkiRozwiazane=new ArrayList<>(11);
+        }
+        for (int i = 0; i < user.zagadkiRozwiazane.size(); i++) {
+            for (int j = 0; j < zagadkiLista.size(); j++) {
+                if (user.zagadkiRozwiazane.get(i).equals(zagadkiLista.get(j).index)) {
+                    ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                }
+                // if((zagadkiLista.get(i).index)== user.zagadkiRozwiazane.get(j)){
+                //    ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                //}
+            }
+        }
 
+        userIntent.putExtra("ciekawostki",ciekawostkiToKonto);
+        userIntent.putExtra("prog", user.zagadkiRozwiazane != null ? user.zagadkiRozwiazane.size() : 0);
+        userIntent.putExtra("program", user.zagadkiRozwiazane);
+       // userIntent.putExtra("zagadki",zagadkiLista);
+                //userIntent.putExtra("ciekawostki",zagadkiLista!=null?zagadkiLista:new ArrayList());
+               // userIntent.putExtra("ciek",ciek!=null?zagadkiLista:new ArrayList());
         startActivity(userIntent);
     }
 
