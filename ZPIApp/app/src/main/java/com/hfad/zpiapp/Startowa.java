@@ -3,36 +3,30 @@ package com.hfad.zpiapp;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.SystemClock;
-//import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Layout;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.ContentView;
+import com.sprylab.android.widget.TextureVideoView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
@@ -41,6 +35,7 @@ public class Startowa extends AppCompatActivity{
     Uzytkownik user;
     int CAMERA_PERMISSION = 1;
     int ACCESS_FINE_LOCATION_PERMISSION = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +70,27 @@ public class Startowa extends AppCompatActivity{
         {
             requestCameraPermission();
         }
+
+        /*VideoView vv=findViewById(R.id.animation);
+
+        MediaController mc = new MediaController(this);
+        mc.setVisibility(View.GONE);
+        vv.setMediaController(mc);
+        vv.setVideoURI(uri);
+        vv.setBackgroundColor(Color.TRANSPARENT);
+        vv.start();*/
+        MediaController mc = new MediaController(this);
+        mc.setVisibility(View.GONE);
+        String dPath="android.resource://"+getPackageName()+"/"+R.raw.start_animation;
+        Uri uri = Uri.parse(dPath);
+        TextureVideoView mVideoView =(TextureVideoView)findViewById(R.id.video_view);
+        mVideoView.setVideoURI(uri);
+
+        mVideoView.setMediaController(mc);
+        mVideoView.start();
+
+
+
     }
 
     private void requestCameraPermission()
