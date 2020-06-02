@@ -90,6 +90,7 @@ public class Uzytkownik implements Serializable {
 
     public void otworzone(){
         pierwszyRaz=1;
+        uaktualnijWBazie();
     }
 
     public void setRozwiazana(int i, int nastepna)
