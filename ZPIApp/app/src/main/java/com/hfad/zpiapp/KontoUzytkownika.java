@@ -6,11 +6,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
@@ -26,7 +32,11 @@ public class KontoUzytkownika extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konto_uzytkownika);
         Intent intent = getIntent();
-        int postep=intent.getIntExtra("prog",0);
+        ArrayList<String> rz=intent.getStringArrayListExtra("program");
+        ArrayList<String> ciekawostki=intent.getStringArrayListExtra("ciekawostki");
+
+        int postep = rz.size();
+        //int postep=intent.getIntExtra("prog",0);
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -35,14 +45,31 @@ public class KontoUzytkownika extends AppCompatActivity {
         System.out.println(postep);
         sb.setMax(47);
         sb.setProgress(postep);
-        for(int i=0;i<((Glowna) ctx).user.zagadkiRozwiazane.size();i++){
+        //sb.setEnabled(false);
+        sb.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        sb.setClickable(false);
+       ListView lv= findViewById(R.id.ciekawostkiUsera);
+        ArrayList<Zagadka> alt =new ArrayList<>();
+        //ArrayList<String> ciekawostki =new ArrayList<>();
 
-            //((Glowna) ctx).zagadkiLista
+        //ciekawostki=intent.getStringArrayListExtra("ciek");
+        String[] ciekawostkiArr=new String[ciekawostki.size()];
+        TextView tv = findViewById(R.id.odznazki_textView);
+        for(int i=0;i<ciekawostki.size();i++){
+        // tv.setText(ciekawostki.get(i));
+            ciekawostkiArr[i]=ciekawostki.get(i);
+           // ArrayAdapter adapter = new ArrayAdapter<String>(this,lv,tv,ciekawostkiArr);
+          //lv.addView(tv);
         }
-        ListView lv= findViewById(R.id.ciekawostkiUsera);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview,R.id.lvTextView,ciekawostkiArr);
         // ((TextView)progressDialog.findViewById(R.id.pytanie_title))//.setText(((Glowna) ctx).user.get(0));
-        lv.addView(findViewById(R.id.odznazki_textView));
-
+       // lv.addView(findViewById(R.id.odznazki_textView));
+        lv.setAdapter(adapter);
 
         ctx = this;
     }

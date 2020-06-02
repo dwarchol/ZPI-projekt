@@ -80,6 +80,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     int obecnaZagadka = 0;
     boolean isInBackground;
     Powiadomienie powiadomienie;
+  //  TextView wspolrzedneUzytkownika;
+    View customView;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -97,7 +99,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
        // System.out.println(user.login);
         //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
-
         this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         //Choosing the best criteria depending on what is available.
@@ -115,13 +116,21 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        View customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
-        TextView wspolrzedneUzytkownka = customView.findViewById(R.id.coordinates);
-        wspolrzedneUzytkownka.setText(user.wspolrzedne);
+        customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
+        TextView wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
+        wspolrzedneUzytkownika.setText(user.wspolrzedne);
         getSupportActionBar().setCustomView(customView);
         Toolbar parent = (Toolbar) customView.getParent();
         parent.setPadding(0,0,0,0);
         parent.setContentInsetsAbsolute(0,0);
+
+        //Za pierwszym razem
+
+        if(user.pierwszyRaz==0){
+            wyswietlFabule();
+           // user.pierwszyRaz = 1;
+        }
+
 
 
         coordinatesDialog = new Dialog(this);
@@ -152,6 +161,66 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
+    private void wyswietlFabule() {
+        final Dialog fabulaDialog = new Dialog(this);
+        fabulaDialog.setCanceledOnTouchOutside(false);
+        fabulaDialog.setCancelable(true);
+        fabulaDialog.setContentView(R.layout.popup_fabula);
+        fabulaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        final Button tak = (Button)fabulaDialog.findViewById(R.id.takFabula);
+        final Button nie = (Button)fabulaDialog.findViewById(R.id.nieFabula);
+
+        final Context cxt = this;
+
+
+        tak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog fabulaDialog2 = new Dialog(cxt);
+                fabulaDialog2.setCanceledOnTouchOutside(false);
+                fabulaDialog2.setCancelable(true);
+                fabulaDialog2.setContentView(R.layout.popup_fabula2);
+                fabulaDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+                final Button ok = (Button)fabulaDialog2.findViewById(R.id.okFabula2);
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        user.otworzone();
+                         fabulaDialog.dismiss();
+                         fabulaDialog2.dismiss();
+
+                    }
+                });
+            fabulaDialog2.show();
+
+            }
+        });
+
+        nie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+
+            }
+        });
+
+        fabulaDialog.show();
+
+    }
+
+
+    public void actualiseCoordinatesText()
+    {
+        TextView wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
+        wspolrzedneUzytkownika.setText(user.wspolrzedne);
+        customView.refreshDrawableState();
+        Log.println(Log.ASSERT, "userws", user.wspolrzedne);
+       // Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
+        //Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onMoveToForeground() {
@@ -177,6 +246,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         {
             forceGPSOn();
         }
+    }
+
+    public void onStart()
+    {
+        actualiseCoordinatesText();
+        super.onStart();
+        Log.println(Log.ASSERT, "Reasuming", "ykhym");
+    }
+    public void onResume() {
+        actualiseCoordinatesText();
+        super.onResume();
+        Log.println(Log.ASSERT, "Reasuming", "frr");
     }
 
     public void forceGPSOn()
@@ -238,7 +319,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void drawMapsStartowe(){
         //checkGPS();
         mMap.setOnMarkerClickListener(this);
+        actualiseCoordinatesText();
 
+        //Aktualne
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,190,105,false);
         for(int i=0;i<zagadkiLista.size();i++) {
@@ -269,6 +352,25 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 mMap.addCircle(circleOptions);
             }//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
+
+        //Zakonczone
+
+        if(user.zagadkiRozwiazane!=null) {
+            Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
+            icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
+            for (int i = 0; i < zagadkiLista.size(); i++) {
+                if (user.jestWRozwiazanych(zagadkiLista.get(i).index)) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
+                    LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+                    MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
+
+                    Marker marker = mMap.addMarker(markerOptions);
+
+                    marker.setTag(i);
+                }
+            }
+        }
+
+
     }
 
     public void settingsMethod(View view)
@@ -278,13 +380,39 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     }
 
-    public void userMethod(View view)
-    {
-        final Intent userIntent=new Intent(this,KontoUzytkownika.class);
+    public void userMethod(View view) {
+        final Intent userIntent = new Intent(this, KontoUzytkownika.class);
+        ArrayList<String> ciek = new ArrayList<>();
+        for (int i = 0; i < zagadkiLista.size(); i++) {
+            ciek.add(zagadkiLista.get(i).ciekawostka);
+        }
 
+        ArrayList<String> ciekawostkiToKonto = new ArrayList<>();
 
-                userIntent.putExtra("prog",user.zagadkiRozwiazane!=null?user.zagadkiRozwiazane.size():0);
+        if(user.zagadkiRozwiazane==null)
+        {
+            Log.i("empty","xd");
+            user.zagadkiRozwiazane=new ArrayList<>(11);
+        }
+        for (int i = 0; i < user.zagadkiRozwiazane.size(); i++) {
+            for (int j = 0; j < zagadkiLista.size(); j++) {
+                if (user.zagadkiRozwiazane.get(i).equals(zagadkiLista.get(j).index)) {
+                    if(zagadkiLista.get(j).index%10!=0) {
+                        ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                    }
+                }
+                // if((zagadkiLista.get(i).index)== user.zagadkiRozwiazane.get(j)){
+                //    ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                //}
+            }
+        }
 
+        userIntent.putExtra("ciekawostki",ciekawostkiToKonto);
+        userIntent.putExtra("prog", user.zagadkiRozwiazane != null ? user.zagadkiRozwiazane.size() : 0);
+        userIntent.putExtra("program", user.zagadkiRozwiazane);
+       // userIntent.putExtra("zagadki",zagadkiLista);
+                //userIntent.putExtra("ciekawostki",zagadkiLista!=null?zagadkiLista:new ArrayList());
+               // userIntent.putExtra("ciek",ciek!=null?zagadkiLista:new ArrayList());
         startActivity(userIntent);
     }
 
@@ -368,7 +496,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
         LatLng wroclaw = new LatLng(51.105171, 17.037821);
-        float zoomLevel = 16.0f;
+        float zoomLevel = 14.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
@@ -383,7 +511,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     public void showNext(int kolejnaZagadkaDoPokazania)
     {
-        Log.println(Log.ASSERT, "Reasuming", "kurwa mać");
         boolean czyDzwiek = true;
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
@@ -484,10 +611,22 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
-           ustawDialogi();
-       zagadkiLista.get(ktory).setContext(this);
-        zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
-        sound.spotSound();
+
+          if(user.jestWAktywnych(zagadkiLista.get(ktory).index)){
+              Log.w("Jest w aktywnych ", ktory+"");
+              ustawDialogi();
+              zagadkiLista.get(ktory).setContext(this);
+              zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
+              sound.spotSound();
+          }
+        if(user.jestWRozwiazanych(zagadkiLista.get(ktory).index)){
+            Log.w("Jest w rozwiazanych ", ktory+"");
+              ustawDialogi();
+              zagadkiLista.get(ktory).setContext(this);
+              zagadkiLista.get(ktory).showCiekawostka(doWszystkiego,curiosityDialog);
+              sound.spotSound();
+          }
+
         return false;
     }
 
@@ -510,6 +649,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         curiosityDialog.setCancelable(true);
         curiosityDialog.setContentView(R.layout.popup_ciekawostka);
         curiosityDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
     }
 
     public void dispatchTakePictureIntent() {

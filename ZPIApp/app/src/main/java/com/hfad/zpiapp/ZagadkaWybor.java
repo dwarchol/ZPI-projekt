@@ -36,8 +36,8 @@ public class ZagadkaWybor extends Zagadka{
     public ZagadkaWybor(final Dialog d){
         d.setContentView(R.layout.popup_checkbox);
         iv=d.findViewById(R.id.photoCheckBox);
-        Picasso.get().load(getZdjecie()).into(iv);
-       // Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
+       // Picasso.get().load(getZdjecie()).into(iv);
+        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 
     public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka, int nastepna)
@@ -171,21 +171,32 @@ public class ZagadkaWybor extends Zagadka{
             ImageView iv1;
             iv1 =d.findViewById(R.id.photoOdp1);
             Picasso.get().load(getOdpowiedzA()).into(iv1);
+            iv1.setVisibility(View.VISIBLE);
             ImageView iv2;
             iv2 =d.findViewById(R.id.photoOdp2);
             Picasso.get().load(getOdpowiedzB()).into(iv2);
+            iv2.setVisibility(View.VISIBLE);
             ImageView iv3;
             iv3 =d.findViewById(R.id.photoOdp3);
             Picasso.get().load(getOdpowiedzC()).into(iv3);
+            iv3.setVisibility(View.VISIBLE);
             ImageView iv4;
             iv4 =d.findViewById(R.id.photoOdp4);
             Picasso.get().load(getOdpowiedzD()).into(iv4);
+            iv4.setVisibility(View.VISIBLE);
         }
         else{
             ((RadioButton) checkbox.getChildAt(0)).setText("A. "+getOdpowiedzA());
             ((RadioButton) checkbox.getChildAt(2)).setText("B. "+getOdpowiedzB());
             ((RadioButton) checkbox.getChildAt(4)).setText("C. "+getOdpowiedzC());
             ((RadioButton) checkbox.getChildAt(6)).setText("D. "+getOdpowiedzD());
+
+            ImageView iv1;
+            d.findViewById(R.id.photoOdp1).setVisibility(View.GONE);
+            d.findViewById(R.id.photoOdp2).setVisibility(View.GONE);
+            d.findViewById(R.id.photoOdp3).setVisibility(View.GONE);
+            d.findViewById(R.id.photoOdp4).setVisibility(View.GONE);
+
         }
         RadioButton option1 =(RadioButton) d.findViewById(R.id.option1);
         RadioButton option2 =(RadioButton) d.findViewById(R.id.option2);

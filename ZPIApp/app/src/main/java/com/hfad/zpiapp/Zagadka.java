@@ -2,9 +2,16 @@ package com.hfad.zpiapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public abstract class Zagadka {
     protected int index;
@@ -60,6 +67,12 @@ public abstract class Zagadka {
    // abstract public PopupWindow showPopUp(LayoutInflater inflater);
    abstract public void showPopUp(Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD);
 
+    public void showCiekawostka(Dialog d, final Dialog curD){
+        ((Glowna)ctx).popUpSemafor=false;
+        showCuriosity(curD,ctx);
+    }
+
+
 
     public void showCongratulations(final Dialog cD, final Dialog curD, final Context ctx)
     {
@@ -110,6 +123,13 @@ public abstract class Zagadka {
             public void onClick(View view) {
                 curD.dismiss();
               //  ((Glowna)ctx).user.uaktualnijWBazie();
+                if(nastepna != -1) {
+                    curD.dismiss();
+                }
+                else
+                {
+                    ((Glowna)ctx).coordinatesMethod(null);
+                }
 
 
             }
