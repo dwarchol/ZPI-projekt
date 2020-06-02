@@ -84,7 +84,7 @@ public class Startowa extends AppCompatActivity{
         String dPath="android.resource://"+getPackageName()+"/"+R.raw.start_animation;
         Uri uri = Uri.parse(dPath);
         TextureVideoView mVideoView =(TextureVideoView)findViewById(R.id.video_view);
-        mVideoView.setVideoURI(uri);
+        mVideoView.setVideoURI();
 
         mVideoView.setMediaController(mc);
         mVideoView.start();
