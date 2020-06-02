@@ -12,6 +12,8 @@ public class Uzytkownik implements Serializable {
     String login;
     String password;
     String wspolrzedne;
+    int pierwszyRaz=0;
+
 
    public ArrayList<Integer> zagadkiRozwiazane;
    public ArrayList<Integer> zagadkiAktualne;
@@ -28,8 +30,11 @@ public class Uzytkownik implements Serializable {
         wspolrzedneDoDostania= new ArrayList<Integer>(Arrays.asList(wsp));
         Integer [] kolejny ={1,1,6,6,1,1,4,4,1,3,1,2,1,1};
         kolejneMiejsca = new ArrayList<Integer>(Arrays.asList(kolejny));
+        pierwszyRaz = 0;
+        zagadkiRozwiazane = new ArrayList<>();
+        zagadkiAktualne = new ArrayList<>();
     }
-    public Uzytkownik(String l, String p, ArrayList<Integer> zagadkiW,  ArrayList<Integer> zagadkiR, String wspolrzedne, ArrayList<Integer> wsp, ArrayList<Integer> kol)
+    public Uzytkownik(String l, String p, ArrayList<Integer> zagadkiW,  ArrayList<Integer> zagadkiR, String wspolrzedne, ArrayList<Integer> wsp, ArrayList<Integer> kol, Boolean pierwszyRaz)
     {
         this.login=l;
         this.password=p;
@@ -39,6 +44,7 @@ public class Uzytkownik implements Serializable {
         this.wspolrzedne = wspolrzedne;
         this.wspolrzedneDoDostania = wsp;
         this.kolejneMiejsca = kol;
+        this.pierwszyRaz = 0;
 
     }
     public Uzytkownik(String l, String p)
@@ -56,6 +62,7 @@ public class Uzytkownik implements Serializable {
         for(int i=10;i<101;i=i+10){
             zagadkiAktualne.add(i);
         }
+        pierwszyRaz = 0;
     }
     public String getPassword() {
         return password;
@@ -76,6 +83,10 @@ public class Uzytkownik implements Serializable {
     public String getWspolrzedne() { return wspolrzedne;}
 
     public void setWspolrzedne(String  wsp) {this.wspolrzedne = wsp;}
+
+    public void otworzone(){
+        pierwszyRaz=1;
+    }
 
     public void setRozwiazana(int i, int nastepna)
     {

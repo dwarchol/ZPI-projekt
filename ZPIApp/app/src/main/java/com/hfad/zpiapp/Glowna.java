@@ -99,7 +99,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
        // System.out.println(user.login);
         //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
-
         this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         //Choosing the best criteria depending on what is available.
@@ -124,6 +123,13 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         Toolbar parent = (Toolbar) customView.getParent();
         parent.setPadding(0,0,0,0);
         parent.setContentInsetsAbsolute(0,0);
+
+        //Za pierwszym razem
+
+        if(user.pierwszyRaz==0){
+            wyswietlFabule();
+        }
+
 
 
         coordinatesDialog = new Dialog(this);
@@ -151,6 +157,56 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
+
+    }
+
+    private void wyswietlFabule() {
+        final Dialog fabulaDialog = new Dialog(this);
+        fabulaDialog.setCanceledOnTouchOutside(false);
+        fabulaDialog.setCancelable(true);
+        fabulaDialog.setContentView(R.layout.popup_fabula);
+        fabulaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        final Button tak = (Button)fabulaDialog.findViewById(R.id.takFabula);
+        final Button nie = (Button)fabulaDialog.findViewById(R.id.nieFabula);
+
+        final Context cxt = this;
+
+
+        tak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog fabulaDialog2 = new Dialog(cxt);
+                fabulaDialog2.setCanceledOnTouchOutside(false);
+                fabulaDialog2.setCancelable(true);
+                fabulaDialog2.setContentView(R.layout.popup_fabula2);
+                fabulaDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+                final Button ok = (Button)fabulaDialog2.findViewById(R.id.okFabula2);
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        user.otworzone();
+                         fabulaDialog.dismiss();
+                         fabulaDialog2.dismiss();
+
+                    }
+                });
+            fabulaDialog2.show();
+
+            }
+        });
+
+        nie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+
+            }
+        });
+
+        fabulaDialog.show();
 
     }
 
@@ -297,33 +353,34 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         }
 
         //Zakonczone
-        Bitmap icon2=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20002pom);
-        icon2=Bitmap.createScaledBitmap(icon2,190,105,false);
-        for(int i=0;i<zagadkiLista.size();i++) {
-            if(user.jestWRozwiazanych(zagadkiLista.get(i).index)){             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
-                LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
-                MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
 
-                Marker marker = mMap.addMarker(markerOptions);
+        if(user.zagadkiRozwiazane!=null) {
+            Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
+            icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
+            for (int i = 0; i < zagadkiLista.size(); i++) {
+                if (user.jestWRozwiazanych(zagadkiLista.get(i).index)) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
+                    LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
+                    MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
 
-                marker.setTag(i);
-                CircleOptions circleOptions = new CircleOptions();
-                circleOptions.center(point);
+                    Marker marker = mMap.addMarker(markerOptions);
 
-                circleOptions.strokeColor(Color.BLACK);
-                if(zagadkiLista.get(i).typ==5) {
-                    circleOptions.radius(60);
-                    circleOptions.fillColor(Color.argb(99,6, 37, 74));
+                    marker.setTag(i);
+                    CircleOptions circleOptions = new CircleOptions();
+                    circleOptions.center(point);
+
+                    circleOptions.strokeColor(Color.BLACK);
+                    if (zagadkiLista.get(i).typ == 5) {
+                        circleOptions.radius(60);
+                        circleOptions.fillColor(Color.argb(99, 6, 37, 74));
+                    } else {
+                        circleOptions.radius(50);
+                        circleOptions.fillColor(Color.argb(75, 51, 153, 255));
+                    }
+
+                    circleOptions.strokeWidth(1);
+                    circleOptions.strokeColor(TRANSPARENT);
+                    mMap.addCircle(circleOptions);
                 }
-                else
-                {
-                    circleOptions.radius(50);
-                    circleOptions.fillColor(Color.argb(75,51,153,255));
-                }
-
-                circleOptions.strokeWidth(1);
-                circleOptions.strokeColor(TRANSPARENT);
-                mMap.addCircle(circleOptions);
             }
         }
 
@@ -453,7 +510,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
         LatLng wroclaw = new LatLng(51.105171, 17.037821);
-        float zoomLevel = 16.0f;
+        float zoomLevel = 14.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
@@ -570,10 +627,22 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
-           ustawDialogi();
-       zagadkiLista.get(ktory).setContext(this);
-        zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
-        sound.spotSound();
+
+          if(user.jestWAktywnych(zagadkiLista.get(ktory).index)){
+              Log.w("Jest w aktywnych ", ktory+"");
+              ustawDialogi();
+              zagadkiLista.get(ktory).setContext(this);
+              zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
+              sound.spotSound();
+          }
+        if(user.jestWRozwiazanych(zagadkiLista.get(ktory).index)){
+            Log.w("Jest w rozwiazanych ", ktory+"");
+              ustawDialogi();
+              zagadkiLista.get(ktory).setContext(this);
+              zagadkiLista.get(ktory).showCiekawostka(doWszystkiego,curiosityDialog);
+              sound.spotSound();
+          }
+
         return false;
     }
 
@@ -596,6 +665,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         curiosityDialog.setCancelable(true);
         curiosityDialog.setContentView(R.layout.popup_ciekawostka);
         curiosityDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
     }
 
     public void dispatchTakePictureIntent() {
