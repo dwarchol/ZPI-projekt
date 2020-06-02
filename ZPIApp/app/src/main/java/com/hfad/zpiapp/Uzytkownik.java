@@ -148,4 +148,13 @@ public class Uzytkownik implements Serializable {
         return false;
     }
 
+    public boolean jestWRozwiazanych(int i){
+        for(Integer zagadka: zagadkiRozwiazane){
+            if(zagadka.equals(new Integer(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
