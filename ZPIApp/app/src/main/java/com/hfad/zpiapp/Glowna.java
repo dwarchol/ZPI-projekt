@@ -365,21 +365,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                     Marker marker = mMap.addMarker(markerOptions);
 
                     marker.setTag(i);
-                    CircleOptions circleOptions = new CircleOptions();
-                    circleOptions.center(point);
-
-                    circleOptions.strokeColor(Color.BLACK);
-                    if (zagadkiLista.get(i).typ == 5) {
-                        circleOptions.radius(60);
-                        circleOptions.fillColor(Color.argb(99, 6, 37, 74));
-                    } else {
-                        circleOptions.radius(50);
-                        circleOptions.fillColor(Color.argb(75, 51, 153, 255));
-                    }
-
-                    circleOptions.strokeWidth(1);
-                    circleOptions.strokeColor(TRANSPARENT);
-                    mMap.addCircle(circleOptions);
                 }
             }
         }
