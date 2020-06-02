@@ -152,7 +152,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
-        
+
 
     }
 

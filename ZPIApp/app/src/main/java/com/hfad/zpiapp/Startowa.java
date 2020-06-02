@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -81,10 +80,15 @@ public class Startowa extends AppCompatActivity{
         vv.start();*/
         MediaController mc = new MediaController(this);
         mc.setVisibility(View.GONE);
-        String dPath="android.resource://"+getPackageName()+"/"+R.raw.start_animation;
-        Uri uri = Uri.parse(dPath);
+        String dPath;
+       if( AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_NO) {
+           dPath= "android.resource://" + getPackageName() + "/" + R.raw.start_animation;
+       }
+       else {
+           dPath = "android.resource://" + getPackageName() + "/" + R.raw.start_animation_night;
+       }
         TextureVideoView mVideoView =(TextureVideoView)findViewById(R.id.video_view);
-        mVideoView.setVideoURI();
+        mVideoView.setVideoPath(dPath);
 
         mVideoView.setMediaController(mc);
         mVideoView.start();
@@ -254,7 +258,11 @@ public class Startowa extends AppCompatActivity{
         editor.apply();
     }
 
-
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        recreate();
+    }
 
     public void registerMethod(View view)
     {
