@@ -1,6 +1,8 @@
 package com.hfad.zpiapp;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,10 +23,10 @@ public class Uzytkownik implements Serializable {
     {
         login="";
         password="";
-        wspolrzedne =" _ _° _ _ . _ _ _ \" N _ _° _ _ . _ _ _ \" E";
+        wspolrzedne =" _ _ ° _ _ . _ _ _ \" N _ _ ° _ _ . _ _ _ \" E";
         Integer [] wsp = {5,7,1,2,1,2,3,1,4,9,8,7,6,5};
         wspolrzedneDoDostania= new ArrayList<Integer>(Arrays.asList(wsp));
-        Integer [] kolejny ={1,1,6,7,1,1,4,5,1,3,1,2,1,1};
+        Integer [] kolejny ={1,1,6,6,1,1,4,4,1,3,1,2,1,1};
         kolejneMiejsca = new ArrayList<Integer>(Arrays.asList(kolejny));
     }
     public Uzytkownik(String l, String p, ArrayList<Integer> zagadkiW,  ArrayList<Integer> zagadkiR, String wspolrzedne, ArrayList<Integer> wsp, ArrayList<Integer> kol)
@@ -46,10 +48,10 @@ public class Uzytkownik implements Serializable {
 
         zagadkiRozwiazane = new ArrayList<>(11);
         zagadkiAktualne = new ArrayList<>();
-        wspolrzedne =" _ _° _ _ . _ _ _ \" N _ _° _ _ . _ _ _ \" E";
+        wspolrzedne =" _ _ ° _ _ . _ _ _ \" N _ _ ° _ _ . _ _ _ \" E";
         Integer [] wsp = {5,7,1,2,1,2,3,1,4,9,8,7,6,5};
         wspolrzedneDoDostania= new ArrayList<Integer>(Arrays.asList(wsp));
-        Integer [] kolejny ={1,1,6,7,1,1,4,5,1,3,1,2,1,1};
+        Integer [] kolejny ={1,1,6,6,1,1,4,4,1,3,1,2,1,1};
         kolejneMiejsca = new ArrayList<Integer>(Arrays.asList(kolejny));
         for(int i=10;i<101;i=i+10){
             zagadkiAktualne.add(i);
@@ -77,7 +79,6 @@ public class Uzytkownik implements Serializable {
 
     public void setRozwiazana(int i, int nastepna)
     {
-        Log.println(Log.ASSERT, "Reasuming", "chuj");
         if(zagadkiRozwiazane==null)
         {
             zagadkiRozwiazane=new ArrayList<>(11);
@@ -92,11 +93,17 @@ public class Uzytkownik implements Serializable {
                 uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
                 wspolrzedneDoDostania.remove(miejsce - 1);
                 kolejneMiejsca.remove(0);
-                if (i == 53 || i == 62 || i == 82 || i == 12) {
+                if (!(i == 53 || i == 62 || i == 82 || i == 12)) {
+                    miejsce = kolejneMiejsca.get(0);
                     uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
                     wspolrzedneDoDostania.remove(miejsce - 1);
                     kolejneMiejsca.remove(0);
                 }
+            }
+            if(zagadkiRozwiazane.size() == 47)
+            {
+                /////////////////////////////////////////////////////////////////////////////////////////sama koncowka
+               // zagadkiAktualne.add(1000);
             }
 
         uaktualnijWBazie();
@@ -113,6 +120,8 @@ public class Uzytkownik implements Serializable {
     public void uzupelnijNapisOCyfre(Integer cyfra, Integer miejsce)
     {
         StringBuilder sB = new StringBuilder("");
+        Log.println(Log.ASSERT, "cyfra", cyfra.toString());
+        Log.println(Log.ASSERT, "miejsce", miejsce.toString());
         for(int i = 0; i < wspolrzedne.length(); i ++)
         {
 
@@ -122,7 +131,7 @@ public class Uzytkownik implements Serializable {
                 if(miejsce == 0)
                 {
                     sB.append(wspolrzedne.substring(0,i));
-                    sB.append(cyfra + '0');
+                    sB.append(cyfra);
                     sB.append(wspolrzedne.substring(i+1));
                 }
             }

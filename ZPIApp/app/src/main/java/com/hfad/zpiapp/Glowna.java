@@ -80,6 +80,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     int obecnaZagadka = 0;
     boolean isInBackground;
     Powiadomienie powiadomienie;
+  //  TextView wspolrzedneUzytkownika;
+    View customView;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -115,9 +117,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        View customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
-        TextView wspolrzedneUzytkownka = customView.findViewById(R.id.coordinates);
-        wspolrzedneUzytkownka.setText(user.wspolrzedne);
+        customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
+        TextView wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
+        wspolrzedneUzytkownika.setText(user.wspolrzedne);
         getSupportActionBar().setCustomView(customView);
         Toolbar parent = (Toolbar) customView.getParent();
         parent.setPadding(0,0,0,0);
@@ -153,6 +155,16 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
 
+    public void actualiseCoordinatesText()
+    {
+        TextView wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
+        wspolrzedneUzytkownika.setText(user.wspolrzedne);
+        customView.refreshDrawableState();
+        Log.println(Log.ASSERT, "userws", user.wspolrzedne);
+       // Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
+        //Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onMoveToForeground() {
         // app moved to foreground
@@ -177,6 +189,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         {
             forceGPSOn();
         }
+    }
+
+    public void onStart()
+    {
+        actualiseCoordinatesText();
+        super.onStart();
+        Log.println(Log.ASSERT, "Reasuming", "ykhym");
+    }
+    public void onResume() {
+        actualiseCoordinatesText();
+        super.onResume();
+        Log.println(Log.ASSERT, "Reasuming", "frr");
     }
 
     public void forceGPSOn()
@@ -238,7 +262,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void drawMapsStartowe(){
         //checkGPS();
         mMap.setOnMarkerClickListener(this);
-
+        actualiseCoordinatesText();
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,190,105,false);
         for(int i=0;i<zagadkiLista.size();i++) {
@@ -415,6 +439,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         {
             if(zagadkiLista.get(i).index == kolejnaZagadkaDoPokazania && !popUpSemafor)
             {
+                Log.println(Log.ASSERT, "Reasuming", "no szlak czemu nie działasz?");
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
                 if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
