@@ -128,6 +128,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         if(user.pierwszyRaz==0){
             wyswietlFabule();
+           // user.pierwszyRaz = 1;
         }
 
 

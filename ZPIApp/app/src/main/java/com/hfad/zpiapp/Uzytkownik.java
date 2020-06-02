@@ -84,6 +84,10 @@ public class Uzytkownik implements Serializable {
 
     public void setWspolrzedne(String  wsp) {this.wspolrzedne = wsp;}
 
+    public int getPierwszyRaz() { return pierwszyRaz;}
+
+    public void setPierwszyRaz(int pR) { pierwszyRaz = pR;}
+
     public void otworzone(){
         pierwszyRaz=1;
     }
