@@ -39,14 +39,11 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     @Override
     public boolean sprawdz(String str) {
-        Log.println(Log.ASSERT, "liczonko", str);
         String[] wsp = str.split(",");
         wsp[0] = wsp[0].substring(0,9);
         wsp[1] = wsp[1].substring(0,9);
-        Log.println(Log.ASSERT, "liczonko", wsp[0]);
         double lat = Double.parseDouble(wsp[0]);
         double lng = Double.parseDouble(wsp[1]);
-        Log.println(Log.ASSERT, "liczonko", Double.toString(lat));
 
         if (poprawnaOdpowiedz == null) {
 
@@ -113,7 +110,6 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                 d.dismiss();
                 if(czyPoprawnaOdp)
                 {
-                    Log.println(Log.ASSERT, "Reasuming", "chujchuj");
                     //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
                     ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                     ((Glowna) ctx).popUpSemafor=false;

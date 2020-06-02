@@ -123,6 +123,13 @@ public abstract class Zagadka {
             public void onClick(View view) {
                 curD.dismiss();
               //  ((Glowna)ctx).user.uaktualnijWBazie();
+                if(nastepna != -1) {
+                    curD.dismiss();
+                }
+                else
+                {
+                    ((Glowna)ctx).coordinatesMethod(null);
+                }
 
 
             }

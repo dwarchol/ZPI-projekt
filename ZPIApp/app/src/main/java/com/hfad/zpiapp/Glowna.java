@@ -510,13 +510,11 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     public void showNext(int kolejnaZagadkaDoPokazania)
     {
-        Log.println(Log.ASSERT, "Reasuming", "kurwa mać");
         boolean czyDzwiek = true;
         for(int i = 0; i < zagadkiLista.size(); i++)
         {
             if(zagadkiLista.get(i).index == kolejnaZagadkaDoPokazania && !popUpSemafor)
             {
-                Log.println(Log.ASSERT, "Reasuming", "no szlak czemu nie działasz?");
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
                 if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
