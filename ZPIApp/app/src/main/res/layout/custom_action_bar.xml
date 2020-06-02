@@ -42,7 +42,7 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="10dp"
             android:gravity="bottom"
-            android:text="@string/coordinatesText"
+
             android:textColor="@color/textColor"
             android:textSize="12dp"
 

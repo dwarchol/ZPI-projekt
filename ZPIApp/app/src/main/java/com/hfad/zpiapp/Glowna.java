@@ -68,6 +68,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     protected LocationManager locationManager;
     private String provider;
     Dialog doWszystkiego;
+    TextView wspolrzedneUzytkownika;
     int gpsOn;
     Dialog badAnswerDialog;
     AlertDialog GPSdialog;
@@ -114,17 +115,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             Log.println(Log.ASSERT, "Reasuming", "PermissionNot");
         }
 
-        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
-        TextView wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
-        wspolrzedneUzytkownika.setText(user.wspolrzedne);
-        getSupportActionBar().setCustomView(customView);
-        Toolbar parent = (Toolbar) customView.getParent();
-        parent.setPadding(0,0,0,0);
-        parent.setContentInsetsAbsolute(0,0);
-
+        prepareToolbar();
         //Za pierwszym razem
+
+
 
         if(user.pierwszyRaz==0){
             wyswietlFabule();
@@ -158,6 +152,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             }
         });
         Log.w("ZAGADKI", "" +zagadkiLista.size());
+        user.wspolrzedne="tararara";
 
     }
 
@@ -214,10 +209,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     public void actualiseCoordinatesText()
     {
-        TextView wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
+
+         //wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
         wspolrzedneUzytkownika.setText(user.wspolrzedne);
-        customView.refreshDrawableState();
+        wspolrzedneUzytkownika.refreshDrawableState();
         Log.println(Log.ASSERT, "userws", user.wspolrzedne);
+        //Log.println(Log.ASSERT, "userws", wspolrzedneUzytkownika.getText().toString());
        // Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
         //Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
     }
@@ -250,14 +247,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     public void onStart()
     {
-        actualiseCoordinatesText();
         super.onStart();
-        Log.println(Log.ASSERT, "Reasuming", "ykhym");
+      //  actualiseCoordinatesText();
+
+      //  Log.println(Log.ASSERT, "Reasuming", "ykhym");
     }
     public void onResume() {
-        actualiseCoordinatesText();
         super.onResume();
-        Log.println(Log.ASSERT, "Reasuming", "frr");
+
+      //  actualiseCoordinatesText();
+//wspolrzedneUzytkownika.setText(user.wspolrzedne);
+
+  //      Log.println(Log.ASSERT, "Reasuming", user.getLogin());
     }
 
     public void forceGPSOn()
@@ -689,12 +690,25 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
     }
-
+public void prepareToolbar()
+{
+    this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+    getSupportActionBar().setDisplayShowCustomEnabled(true);
+    customView = getLayoutInflater().inflate(R.layout.custom_action_bar,null);
+    wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
+    wspolrzedneUzytkownika.setText(user.wspolrzedne);
+    getSupportActionBar().setCustomView(customView);
+    Toolbar parent = (Toolbar) customView.getParent();
+    parent.setPadding(0,0,0,0);
+    parent.setContentInsetsAbsolute(0,0);
+}
+@SuppressLint("WrongConstant")
 @Override
 public void onRestart()
 {
     super.onRestart();
-    this.getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+    prepareToolbar();
+
     this.drawMapsStartowe();
 }
 }
