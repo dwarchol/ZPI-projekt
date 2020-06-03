@@ -325,7 +325,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         //Aktualne
         Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
         icon=Bitmap.createScaledBitmap(icon,190,105,false);
-        for(int i=0;i<zagadkiLista.size();i++) {
+       // user.zagadkiAktualne.add(999);
+
+        for(int i=0;i<zagadkiLista.size()-1;i++) {
             if(user.jestWAktywnych(zagadkiLista.get(i).index)){             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
                 LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                 MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
@@ -338,6 +340,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 circleOptions.center(point);
 
                 circleOptions.strokeColor(Color.BLACK);
+
                 if(zagadkiLista.get(i).typ==5) {
                     circleOptions.radius(60);
                     circleOptions.fillColor(Color.argb(99,6, 37, 74));
@@ -348,9 +351,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                     circleOptions.fillColor(Color.argb(75,51,153,255));
                 }
 
-                circleOptions.strokeWidth(1);
-                circleOptions.strokeColor(TRANSPARENT);
-                mMap.addCircle(circleOptions);
             }//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
@@ -370,8 +370,40 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
+       // if(user.zagadkiAktualne.isEmpty()){
+Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
+        Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20003pom);
+        icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
+        LatLng point = new LatLng(zagadkiLista.get(zagadkiLista.size()-1).wspolrzednaLat, zagadkiLista.get(zagadkiLista.size()-1).wspolrzednaLng);
+        MarkerOptions markerOptions =
+                new MarkerOptions().position(point).title(zagadkiLista.get(zagadkiLista.size()-1).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
+
+        Marker marker = mMap.addMarker(markerOptions);
+
+        marker.setTag(zagadkiLista.size()-1);
+        //}
+        CircleOptions circleOptions = new CircleOptions();
+        circleOptions.center(point);
+
+        circleOptions.strokeColor(Color.YELLOW);
+
+            circleOptions.strokeColor(Color.RED);
+            circleOptions.radius(50);
+            circleOptions.fillColor(Color.argb(75,100,10,10));
+            Log.w("kolorek","yyyh");
 
 
+       /* Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
+        icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
+
+                MarkerOptions markerOptions2 =
+                        new MarkerOptions().position(point).title(zagadkiLista.get(zagadkiLista.size()-1).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
+
+                Marker marker2 = mMap.addMarker(markerOptions2);
+
+                marker2.setTag(zagadkiLista.size()-1);*/
+
+  //  }
     }
 
     public void settingsMethod(View view)
@@ -624,6 +656,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             Log.w("Jest w rozwiazanych ", ktory+"");
               ustawDialogi();
               zagadkiLista.get(ktory).setContext(this);
+
               zagadkiLista.get(ktory).showCiekawostka(doWszystkiego,curiosityDialog);
               sound.spotSound();
           }
@@ -690,6 +723,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
     }
+@SuppressLint("WrongConstant")
 public void prepareToolbar()
 {
     this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
