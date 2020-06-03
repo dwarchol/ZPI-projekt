@@ -370,7 +370,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
-       // if(user.zagadkiAktualne.isEmpty()){
+        if(user.zagadkiAktualne.isEmpty()){///zeby bylo na koniec
 Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
         Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20003pom);
         icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
@@ -403,7 +403,7 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
 
                 marker2.setTag(zagadkiLista.size()-1);*/
 
-  //  }
+   }
     }
 
     public void settingsMethod(View view)
