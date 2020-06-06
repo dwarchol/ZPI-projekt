@@ -87,6 +87,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     //  TextView wspolrzedneUzytkownika;
     View customView;
     Dialog koniec;
+    Dialog zaDaleko;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -138,6 +139,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         koniec = new Dialog(this);
         koniec.setCancelable(true);
         koniec.setCanceledOnTouchOutside(false);
+
+        zaDaleko = new Dialog(this);
+        zaDaleko.setCancelable(true);
+        zaDaleko.setCanceledOnTouchOutside(false);
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
@@ -400,6 +405,20 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         koniec.show();
     }
 
+    public void pokazZaDaleko()
+    {
+        zaDaleko.setContentView(R.layout.popup_za_daleko);
+        zaDaleko.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        Button zD = (Button) zaDaleko.findViewById(R.id.closeZaDaleko);
+        zD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                zaDaleko.dismiss();
+            }
+        });
+        zaDaleko.show();
+    }
+
     public void settingsMethod(View view) {
         saveZoom();
         final Intent settingsIntent = new Intent(this, Ustawienia.class);
@@ -641,9 +660,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         if (user.jestWRozwiazanych(zagadkiLista.get(ktory).index)) {
             Log.w("Jest w rozwiazanych ", ktory + "");
             ustawDialogi();
-            zagadkiLista.get(ktory).setContext(this);
+            //zagadkiLista.get(ktory).setContext(this);
 
-            zagadkiLista.get(ktory).showCiekawostka(doWszystkiego, curiosityDialog,this);
+            zagadkiLista.get(ktory).showCiekawostka(curiosityDialog,this);
 
         }
 

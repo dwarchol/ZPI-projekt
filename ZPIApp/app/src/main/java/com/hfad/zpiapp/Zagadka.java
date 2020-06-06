@@ -60,9 +60,20 @@ public abstract class Zagadka {
    // abstract public PopupWindow showPopUp(LayoutInflater inflater);
    abstract public void showPopUp(Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD);
 
-    public void showCiekawostka(Dialog d, final Dialog curD,  Context ctx){
+    public void showCiekawostka(final Dialog curD,  Context ctx){
         ((Glowna)ctx).popUpSemafor=false;
-        showCuriosity(curD,ctx);
+        final Button closeCuriosity = (Button)curD.findViewById(R.id.closeCoiekawostka);
+        TextView curiosityText = (TextView)curD.findViewById(R.id.ciekawostka_text);
+        curiosityText.setText(ciekawostka);
+        ((Glowna)ctx).mMap.clear();
+        ((Glowna)ctx).drawMapsStartowe();
+        closeCuriosity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                curD.dismiss();
+            }
+        });
+        curD.show();
     }
 
 
