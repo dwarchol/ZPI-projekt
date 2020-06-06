@@ -95,6 +95,7 @@ public class Uzytkownik implements Serializable {
 
     public void setRozwiazana(int i, int nastepna)
     {
+        Log.println(Log.ASSERT, "Reasuming", "rozwiazane");
         if(zagadkiRozwiazane==null)
         {
             zagadkiRozwiazane=new ArrayList<>(11);
@@ -116,11 +117,6 @@ public class Uzytkownik implements Serializable {
                     kolejneMiejsca.remove(0);
                 }
             }
-            if(zagadkiRozwiazane.size() == 47)
-            {
-                /////////////////////////////////////////////////////////////////////////////////////////sama koncowka
-               // zagadkiAktualne.add(1000);
-            }
 
         uaktualnijWBazie();
     }
@@ -129,6 +125,7 @@ public class Uzytkownik implements Serializable {
 
     public void uaktualnijWBazie()
     {
+        Log.println(Log.ASSERT, "Reasuming", "uaktualnij");
        FirebaseDB fbdb = new FirebaseDB(this);
        fbdb.updateUser();
     }

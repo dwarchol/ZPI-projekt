@@ -83,6 +83,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     Powiadomienie powiadomienie;
   //  TextView wspolrzedneUzytkownika;
     View customView;
+    Dialog koniec;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -133,6 +134,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         doWszystkiego = new Dialog(this);
 
+        koniec = new Dialog(this);
+        koniec.setCancelable(true);
+        koniec.setCanceledOnTouchOutside(false);
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
@@ -209,14 +213,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     public void actualiseCoordinatesText()
     {
-
-         //wspolrzedneUzytkownika = customView.findViewById(R.id.coordinates);
         wspolrzedneUzytkownika.setText(user.wspolrzedne);
         wspolrzedneUzytkownika.refreshDrawableState();
         Log.println(Log.ASSERT, "userws", user.wspolrzedne);
-        //Log.println(Log.ASSERT, "userws", wspolrzedneUzytkownika.getText().toString());
-       // Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
-        //Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -243,22 +242,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         {
             forceGPSOn();
         }
-    }
-
-    public void onStart()
-    {
-        super.onStart();
-      //  actualiseCoordinatesText();
-
-      //  Log.println(Log.ASSERT, "Reasuming", "ykhym");
-    }
-    public void onResume() {
-        super.onResume();
-
-      //  actualiseCoordinatesText();
-//wspolrzedneUzytkownika.setText(user.wspolrzedne);
-
-  //      Log.println(Log.ASSERT, "Reasuming", user.getLogin());
     }
 
     public void forceGPSOn()
@@ -360,7 +343,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
             icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
             for (int i = 0; i < zagadkiLista.size(); i++) {
-                if (user.jestWRozwiazanych(zagadkiLista.get(i).index)) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
+                if (user.jestWRozwiazanych(zagadkiLista.get(i).index) && zagadkiLista.get(i).typ!=5) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
                     LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                     MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
 
@@ -370,7 +353,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
-        if(user.zagadkiAktualne.isEmpty()){///zeby bylo na koniec
+        if(user.zagadkiAktualne.isEmpty() && user.zagadkiRozwiazane.size() == 47){///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
+
+           // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
 Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
         Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20003pom);
         icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
@@ -406,6 +391,18 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
    }
     }
 
+    public void pokazKoniec()
+    {
+        koniec.setContentView(R.layout.popup_koniec_gry);
+        koniec.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        Button kon = (Button) koniec.findViewById(R.id.closeKoniecGry);
+        kon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                koniec.dismiss();
+            }});
+        koniec.show();
+    }
     public void settingsMethod(View view)
     {
         final Intent settingsIntent=new Intent(this,Ustawienia.class);

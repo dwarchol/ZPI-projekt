@@ -110,12 +110,15 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                 d.dismiss();
                 if(czyPoprawnaOdp)
                 {
-                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-                    ((Glowna) ctx).user.setRozwiazana(index,nastepna);
-                    ((Glowna) ctx).popUpSemafor=false;
-
-                    showCongratulations(cD,curD,ctx);
-                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
+                    ((Glowna) ctx).user.setRozwiazana(index, nastepna);
+                    ((Glowna) ctx).popUpSemafor = false;
+                    if(index==999)
+                    {
+                        ((Glowna) ctx).pokazKoniec();
+                    }
+                    else {
+                        showCongratulations(cD, curD, ctx);
+                    }
                 }
                 else
                 {
