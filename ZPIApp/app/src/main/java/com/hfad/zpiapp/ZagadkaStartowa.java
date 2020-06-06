@@ -36,7 +36,7 @@ public class ZagadkaStartowa extends Zagadka{
         double lng = Double.parseDouble(wsp[1]);
 
         double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
-        if(distance<0.01){
+        if(distance<0.002){
             ((Glowna) ctx).popUpSemafor=false;
             return true;
         }
@@ -66,12 +66,26 @@ public class ZagadkaStartowa extends Zagadka{
        closeDialog.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               ((Glowna)ctx).popUpSemafor=false;
-               ((Glowna) ctx).showNext(nastepna);
-               ((Glowna) ctx).user.setRozwiazana(index,nastepna);
-               ((Glowna)ctx).mMap.clear();
-               ((Glowna)ctx).drawMapsStartowe();
+               String mojaOdp = ((Glowna)ctx).obecneWspolrzedne;
+               if(mojaOdp==null)
+               {
+                   Log.println(Log.ASSERT, "null", "null");
+               }
+               boolean czyPoprawnaOdp = sprawdz(mojaOdp);
                d.dismiss();
+               if(czyPoprawnaOdp) {
+                   ((Glowna) ctx).popUpSemafor = false;
+                   ((Glowna) ctx).showNext(nastepna);
+                   ((Glowna) ctx).user.setRozwiazana(index, nastepna);
+               }
+               else
+               {
+                   ((Glowna) ctx).popUpSemafor=false;
+                   ((Glowna)ctx).pokazZaDaleko();
+               }
+               ((Glowna) ctx).mMap.clear();
+               ((Glowna) ctx).drawMapsStartowe();
+
            }
        });
 
@@ -79,6 +93,7 @@ public class ZagadkaStartowa extends Zagadka{
        close.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+
                ((Glowna)ctx).popUpSemafor=false;
              //  ((Glowna) ctx).showNext(nastepna);
               // ((Glowna) ctx).user.setRozwiazana(index,nastepna);
