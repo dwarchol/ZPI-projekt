@@ -2,18 +2,11 @@ package com.hfad.zpiapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark;
-import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmarkDetector;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.common.FirebaseVisionLatLng;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 
@@ -43,10 +36,9 @@ public class MLLandmark implements Runnable {
 
     @Override
     public void run() {
-       // Looper.prepare();
+
         System.out.println("Liczba cdl "+cdl.getCount());
-        //final CountDownLatch cdl2 = new CountDownLatch(1);
-        //Toast.makeText(ctx, "please work", Toast.LENGTH_LONG).show();
+
         detector.processImage(image)
                 .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                     @Override
@@ -59,14 +51,6 @@ public class MLLandmark implements Runnable {
 
                                 sb.append(text + " ");
                             }
-                            //System.out.println(index);
-                            //System.out.println("Something fucked up");
-                           // System.out.println(cdl.getCount());
-
-                            //System.out.println(sb.toString());
-                            // Toast.makeText(ctx, sb, Toast.LENGTH_LONG).show();
-
-                            // cdl2.countDown();
 
                         }finally {
                             cdl.countDown();
@@ -79,14 +63,14 @@ public class MLLandmark implements Runnable {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         sb.append("failure");
-                        //Toast.makeText(ctx,sb,Toast.LENGTH_LONG).show();
+
                       cdl.countDown();
-                      //cdl2.countDown();
+
                     }
                 });
 
         System.out.println("at the end "+cdl.getCount());
-       // sb.append("Skyscraper ");
+
     }
 
 }

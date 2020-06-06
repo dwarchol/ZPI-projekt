@@ -636,7 +636,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             zagadkiLista.get(ktory).setContext(this);
 
             zagadkiLista.get(ktory).showCiekawostka(doWszystkiego, curiosityDialog,this);
-            sound.spotSound();
+
         }
 
         return false;

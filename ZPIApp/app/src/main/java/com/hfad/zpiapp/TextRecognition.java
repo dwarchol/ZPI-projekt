@@ -2,18 +2,14 @@ package com.hfad.zpiapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.hardware.biometrics.BiometricPrompt;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
@@ -45,7 +41,7 @@ public class TextRecognition implements Runnable {
         List<FirebaseVisionText.TextBlock> blocks = textOnImage.getTextBlocks();
         if(blocks.size() == 0)
         {
-            Toast.makeText(ctx, "No text on image", Toast.LENGTH_LONG);
+
 
         }
         else
@@ -73,7 +69,7 @@ public class TextRecognition implements Runnable {
                 try {
                     textFromImage=takeTextFromImage(ctx,firebaseVisionText);
                 }finally {
-                    Toast.makeText(ctx,textFromImage,Toast.LENGTH_LONG).show();
+
                     cdl.countDown();
                 }
             }
