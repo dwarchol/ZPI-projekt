@@ -9,6 +9,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -67,6 +68,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     ArrayList<Zagadka> zagadkiLista = new ArrayList<Zagadka>();
     protected LocationManager locationManager;
     private String provider;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     Dialog doWszystkiego;
     TextView wspolrzedneUzytkownika;
     int gpsOn;
@@ -74,14 +77,15 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     AlertDialog GPSdialog;
     Dialog congratulationsDialog;
     Dialog curiosityDialog;
-    boolean popUpSemafor=false;
+    boolean popUpSemafor = false;
+    float zoom = 14.0F;
     static final int REQUEST_IMAGE_CAPTURE = 1; ////////////////////////////////////////////////////////////////do pobierania obrazu
     Bitmap myPhoto; ///////////////////////////////////////////////////////////////////////////////////////////trzymacz obrazu
     String obecneWspolrzedne;
     int obecnaZagadka = 0;
     boolean isInBackground;
     Powiadomienie powiadomienie;
-  //  TextView wspolrzedneUzytkownika;
+    //  TextView wspolrzedneUzytkownika;
     View customView;
     Dialog koniec;
 
@@ -91,14 +95,16 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         super.onCreate(savedInstanceState);
         checkGPS();
+        preferences = getApplicationContext().getSharedPreferences("APP_SETTINGS", 0);
+        editor = preferences.edit();
 
 
-        sound= new Odtwarzacz(this.getApplicationContext());
-        popUpSemafor=false;
-        user=(Uzytkownik)getIntent().getSerializableExtra("Uzytkownik");
+        sound = new Odtwarzacz(this.getApplicationContext());
+        popUpSemafor = false;
+        user = (Uzytkownik) getIntent().getSerializableExtra("Uzytkownik");
         //  user.odznaki.set(0,1);
         //user.uaktualnijWBazie();
-       // System.out.println(user.login);
+        // System.out.println(user.login);
         //Toast.makeText(this,user.login+" "+user.odznaki.size(),Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_glowna);
         this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -110,9 +116,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         try {
             locationManager.requestLocationUpdates(provider, 400, 1, this);
             Log.println(Log.ASSERT, "Reasuming", "End");
-        }
-        catch(SecurityException e)
-        {
+        } catch (SecurityException e) {
             Log.println(Log.ASSERT, "Reasuming", "PermissionNot");
         }
 
@@ -120,12 +124,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         //Za pierwszym razem
 
 
-
-        if(user.pierwszyRaz==0){
+        if (user.pierwszyRaz == 0) {
             wyswietlFabule();
-           // user.pierwszyRaz = 1;
+            // user.pierwszyRaz = 1;
         }
-
 
 
         coordinatesDialog = new Dialog(this);
@@ -144,18 +146,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
         powiadomienie = new Powiadomienie(this);
 
-        ZagadkaWybor zw=new ZagadkaWybor(doWszystkiego);
+        ZagadkaWybor zw = new ZagadkaWybor(doWszystkiego);
         ZagadkaReader zagadkaReader = new ZagadkaReader();
         zagadkaReader.readData(new MyCallback() {
             @Override
             public void onCallback(ArrayList<Zagadka> zag) {
                 Log.w("ktorereader", zag.get(0).getNazwa());
-                zagadkiLista=zag;
-              //  drawMaps();
+                zagadkiLista = zag;
+                //  drawMaps();
                 drawMapsStartowe();
             }
         });
-        Log.w("ZAGADKI", "" +zagadkiLista.size());
+        Log.w("ZAGADKI", "" + zagadkiLista.size());
 
 
     }
@@ -167,8 +169,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         fabulaDialog.setContentView(R.layout.popup_fabula);
         fabulaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
-        final Button tak = (Button)fabulaDialog.findViewById(R.id.takFabula);
-        final Button nie = (Button)fabulaDialog.findViewById(R.id.nieFabula);
+        final Button tak = (Button) fabulaDialog.findViewById(R.id.takFabula);
+        final Button nie = (Button) fabulaDialog.findViewById(R.id.nieFabula);
 
         final Context cxt = this;
 
@@ -182,18 +184,18 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 fabulaDialog2.setContentView(R.layout.popup_fabula2);
                 fabulaDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
-                final Button ok = (Button)fabulaDialog2.findViewById(R.id.okFabula2);
+                final Button ok = (Button) fabulaDialog2.findViewById(R.id.okFabula2);
 
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         user.otworzone();
-                         fabulaDialog.dismiss();
-                         fabulaDialog2.dismiss();
+                        fabulaDialog.dismiss();
+                        fabulaDialog2.dismiss();
 
                     }
                 });
-            fabulaDialog2.show();
+                fabulaDialog2.show();
 
             }
         });
@@ -211,8 +213,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
 
-    public void actualiseCoordinatesText()
-    {
+    public void actualiseCoordinatesText() {
         wspolrzedneUzytkownika.setText(user.wspolrzedne);
         wspolrzedneUzytkownika.refreshDrawableState();
         Log.println(Log.ASSERT, "userws", user.wspolrzedne);
@@ -221,34 +222,30 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onMoveToForeground() {
         // app moved to foreground
-        isInBackground=false;
+        isInBackground = false;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onMoveToBackground() {
         // app moved to background
-        isInBackground =true;
+        isInBackground = true;
     }
-    public void checkGPS()
-    {
+
+    public void checkGPS() {
         try {
             gpsOn = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+        } catch (Exception e) {
+            Log.i("GPS Failure", "Sum Ting Wong");
         }
-        catch(Exception e)
-        {
-            Log.i("GPS Failure","Sum Ting Wong");
-        }
-        if(gpsOn==0)
-        {
+        if (gpsOn == 0) {
             forceGPSOn();
         }
     }
 
-    public void forceGPSOn()
-    {
+    public void forceGPSOn() {
 
 
-       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("GPS jest wyłączony!");
         builder.setMessage("Do użytkowania aplikacji niezbędna jest włączona lokalizacja, czy chcesz ją włączyć?");
         builder.setPositiveButton("Włącz", new DialogInterface.OnClickListener() {
@@ -271,20 +268,19 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 dialog.dismiss();
             }
         });
-        GPSdialog=  builder.create();
+        GPSdialog = builder.create();
         GPSdialog.show();
-        if(GPSdialog.isShowing())
-        {
+        if (GPSdialog.isShowing()) {
             System.out.println("Mudafaka working");
         }
 
     }
 
 
-    public void drawMaps(){
+    public void drawMaps() {
         mMap.setOnMarkerClickListener(this);
-        for(int i=0;i<zagadkiLista.size();i++){
-           // Log.w("lista_punktow",zagadkiLista.get(i).toString());
+        for (int i = 0; i < zagadkiLista.size(); i++) {
+            // Log.w("lista_punktow",zagadkiLista.get(i).toString());
             LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
             MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa);
 
@@ -300,18 +296,19 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             mMap.addCircle(circleOptions);
         }
     }
-    public void drawMapsStartowe(){
+
+    public void drawMapsStartowe() {
         //checkGPS();
         mMap.setOnMarkerClickListener(this);
         actualiseCoordinatesText();
 
         //Aktualne
-        Bitmap icon=BitmapFactory.decodeResource(this.getResources(),R.drawable.marker20001);
-        icon=Bitmap.createScaledBitmap(icon,190,105,false);
-       // user.zagadkiAktualne.add(999);
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20001);
+        icon = Bitmap.createScaledBitmap(icon, 190, 105, false);
+        // user.zagadkiAktualne.add(999);
 
-        for(int i=0;i<zagadkiLista.size()-1;i++) {
-            if(user.jestWAktywnych(zagadkiLista.get(i).index)){             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
+        for (int i = 0; i < zagadkiLista.size() - 1; i++) {
+            if (user.jestWAktywnych(zagadkiLista.get(i).index)) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
                 LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                 MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon));
 
@@ -324,26 +321,25 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
                 circleOptions.strokeColor(Color.BLACK);
 
-                if(zagadkiLista.get(i).typ==5) {
+                if (zagadkiLista.get(i).typ == 5) {
                     circleOptions.radius(60);
-                    circleOptions.fillColor(Color.argb(99,6, 37, 74));
-                }
-                else
-                {
+                    circleOptions.fillColor(Color.argb(99, 6, 37, 74));
+                } else {
                     circleOptions.radius(50);
-                    circleOptions.fillColor(Color.argb(75,51,153,255));
+                    circleOptions.fillColor(Color.argb(75, 51, 153, 255));
                 }
-
+                circleOptions.strokeWidth(0);
+                mMap.addCircle(circleOptions);
             }//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
         //Zakonczone
 
-        if(user.zagadkiRozwiazane!=null) {
+        if (user.zagadkiRozwiazane != null) {
             Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
             icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
             for (int i = 0; i < zagadkiLista.size(); i++) {
-                if (user.jestWRozwiazanych(zagadkiLista.get(i).index) && zagadkiLista.get(i).typ!=5) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
+                if (user.jestWRozwiazanych(zagadkiLista.get(i).index) && zagadkiLista.get(i).typ != 5) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
                     LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                     MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
 
@@ -353,31 +349,31 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
-        if(user.zagadkiAktualne.isEmpty() && user.zagadkiRozwiazane.size() == 47){///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
+        if (user.zagadkiAktualne.isEmpty() && user.zagadkiRozwiazane.size() == 47) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
 
-           // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
-Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
-        Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20003pom);
-        icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
-        LatLng point = new LatLng(zagadkiLista.get(zagadkiLista.size()-1).wspolrzednaLat, zagadkiLista.get(zagadkiLista.size()-1).wspolrzednaLng);
-        MarkerOptions markerOptions =
-                new MarkerOptions().position(point).title(zagadkiLista.get(zagadkiLista.size()-1).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
+            // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
+            Log.i("ostatnia", zagadkiLista.get(zagadkiLista.size() - 1).nazwa);
+            Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20003pom);
+            icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
+            LatLng point = new LatLng(zagadkiLista.get(zagadkiLista.size() - 1).wspolrzednaLat, zagadkiLista.get(zagadkiLista.size() - 1).wspolrzednaLng);
+            MarkerOptions markerOptions =
+                    new MarkerOptions().position(point).title(zagadkiLista.get(zagadkiLista.size() - 1).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
 
-        Marker marker = mMap.addMarker(markerOptions);
+            Marker marker = mMap.addMarker(markerOptions);
 
-        marker.setTag(zagadkiLista.size()-1);
-        //}
-        CircleOptions circleOptions = new CircleOptions();
-        circleOptions.center(point);
+            marker.setTag(zagadkiLista.size() - 1);
+            //}
+            CircleOptions circleOptions = new CircleOptions();
+            circleOptions.center(point);
 
-        circleOptions.strokeColor(Color.YELLOW);
+            circleOptions.strokeColor(Color.YELLOW);
 
             circleOptions.strokeColor(Color.RED);
             circleOptions.radius(50);
-            circleOptions.fillColor(Color.argb(75,100,10,10));
-            Log.w("kolorek","yyyh");
+            circleOptions.fillColor(Color.argb(75, 100, 10, 10));
+            Log.w("kolorek", "yyyh");
 
-
+            mMap.addCircle(circleOptions);
        /* Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
         icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
 
@@ -388,11 +384,10 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
 
                 marker2.setTag(zagadkiLista.size()-1);*/
 
-   }
+        }
     }
 
-    public void pokazKoniec()
-    {
+    public void pokazKoniec() {
         koniec.setContentView(R.layout.popup_koniec_gry);
         koniec.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         Button kon = (Button) koniec.findViewById(R.id.closeKoniecGry);
@@ -400,17 +395,20 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
             @Override
             public void onClick(View view) {
                 koniec.dismiss();
-            }});
+            }
+        });
         koniec.show();
     }
-    public void settingsMethod(View view)
-    {
-        final Intent settingsIntent=new Intent(this,Ustawienia.class);
+
+    public void settingsMethod(View view) {
+        saveZoom();
+        final Intent settingsIntent = new Intent(this, Ustawienia.class);
         startActivity(settingsIntent);
 
     }
 
     public void userMethod(View view) {
+        saveZoom();
         final Intent userIntent = new Intent(this, KontoUzytkownika.class);
         ArrayList<String> ciek = new ArrayList<>();
         for (int i = 0; i < zagadkiLista.size(); i++) {
@@ -419,15 +417,14 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
 
         ArrayList<String> ciekawostkiToKonto = new ArrayList<>();
 
-        if(user.zagadkiRozwiazane==null)
-        {
-            Log.i("empty","xd");
-            user.zagadkiRozwiazane=new ArrayList<>(11);
+        if (user.zagadkiRozwiazane == null) {
+            Log.i("empty", "xd");
+            user.zagadkiRozwiazane = new ArrayList<>(11);
         }
         for (int i = 0; i < user.zagadkiRozwiazane.size(); i++) {
             for (int j = 0; j < zagadkiLista.size(); j++) {
                 if (user.zagadkiRozwiazane.get(i).equals(zagadkiLista.get(j).index)) {
-                    if(zagadkiLista.get(j).index%10!=0) {
+                    if (zagadkiLista.get(j).index % 10 != 0) {
                         ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
                     }
                 }
@@ -437,23 +434,22 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
             }
         }
 
-        userIntent.putExtra("ciekawostki",ciekawostkiToKonto);
+        userIntent.putExtra("ciekawostki", ciekawostkiToKonto);
         userIntent.putExtra("prog", user.zagadkiRozwiazane != null ? user.zagadkiRozwiazane.size() : 0);
         userIntent.putExtra("program", user.zagadkiRozwiazane);
-       // userIntent.putExtra("zagadki",zagadkiLista);
-                //userIntent.putExtra("ciekawostki",zagadkiLista!=null?zagadkiLista:new ArrayList());
-               // userIntent.putExtra("ciek",ciek!=null?zagadkiLista:new ArrayList());
+        // userIntent.putExtra("zagadki",zagadkiLista);
+        //userIntent.putExtra("ciekawostki",zagadkiLista!=null?zagadkiLista:new ArrayList());
+        // userIntent.putExtra("ciek",ciek!=null?zagadkiLista:new ArrayList());
         startActivity(userIntent);
     }
 
-    public void coordinatesMethod(View view)
-    {
+    public void coordinatesMethod(View view) {
         coordinatesDialog.setContentView(R.layout.custom_popup_coordinates);
         coordinatesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         Button closeDialog = (Button) coordinatesDialog.findViewById(R.id.closeCoordinates);
         TextView wspolrzedneNapis = coordinatesDialog.findViewById(R.id.coordinates_text);
         StringBuilder sB = new StringBuilder("");
-        sB.append(user.wspolrzedne.substring(0,22));
+        sB.append(user.wspolrzedne.substring(0, 22));
         sB.append("\n");
         sB.append(user.wspolrzedne.substring(23));
         wspolrzedneNapis.setText(sB.toString());
@@ -467,43 +463,35 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
 
     }
 
-    public void onBackPressed()
-    {
-        if(coordinatesDialog.isShowing())
-        {
+    public void onBackPressed() {
+        if (coordinatesDialog.isShowing()) {
             coordinatesDialog.dismiss();
             return;
         }
-        if(doWszystkiego!=null && doWszystkiego.isShowing())
-        {
+        if (doWszystkiego != null && doWszystkiego.isShowing()) {
             doWszystkiego.dismiss();
-            popUpSemafor=false;
+            popUpSemafor = false;
             System.out.println(popUpSemafor);
         }
-        if(badAnswerDialog!=null && badAnswerDialog.isShowing())
-        {
+        if (badAnswerDialog != null && badAnswerDialog.isShowing()) {
             badAnswerDialog.dismiss();
-            popUpSemafor=false;
+            popUpSemafor = false;
             System.out.println(popUpSemafor);
         }
-        if(congratulationsDialog!=null && congratulationsDialog.isShowing())
-        {
+        if (congratulationsDialog != null && congratulationsDialog.isShowing()) {
             congratulationsDialog.dismiss();
-            popUpSemafor=false;
+            popUpSemafor = false;
             System.out.println(popUpSemafor);
 
         }
 
 
-            super.onBackPressed();
-
-
-
+        super.onBackPressed();
 
 
     }
 
-    public void initMap(){
+    public void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapGoogle);
         mapFragment.getMapAsync(this);
@@ -512,12 +500,12 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         //Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT).show();
-        Log.d("Glowna","onMapReady: ready");
+        Log.d("Glowna", "onMapReady: ready");
         mMap = googleMap;
-        if(checkSelfPermission("ACCESS_FINE_LOCATION")
-                != PackageManager.PERMISSION_GRANTED){
+        if (checkSelfPermission("ACCESS_FINE_LOCATION")
+                != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Glowna.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     1);
@@ -525,9 +513,8 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
         }
 
 
-        LatLng wroclaw = new LatLng(51.105171, 17.037821);
-        float zoomLevel = 14.0f;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, zoomLevel));
+        LatLng wroclaw = new LatLng(preferences.getFloat("latFloat", 51.105171F), preferences.getFloat("longFloat", 17.037821F));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(wroclaw, preferences.getFloat("zoomFloat", 16.0F)));
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
         // obsluga.start(mMap);
@@ -539,20 +526,17 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
 
     }
 
-    public void showNext(int kolejnaZagadkaDoPokazania)
-    {
+    public void showNext(int kolejnaZagadkaDoPokazania) {
         boolean czyDzwiek = true;
-        for(int i = 0; i < zagadkiLista.size(); i++)
-        {
-            if(zagadkiLista.get(i).index == kolejnaZagadkaDoPokazania && !popUpSemafor)
-            {
+        for (int i = 0; i < zagadkiLista.size(); i++) {
+            if (zagadkiLista.get(i).index == kolejnaZagadkaDoPokazania && !popUpSemafor) {
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-                if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
+                if ((myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
                     czyDzwiek = false;
                 }
-                popUpSemafor=true;
+                popUpSemafor = true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
@@ -563,8 +547,8 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
                 zagadkiLista.get(i).setContext(this);
-                zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
-                if(czyDzwiek) {
+                zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog, curiosityDialog);
+                if (czyDzwiek) {
                     sound.spotSound();
                 }
 
@@ -575,44 +559,40 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
     @Override
     public void onLocationChanged(Location location) {
 
-        float zoomLevel =14.0f;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), zoomLevel));
-        Toast.makeText(getApplicationContext(),"Location changed",Toast.LENGTH_SHORT).show();
-        obecneWspolrzedne = location.getLatitude()+","+location.getLongitude();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), preferences.getFloat("zoomFloat", 20.0F)));
+        Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
+        obecneWspolrzedne = location.getLatitude() + "," + location.getLongitude();
         boolean czyWLokacji = false;
         boolean czyDzwiek = true;
 
-        for(int i = 0; i < zagadkiLista.size(); i++)
-        {
-           // if(zagadkiLista.get(i).typ==5)
-            if(user.jestWAktywnych(zagadkiLista.get(i).index) && zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + ","+ location.getLongitude())&&!popUpSemafor )
-            {
+        for (int i = 0; i < zagadkiLista.size(); i++) {
+            // if(zagadkiLista.get(i).typ==5)
+            if (user.jestWAktywnych(zagadkiLista.get(i).index) && zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + "," + location.getLongitude()) && !popUpSemafor) {
                 czyWLokacji = true;
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-                if( (myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
+                if ((myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
                     czyDzwiek = false;
                 }
-                popUpSemafor=true;
+                popUpSemafor = true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
                 Log.println(Log.ASSERT, "Reasuming", Boolean.toString(isInBackground));
                 Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
                 Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
-               // pierwszePokazanie = false;
+                // pierwszePokazanie = false;
                 ustawDialogi();
                 doWszystkiego = new Dialog(this);
                 zagadkiLista.get(i).setContext(this);
-                zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog,curiosityDialog);
-                if(czyDzwiek) {
+                zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog, curiosityDialog);
+                if (czyDzwiek) {
                     sound.spotSound();
                 }
             }
         }
-        if(!czyWLokacji)
-        {
+        if (!czyWLokacji) {
             obecnaZagadka = 0;
         }
     }
@@ -642,27 +622,26 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
 */
 
-          if(user.jestWAktywnych(zagadkiLista.get(ktory).index)){
-              Log.w("Jest w aktywnych ", ktory+"");
-              ustawDialogi();
-              zagadkiLista.get(ktory).setContext(this);
-              zagadkiLista.get(ktory).showPopUp(doWszystkiego,badAnswerDialog, congratulationsDialog,curiosityDialog);
-              sound.spotSound();
-          }
-        if(user.jestWRozwiazanych(zagadkiLista.get(ktory).index)){
-            Log.w("Jest w rozwiazanych ", ktory+"");
-              ustawDialogi();
-              zagadkiLista.get(ktory).setContext(this);
+        if (user.jestWAktywnych(zagadkiLista.get(ktory).index)) {
+            Log.w("Jest w aktywnych ", ktory + "");
+            ustawDialogi();
+            zagadkiLista.get(ktory).setContext(this);
+            zagadkiLista.get(ktory).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog, curiosityDialog);
+            sound.spotSound();
+        }
+        if (user.jestWRozwiazanych(zagadkiLista.get(ktory).index)) {
+            Log.w("Jest w rozwiazanych ", ktory + "");
+            ustawDialogi();
+            zagadkiLista.get(ktory).setContext(this);
 
-              zagadkiLista.get(ktory).showCiekawostka(doWszystkiego,curiosityDialog);
-              sound.spotSound();
-          }
+            zagadkiLista.get(ktory).showCiekawostka(doWszystkiego, curiosityDialog,this);
+            sound.spotSound();
+        }
 
         return false;
     }
 
-    public void ustawDialogi()
-    {
+    public void ustawDialogi() {
         badAnswerDialog = new Dialog(this);
         badAnswerDialog.setCanceledOnTouchOutside(false);
         badAnswerDialog.setCancelable(true);
@@ -684,9 +663,8 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
     }
 
     public void dispatchTakePictureIntent() {
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED)
-        {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},1888);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1888);
         }
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -709,17 +687,31 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
             photo.setImageBitmap(imageBitmap);
             photo.setVisibility(View.VISIBLE);
         }
-        if(requestCode==12)
-        {
-            if(GPSdialog!=null)
-            {
+        if (requestCode == 12) {
+            if (GPSdialog != null) {
                 GPSdialog.dismiss();
             }
-           checkGPS();
+            checkGPS();
         }
 
 
     }
+
+    public void saveZoom() {
+
+        editor.putFloat("zoomFloat", mMap.getCameraPosition().zoom);
+        String locationProvider = LocationManager.NETWORK_PROVIDER;
+
+      @SuppressLint("MissingPermission")  android.location.Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+        editor.putFloat("latFloat", (float)lastKnownLocation.getLatitude());
+        editor.putFloat("longFloat",(float)lastKnownLocation.getLongitude());
+        editor.apply();
+        System.out.println(mMap.getCameraPosition().zoom);
+        System.out.println(preferences.getFloat("zoomFloat",1.0F));
+    }
+
+
+
 @SuppressLint("WrongConstant")
 public void prepareToolbar()
 {
@@ -741,5 +733,6 @@ public void onRestart()
     prepareToolbar();
 
     this.drawMapsStartowe();
+
 }
 }

@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class ZagadkaMLObiekty extends Zagadka{
@@ -43,10 +42,16 @@ public class ZagadkaMLObiekty extends Zagadka{
     @Override
     public boolean sprawdz(String odp) {
         String[] toCheck = odp.split(" ");
+        String[] correct = poprawnaOdpowiedz.split(" ");
         for (String s: toCheck)
         {
-            if(poprawnaOdpowiedz.contains(s))
-                return true;
+          for (String z:correct)
+          {
+              if(z.equals(s))
+              {
+                  return true;
+              }
+          }
         }
         return false;
 

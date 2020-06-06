@@ -255,6 +255,11 @@ public class Startowa extends AppCompatActivity{
             editor.putBoolean("soundBool",true);
         if(!preferences.contains("vibrationBool"))
             editor.putBoolean("vibrationBool",true);
+
+            editor.putFloat("zoomFloat",14.0F);
+            editor.putFloat("latFloat",51.105171F);
+            editor.putFloat("longFloat",17.037821F);
+
         editor.apply();
     }
 
