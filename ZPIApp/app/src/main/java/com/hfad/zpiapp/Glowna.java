@@ -355,7 +355,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
-        if (user.zagadkiAktualne.isEmpty() && user.zagadkiRozwiazane.size() == 47) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
+        if (user.zagadkiAktualne == null && user.kolejneMiejsca== null && user.zagadkiRozwiazane.size() == 47) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
 
             // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
             Log.i("ostatnia", zagadkiLista.get(zagadkiLista.size() - 1).nazwa);
