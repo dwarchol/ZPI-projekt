@@ -370,8 +370,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
             circleOptions.strokeColor(Color.RED);
             circleOptions.radius(50);
-            circleOptions.fillColor(Color.argb(75, 100, 10, 10));
-            Log.w("kolorek", "yyyh");
+            circleOptions.fillColor(Color.argb(75,100,10,10));
+            Log.w("kolorek","yyyh");
+            mMap.addCircle(circleOptions);
 
             mMap.addCircle(circleOptions);
        /* Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);

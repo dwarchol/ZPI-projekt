@@ -74,6 +74,20 @@ public class ZagadkaStartowa extends Zagadka{
                d.dismiss();
            }
        });
+
+       TextView close = (TextView) d.findViewById(R.id.closeIdzDoGora);
+       close.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               ((Glowna)ctx).popUpSemafor=false;
+             //  ((Glowna) ctx).showNext(nastepna);
+              // ((Glowna) ctx).user.setRozwiazana(index,nastepna);
+               ((Glowna)ctx).mMap.clear();
+               ((Glowna)ctx).drawMapsStartowe();
+               d.dismiss();
+           }
+       });
+
        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
            @Override
            public void onDismiss(DialogInterface dialog) {
