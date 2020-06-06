@@ -127,6 +127,7 @@ public abstract class Zagadka {
             public void onClick(View view) {
                 curD.dismiss();
               //  ((Glowna)ctx).user.uaktualnijWBazie();
+                ((Glowna) ctx).czyWLokacji = false;
                 if(nastepna != -1) {
                     curD.dismiss();
                 }

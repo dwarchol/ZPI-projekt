@@ -110,7 +110,7 @@ public class Uzytkownik implements Serializable {
                 uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
                 wspolrzedneDoDostania.remove(miejsce - 1);
                 kolejneMiejsca.remove(0);
-                if (!(i == 53 || i == 62 || i == 82 || i == 12)) {
+                if (i == 74 || i == 105 || i == 37 || i == 26) {
                     miejsce = kolejneMiejsca.get(0);
                     uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
                     wspolrzedneDoDostania.remove(miejsce - 1);
