@@ -79,6 +79,11 @@ public class ZagadkaStartowa extends Zagadka{
        close.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+               ((Glowna)ctx).popUpSemafor=false;
+             //  ((Glowna) ctx).showNext(nastepna);
+              // ((Glowna) ctx).user.setRozwiazana(index,nastepna);
+               ((Glowna)ctx).mMap.clear();
+               ((Glowna)ctx).drawMapsStartowe();
                d.dismiss();
            }
        });
