@@ -648,7 +648,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
            /* LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             PopupWindow pw = zagadkiLista.get(ktory).showPopUp(inflater);
             pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);
-*/
+*/      popUpSemafor=true;
 
         if (user.jestWAktywnych(zagadkiLista.get(ktory).index)) {
             Log.w("Jest w aktywnych ", ktory + "");
