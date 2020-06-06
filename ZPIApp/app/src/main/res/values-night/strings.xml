@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZPIApp</string>
+    <string name="app_name">Wrocław: Most Agentów</string>
     <string name="haveAccount">Mam konto</string>
     <string name="register">Zarejestruj się</string>
     <string name="registerButton">Zarejestruj się</string>
@@ -18,7 +18,7 @@
     <string name="Zagadka">Zagadka</string>
     <string name="Zagadka_info">aaaaaa bbbbbbbbbbbbbbbb cccccccccccc ddddddddddddddd eeeeeeeeeeeee fffffffffffffff ggggggggggggg hhhh iiiiii jjjjjjjjjjjj</string>
     <string name="Brawo">Brawo!</string>
-    <string name="Brawo_info">Twoja gra dobiegła końca. Teraz możesz zostać we Wrocławiu i nadal zdobywać odznaki  albo jechać zwiedzić resztę świata!
+    <string name="Brawo_info">Twoja gra dobiegła końca. Teraz możesz zostać we Wrocławiu albo jechać zwiedzić resztę świata!
     </string>
     <string name="Gratulacje">Gratulacje, rozwiązałeś zagadkę!</string>
     <string name="Zla_odpowiedz">Zła odpowiedź, spróbuj ponownie</string>
@@ -60,4 +60,8 @@
     <string name="NotifyCh4">Ciche powiadomienia</string>
     <string name="NotifyD4">Powiadomienia tylko pojawiają się na ekranie </string>
     <string name="juz">Już jestem!</string>
+    <string name="Fabula">"Pewnego dnia przeglądając aplikacje w telefonie zauważasz coś czego wcześniej nie widziałeś. \nKiedy już miałeś usunąć tą nieznaną aplikację dostałeś wiadomość:  \n“NIE RÓB TEGO!!!” \n“Potrzebuję twojej pomocy”  \nKiedy tymi wiadomościami wzbudził twoje zaciekawienie dostałeś kolejną wiadomość tym razem dłuższą.  \n“Drogi nieznajomy potrzebuję twojej pomocy aby się wydostać z Wrocławia. Pomożesz mi?  \nA.S. Mark. "</string>
+    <string name="Fabula2">"Dziękuję wiedziałem że mogę na ciebie liczyć. \nPewnie masz wiele pytań co do mnie. \nPostaram się odpowiedzieć w trakcie wykonywania zadań. "</string>
+    <string name="tak">TAK</string>
+    <string name="nie">NIE</string>
 </resources>
