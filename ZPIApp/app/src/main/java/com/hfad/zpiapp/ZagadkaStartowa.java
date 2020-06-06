@@ -35,8 +35,8 @@ public class ZagadkaStartowa extends Zagadka{
         double lat = Double.parseDouble(wsp[0]);
         double lng = Double.parseDouble(wsp[1]);
 
-        double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) - (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
-        if(distance<0.002){
+        double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) + (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
+        if(distance<0.001){
             ((Glowna) ctx).popUpSemafor=false;
             return true;
         }

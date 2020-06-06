@@ -88,6 +88,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     View customView;
     Dialog koniec;
     Dialog zaDaleko;
+    boolean czyWLokacji;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -109,6 +110,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         setContentView(R.layout.activity_glowna);
         this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        czyWLokacji = false;
         //Choosing the best criteria depending on what is available.
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
@@ -581,7 +583,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), preferences.getFloat("zoomFloat", 20.0F)));
         //Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
         obecneWspolrzedne = location.getLatitude() + "," + location.getLongitude();
-        boolean czyWLokacji = false;
         boolean czyDzwiek = true;
 
         for (int i = 0; i < zagadkiLista.size(); i++) {
