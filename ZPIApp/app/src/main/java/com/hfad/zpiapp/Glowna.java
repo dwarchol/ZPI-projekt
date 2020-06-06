@@ -651,9 +651,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         if (user.jestWRozwiazanych(zagadkiLista.get(ktory).index)) {
             Log.w("Jest w rozwiazanych ", ktory + "");
             ustawDialogi();
-            zagadkiLista.get(ktory).setContext(this);
+            //zagadkiLista.get(ktory).setContext(this);
 
-            zagadkiLista.get(ktory).showCiekawostka(doWszystkiego, curiosityDialog,this);
+            zagadkiLista.get(ktory).showCiekawostka(curiosityDialog,this);
 
         }
 
