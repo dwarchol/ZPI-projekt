@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -24,6 +26,7 @@ public class Powiadomienie {
     SharedPreferences preferences;
     int notificationId=0;
 
+    Vibrator v;
     public Powiadomienie(Context c) {
         this.ctx=c;
         preferences = ctx.getApplicationContext().getSharedPreferences("APP_SETTINGS",0);
@@ -31,6 +34,7 @@ public class Powiadomienie {
         createNotificationChannelS();
         createNotificationChannelV();
         createNotificationChannelSilence();
+       v =(Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE) ;
     }
 
 
@@ -178,9 +182,16 @@ public class Powiadomienie {
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingIntent)
-                    .setVibrate(new long[]{200,1000})
                     .setLights(Color.WHITE,3000,1000)
                     .setAutoCancel(true);
+
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createWaveform(new long[] {200,750,1250},2));
+            }
+            else
+            {
+                v.vibrate(500);
+            }
         }
         else
         if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==false) {
@@ -203,8 +214,14 @@ public class Powiadomienie {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                      .setContentIntent(pendingIntent)
                     .setSound(null)
-                    .setVibrate(new long[] {200,1000})
                     .setAutoCancel(true);
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createWaveform(new long[] {200,750,1250},2));
+            }
+            else
+            {
+                v.vibrate(500);
+            }
         }
         else
         if(preferences.getBoolean("soundBool",true)==false && preferences.getBoolean("vibrationBool",true)==false) {

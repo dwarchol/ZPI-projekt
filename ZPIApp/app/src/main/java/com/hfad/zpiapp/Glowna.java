@@ -568,27 +568,30 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         for (int i = 0; i < zagadkiLista.size(); i++) {
             // if(zagadkiLista.get(i).typ==5)
             if (user.jestWAktywnych(zagadkiLista.get(i).index) && zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + "," + location.getLongitude()) && !popUpSemafor) {
+
                 czyWLokacji = true;
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-                if ((myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka) {
+                if ((myKM.inKeyguardRestrictedInputMode() || isInBackground) ) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
                     czyDzwiek = false;
                 }
-                popUpSemafor = true;
+                else {
+                    popUpSemafor = true;
                 /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 PopupWindow pw = zagadkiLista.get(i).showPopUp(inflater);
                 pw.showAtLocation(this.findViewById(R.id.myMainLayout), Gravity.CENTER, 0, 0);*/
-                Log.println(Log.ASSERT, "Reasuming", Boolean.toString(isInBackground));
-                Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
-                Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
-                // pierwszePokazanie = false;
-                ustawDialogi();
-                doWszystkiego = new Dialog(this);
-                zagadkiLista.get(i).setContext(this);
-                zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog, curiosityDialog);
-                if (czyDzwiek) {
-                    sound.spotSound();
+                    Log.println(Log.ASSERT, "Reasuming", Boolean.toString(isInBackground));
+                    Log.println(Log.ASSERT, "Reasuming", Integer.toString(i));
+                    Log.println(Log.ASSERT, "obecna", Integer.toString(obecnaZagadka));
+                    // pierwszePokazanie = false;
+                    ustawDialogi();
+                    doWszystkiego = new Dialog(this);
+                    zagadkiLista.get(i).setContext(this);
+                    zagadkiLista.get(i).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog, curiosityDialog);
+                    if (czyDzwiek) {
+                        sound.spotSound();
+                    }
                 }
             }
         }
@@ -610,6 +613,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        saveZoom();
     }
 
     @Override
