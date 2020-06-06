@@ -333,7 +333,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                     circleOptions.radius(50);
                     circleOptions.fillColor(Color.argb(75,51,153,255));
                 }
-
+                mMap.addCircle(circleOptions);
             }//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
@@ -376,7 +376,7 @@ Log.i("ostatnia",zagadkiLista.get(zagadkiLista.size()-1).nazwa);
             circleOptions.radius(50);
             circleOptions.fillColor(Color.argb(75,100,10,10));
             Log.w("kolorek","yyyh");
-
+            mMap.addCircle(circleOptions);
 
        /* Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20002pom);
         icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
