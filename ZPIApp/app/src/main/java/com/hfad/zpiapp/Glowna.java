@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -561,7 +560,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void onLocationChanged(Location location) {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), preferences.getFloat("zoomFloat", 20.0F)));
-        Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
         obecneWspolrzedne = location.getLatitude() + "," + location.getLongitude();
         boolean czyWLokacji = false;
         boolean czyDzwiek = true;
