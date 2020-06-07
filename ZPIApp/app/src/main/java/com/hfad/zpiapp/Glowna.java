@@ -355,7 +355,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
-        System.out.println("Czy kolejne miejsce? "+user.kolejneMiejsca+ " size zagadek "+user.zagadkiRozwiazane.size());
+
         if (user.zagadkiAktualne == null && user.kolejneMiejsca== null && user.zagadkiRozwiazane.size() == 48) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
 
             // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
@@ -729,15 +729,28 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     public void saveZoom() {
 
-        editor.putFloat("zoomFloat", mMap.getCameraPosition().zoom);
-        String locationProvider = LocationManager.NETWORK_PROVIDER;
+        try {
+            gpsOn = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+        } catch (Exception e) {
+            Log.i("GPS Failure", "Sum Ting Wong");
+        }
+        if (gpsOn == 0) {
 
-      @SuppressLint("MissingPermission")  android.location.Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
-        editor.putFloat("latFloat", (float)lastKnownLocation.getLatitude());
-        editor.putFloat("longFloat",(float)lastKnownLocation.getLongitude());
-        editor.apply();
-        System.out.println(mMap.getCameraPosition().zoom);
-        System.out.println(preferences.getFloat("zoomFloat",1.0F));
+        }
+        else
+        {
+            editor.putFloat("zoomFloat", mMap.getCameraPosition().zoom);
+            String locationProvider = LocationManager.NETWORK_PROVIDER;
+
+            @SuppressLint("MissingPermission")  android.location.Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+            editor.putFloat("latFloat", (float)lastKnownLocation.getLatitude());
+            editor.putFloat("longFloat",(float)lastKnownLocation.getLongitude());
+            editor.apply();
+            System.out.println(mMap.getCameraPosition().zoom);
+            System.out.println(preferences.getFloat("zoomFloat",1.0F));
+        }
+
+
     }
 
 
