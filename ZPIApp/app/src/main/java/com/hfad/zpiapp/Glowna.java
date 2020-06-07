@@ -355,7 +355,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 }
             }
         }
+<<<<<<< HEAD
         if (user.zagadkiAktualne == null && user.kolejneMiejsca== null && user.zagadkiRozwiazane.size() == 47) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
+=======
+        System.out.println("Czy kolejne miejsce? "+user.kolejneMiejsca+ " size zagadek "+user.zagadkiRozwiazane.size());
+        if (user.zagadkiAktualne == null && user.kolejneMiejsca== null && user.zagadkiRozwiazane.size() == 48) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
+>>>>>>> parent of 5172cf5... Revert "Poprawki działania użytkownika do firebase"
 
             // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
             Log.i("ostatnia", zagadkiLista.get(zagadkiLista.size() - 1).nazwa);

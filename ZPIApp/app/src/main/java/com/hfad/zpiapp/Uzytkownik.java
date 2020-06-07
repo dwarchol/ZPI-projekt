@@ -23,17 +23,9 @@ public class Uzytkownik implements Serializable {
 
     public Uzytkownik()
     {
-        login="";
-        password="";
-        wspolrzedne =" _ _ ° _ _ . _ _ _ \" N _ _ ° _ _ . _ _ _ \" E";
-        Integer [] wsp = {5,7,1,2,1,2,3,1,4,9,8,7,6,5};
-        wspolrzedneDoDostania= new ArrayList<Integer>(Arrays.asList(wsp));
-        Integer [] kolejny ={1,1,6,6,1,1,4,4,1,3,1,2,1,1};
-        kolejneMiejsca = new ArrayList<Integer>(Arrays.asList(kolejny));
-        pierwszyRaz = 0;
-        zagadkiRozwiazane = new ArrayList<>();
-        zagadkiAktualne = new ArrayList<>();
+
     }
+    /*
     public Uzytkownik(String l, String p, ArrayList<Integer> zagadkiW,  ArrayList<Integer> zagadkiR, String wspolrzedne, ArrayList<Integer> wsp, ArrayList<Integer> kol, Boolean pierwszyRaz)
     {
         this.login=l;
@@ -47,8 +39,23 @@ public class Uzytkownik implements Serializable {
         this.pierwszyRaz = 0;
 
     }
+    public Uzytkownik(String l, String p,  ArrayList<Integer> zagadkiR, String wspolrzedne, ArrayList<Integer> wsp, Boolean pierwszyRaz)
+    {
+        System.out.println("user 6 par");
+        this.login=l;
+        this.password=p;
+
+        this.zagadkiRozwiazane= new ArrayList<>(zagadkiR);
+
+        this.wspolrzedne = wspolrzedne;
+        this.wspolrzedneDoDostania = wsp;
+
+        this.pierwszyRaz = 0;
+
+    }*/
     public Uzytkownik(String l, String p)
     {
+        System.out.println("user 2 par");
         login=l;
         password=p;
 
@@ -153,12 +160,20 @@ public class Uzytkownik implements Serializable {
     }
 
     public boolean jestWAktywnych(int i){
+<<<<<<< HEAD
         for(Integer zagadka: zagadkiAktualne){
             if(zagadka.equals(new Integer(i))){
                 return true;
             }
         }
         return false;
+=======
+      if (zagadkiAktualne!=null &&zagadkiAktualne.contains(i))
+          return true;
+      else
+          return false;
+
+>>>>>>> parent of 5172cf5... Revert "Poprawki działania użytkownika do firebase"
     }
 
     public boolean jestWRozwiazanych(int i){
