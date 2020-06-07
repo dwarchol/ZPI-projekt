@@ -1,6 +1,8 @@
 package com.hfad.zpiapp;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -151,20 +153,21 @@ public class Uzytkownik implements Serializable {
     }
 
     public boolean jestWAktywnych(int i){
-      if (zagadkiAktualne.contains(i))
-          return true;
-      else
-          return false;
-
+        for(Integer zagadka: zagadkiAktualne){
+            if(zagadka.equals(new Integer(i))){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean jestWRozwiazanych(int i){
-        System.out.println("Jaki mam i "+i);
-        System.out.println("Jakie zagadki "+zagadkiRozwiazane.size());
-       if(zagadkiRozwiazane.contains(i))
-           return true;
-       else
-           return false;
+        for(Integer zagadka: zagadkiRozwiazane){
+            if(zagadka.equals(new Integer(i))){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
