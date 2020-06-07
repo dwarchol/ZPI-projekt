@@ -24,7 +24,7 @@ public class ZagadkaPytanie extends Zagadka{
 
     }
 
-    public ZagadkaPytanie(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
+    public ZagadkaPytanie(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna, String ciekawostkaTytul)
     {
         this.index = index;
         this.typ=typ;
@@ -37,6 +37,7 @@ public class ZagadkaPytanie extends Zagadka{
         this.poprzednia=poprzednia;
         this.ciekawostka = ciekawostka;
         this.nastepna = nastepna;
+        this.ciekawostkaTytul = ciekawostkaTytul;
     }
 
     public String getTrescPytania(){ return trescPytania; }

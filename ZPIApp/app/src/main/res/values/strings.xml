@@ -64,4 +64,5 @@
     <string name="Fabula2">"Dziękuję wiedziałem że mogę na ciebie liczyć. \nPewnie masz wiele pytań co do mnie. \nPostaram się odpowiedzieć w trakcie wykonywania zadań. "</string>
     <string name="tak">TAK</string>
     <string name="nie">NIE</string>
+    <string name="nazwaCiekawostki"></string>
 </resources>

@@ -14,6 +14,7 @@ public abstract class Zagadka {
     protected String nazwa;
     protected int poprzednia;
     protected String ciekawostka;
+    protected String ciekawostkaTytul;
     protected int nastepna;
     Context ctx;
 
@@ -42,6 +43,8 @@ public abstract class Zagadka {
 
     public int getNastepna() {return  nastepna;}
 
+    public String getCiekawostkaTytul() {return ciekawostkaTytul;}
+
     public boolean czyNaMiejscu(String str)
     {
         String[] wsp = str.split(",");
@@ -64,7 +67,9 @@ public abstract class Zagadka {
         ((Glowna)ctx).popUpSemafor=false;
         final Button closeCuriosity = (Button)curD.findViewById(R.id.closeCoiekawostka);
         TextView curiosityText = (TextView)curD.findViewById(R.id.ciekawostka_text);
+        TextView curiosityTitle = (TextView)curD.findViewById(R.id.ciekawostka_title2);
         curiosityText.setText(ciekawostka);
+        curiosityTitle.setText(ciekawostkaTytul);
         ((Glowna)ctx).mMap.clear();
         ((Glowna)ctx).drawMapsStartowe();
         closeCuriosity.setOnClickListener(new View.OnClickListener() {

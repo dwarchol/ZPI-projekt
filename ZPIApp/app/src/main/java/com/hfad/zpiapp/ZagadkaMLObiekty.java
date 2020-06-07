@@ -22,7 +22,7 @@ public class ZagadkaMLObiekty extends Zagadka{
 
     }
 
-    public ZagadkaMLObiekty(int index, String trescPytania, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
+    public ZagadkaMLObiekty(String ciekawostkaTytul,int index, String trescPytania, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String ciekawostka, int nastepna)
     {
         this.index = index;
         this.typ=typ;
@@ -34,6 +34,7 @@ public class ZagadkaMLObiekty extends Zagadka{
         this.poprzednia=poprzednia;
         this.ciekawostka = ciekawostka;
         this.nastepna = nastepna;
+        this.ciekawostkaTytul = ciekawostkaTytul;
     }
 
 

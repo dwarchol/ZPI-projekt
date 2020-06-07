@@ -40,7 +40,7 @@ public class ZagadkaWybor extends Zagadka{
         Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 
-    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka, int nastepna)
+    public ZagadkaWybor(int index, String trescPytania, String zdjecie, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String odpowiedzA, String odpowiedzB, String odpowiedzC, String odpowiedzD, String ciekawostka, int nastepna, String ciekawostkaTytul)
     {
         this.index = index;
         this.typ=typ;
@@ -57,6 +57,7 @@ public class ZagadkaWybor extends Zagadka{
         this.odpowiedzD = odpowiedzD;
         this.ciekawostka = ciekawostka;
         this.nastepna = nastepna;
+        this.ciekawostkaTytul = ciekawostkaTytul;
     }
 
     public String getTrescPytania(){ return trescPytania; }
