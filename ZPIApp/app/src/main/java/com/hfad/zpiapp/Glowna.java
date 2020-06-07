@@ -423,14 +423,14 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
     public void settingsMethod(View view) {
-        saveZoom();
+        //saveZoom();
         final Intent settingsIntent = new Intent(this, Ustawienia.class);
         startActivity(settingsIntent);
 
     }
 
     public void userMethod(View view) {
-        saveZoom();
+        //saveZoom();
         final Intent userIntent = new Intent(this, KontoUzytkownika.class);
         ArrayList<String> ciek = new ArrayList<>();
         for (int i = 0; i < zagadkiLista.size(); i++) {
@@ -517,7 +517,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapGoogle);
         mapFragment.getMapAsync(this);
-
 
     }
 
@@ -639,7 +638,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void onPause()
     {
         super.onPause();
-        saveZoom();
+        //saveZoom();
     }
 
     @Override
