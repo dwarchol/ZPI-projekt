@@ -423,14 +423,14 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
     public void settingsMethod(View view) {
-        //saveZoom();
+        saveZoom();
         final Intent settingsIntent = new Intent(this, Ustawienia.class);
         startActivity(settingsIntent);
 
     }
 
     public void userMethod(View view) {
-        //saveZoom();
+        saveZoom();
         final Intent userIntent = new Intent(this, KontoUzytkownika.class);
         ArrayList<String> ciek = new ArrayList<>();
         for (int i = 0; i < zagadkiLista.size(); i++) {
@@ -638,7 +638,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     public void onPause()
     {
         super.onPause();
-        //saveZoom();
+        saveZoom();
     }
 
     @Override
@@ -742,8 +742,10 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             String locationProvider = LocationManager.NETWORK_PROVIDER;
 
             @SuppressLint("MissingPermission")  android.location.Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
-            editor.putFloat("latFloat", (float)lastKnownLocation.getLatitude());
-            editor.putFloat("longFloat",(float)lastKnownLocation.getLongitude());
+            if(lastKnownLocation!=null) {
+                editor.putFloat("latFloat", (float) lastKnownLocation.getLatitude());
+                editor.putFloat("longFloat", (float) lastKnownLocation.getLongitude());
+            }
             editor.apply();
             System.out.println(mMap.getCameraPosition().zoom);
             System.out.println(preferences.getFloat("zoomFloat",1.0F));
