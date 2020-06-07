@@ -443,9 +443,9 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             Log.i("empty", "xd");
             user.zagadkiRozwiazane = new ArrayList<>(11);
         }
-        for (int i = 0; i < user.zagadkiRozwiazane.size(); i++) {
+
             for (int j = 0; j < zagadkiLista.size(); j++) {
-                if (user.zagadkiRozwiazane.get(i).equals(zagadkiLista.get(j).index)) {
+                if (user.zagadkiRozwiazane.contains(zagadkiLista.get(j).index)) {
                     if (zagadkiLista.get(j).index % 10 != 0) {
                         ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
                     }
@@ -454,7 +454,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 //    ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
                 //}
             }
-        }
+
 
         userIntent.putExtra("ciekawostki", ciekawostkiToKonto);
         userIntent.putExtra("prog", user.zagadkiRozwiazane != null ? user.zagadkiRozwiazane.size() : 0);
@@ -579,8 +579,8 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
     @Override
     public void onLocationChanged(Location location) {
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), preferences.getFloat("zoomFloat", 20.0F)));
+        checkGPS();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()),mMap.getCameraPosition().zoom));
         //Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
         obecneWspolrzedne = location.getLatitude() + "," + location.getLongitude();
         boolean czyDzwiek = true;
