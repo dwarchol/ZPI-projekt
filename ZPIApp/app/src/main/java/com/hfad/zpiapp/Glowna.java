@@ -348,33 +348,28 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 if (user.jestWRozwiazanych(zagadkiLista.get(i).index) && zagadkiLista.get(i).typ != 5) {             //Mozna usunac zeby były wszystkie zagadki////////////////////////////////
                     LatLng point = new LatLng(zagadkiLista.get(i).wspolrzednaLat, zagadkiLista.get(i).wspolrzednaLng);
                     MarkerOptions markerOptions = new MarkerOptions().position(point).title(zagadkiLista.get(i).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
-
                     Marker marker = mMap.addMarker(markerOptions);
-
                     marker.setTag(i);
                 }
             }
         }
 
-        if (user.zagadkiAktualne == null && user.kolejneMiejsca== null && user.zagadkiRozwiazane.size() == 48) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
-
-            // user.zagadkiAktualne.add(new ZagadkaDotarcieNaMiejsce(1000))
+        if (user.kolejneMiejsca== null && user.zagadkiRozwiazane.size() == 47) {///zeby bylo na koniec/////tu wykomentowac żeby dobrze testowac
+            user.zagadkiAktualne = new ArrayList<>();
+            user.zagadkiAktualne.add(999);
             Log.i("ostatnia", zagadkiLista.get(zagadkiLista.size() - 1).nazwa);
             Bitmap icon2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.marker20003pom);
             icon2 = Bitmap.createScaledBitmap(icon2, 190, 105, false);
             LatLng point = new LatLng(zagadkiLista.get(zagadkiLista.size() - 1).wspolrzednaLat, zagadkiLista.get(zagadkiLista.size() - 1).wspolrzednaLng);
             MarkerOptions markerOptions =
                     new MarkerOptions().position(point).title(zagadkiLista.get(zagadkiLista.size() - 1).nazwa).icon(BitmapDescriptorFactory.fromBitmap(icon2));
-
             Marker marker = mMap.addMarker(markerOptions);
-
             marker.setTag(zagadkiLista.size() - 1);
-            //}
+
+
             CircleOptions circleOptions = new CircleOptions();
             circleOptions.center(point);
-
             circleOptions.strokeColor(Color.YELLOW);
-
             circleOptions.strokeColor(Color.RED);
             circleOptions.radius(50);
             circleOptions.fillColor(Color.argb(75,100,10,10));

@@ -68,6 +68,7 @@ public abstract class Zagadka {
         final Button closeCuriosity = (Button)curD.findViewById(R.id.closeCoiekawostka);
         TextView curiosityText = (TextView)curD.findViewById(R.id.ciekawostka_text);
         TextView curiosityTitle = (TextView)curD.findViewById(R.id.ciekawostka_title2);
+        curiosityTitle.setVisibility(View.VISIBLE);
         curiosityText.setText(ciekawostka);
         curiosityTitle.setText(ciekawostkaTytul);
         ((Glowna)ctx).mMap.clear();

@@ -100,17 +100,18 @@ public class Uzytkownik implements Serializable {
 
     public void setRozwiazana(int i, int nastepna)
     {
-        Log.println(Log.ASSERT, "Reasuming", "rozwiazane");
         if(zagadkiRozwiazane==null)
         {
             zagadkiRozwiazane=new ArrayList<>(11);
         }
 
+        if(!zagadkiRozwiazane.contains(i)) {
             zagadkiRozwiazane.add(i);
+        }
             zagadkiAktualne.remove(Integer.valueOf(i));
             if (nastepna != -1) {
                 zagadkiAktualne.add(nastepna);
-            } else {
+            } else if(i != 999){
                 int miejsce = kolejneMiejsca.get(0);
                 uzupelnijNapisOCyfre(wspolrzedneDoDostania.get(miejsce - 1), miejsce);
                 wspolrzedneDoDostania.remove(miejsce - 1);
