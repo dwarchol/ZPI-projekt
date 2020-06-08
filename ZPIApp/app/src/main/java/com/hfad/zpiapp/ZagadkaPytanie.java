@@ -48,7 +48,6 @@ public class ZagadkaPytanie extends Zagadka{
     {
         String[] odpowiedzi = poprawnaOdpowiedz.split(",");
         Odp = Odp.toUpperCase();
-        Log.println(Log.ASSERT, "Reasuming", "sprawdzamPytanie");
         for(int i=0;i<odpowiedzi.length; i++){
             if(Odp.equals(odpowiedzi[i]))
             {
@@ -66,20 +65,6 @@ public class ZagadkaPytanie extends Zagadka{
         return getIndex() + " " + getPoprzednia() + " " + getNazwa() + " " + getWspolrzednaLat() + " " + getWspolrzednaLng() + " " + getTrescPytania() + " " + getPoprawnaOdpowiedz() + " " + getZdjecie() + " " + getTyp();
     }
 
-   /* public PopupWindow showPopUp(LayoutInflater inflater) {
-
-        View v = inflater.inflate(R.layout.popup_pytania, null, false);
-        final PopupWindow pw = new PopupWindow(v, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        ((TextView)pw.getContentView().findViewById(R.id.pytanie_title)).setText(getTrescPytania());
-        Button closeButton = v.findViewById(R.id.closePytanie);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pw.dismiss();
-            }
-        });
-        return pw;
-    }*/
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
@@ -137,13 +122,10 @@ public class ZagadkaPytanie extends Zagadka{
                d.dismiss();
                if(czyPoprawnaOdp)
                {
-                   //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
-
                    ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                    ((Glowna) ctx).popUpSemafor=false;
 
                    showCongratulations(cD,curD,ctx);
-                   /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                }
                else
                {

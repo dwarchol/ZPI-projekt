@@ -36,7 +36,6 @@ public class ZagadkaWybor extends Zagadka{
     public ZagadkaWybor(final Dialog d){
         d.setContentView(R.layout.popup_checkbox);
         iv=d.findViewById(R.id.photoCheckBox);
-       // Picasso.get().load(getZdjecie()).into(iv);
         Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
     }
 
@@ -78,20 +77,7 @@ public class ZagadkaWybor extends Zagadka{
         else{
             return false;
         }
-
-//        if(poprawnaOdpowiedz.get(0).equals(udzielonaOdpowiedz)
-
-//        {
-//            rozwiazana = true;
-//        }
-        // return false;
     }
-    /*@Override
-    public PopupWindow showPopUp(LayoutInflater inflater) {
-        PopupWindow pw=null;
-        pw = new PopupWindow(inflater.inflate(R.layout.popup_gratulacje, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        return pw;
-    }*/
     public  Drawable LoadImageFromWebOperations(String url,ImageView iv) {
         Picasso.get().load(url).into(iv);
         return iv.getDrawable();
@@ -99,15 +85,9 @@ public class ZagadkaWybor extends Zagadka{
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
-
-//        iv.setVisibility(View.VISIBLE);
-        //Drawable dra=iv.getDrawable();
-        //Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
-       // d.dismiss();
         final boolean[] ifChecked = {false};
         d.setCanceledOnTouchOutside(false);
         d.setCancelable(true);
-        //d.setContentView(R.layout.custom_popup_coordinates);
         d.setContentView(R.layout.popup_checkbox);
 
         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -148,11 +128,6 @@ public class ZagadkaWybor extends Zagadka{
                 if(option.getText().equals(poprawnaOdpowiedz)){
                     // Log.i("chosen poprawna",option.getText().toString());
                 }
-                  //  iv=d.findViewById(R.id.photoCheckBox);
-                //Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(iv);
-                /*  Drawable dr=LoadImageFromWebOperations
-                         ("https://www.google.pl/url?sa=i&url=https%3A%2F%2Fwww.mojegotowanie.pl%2Fprzepis%2Fpyszne-pancakes&psig=AOvVaw0rbjv3Tb0eHG3omo-Fo1eC&ust=1589743526594000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOjcqaSOuekCFQAAAAAdAAAAABAE");
-        iv.setImageDrawable(dr);*/
             }
         });
         ArrayList<View> xd=new ArrayList<>();
@@ -162,7 +137,6 @@ public class ZagadkaWybor extends Zagadka{
         xd.add(d.findViewById(R.id.option4));
         checkbox.addChildrenForAccessibility(xd);
 
-       // option1.setButtonDrawable(myDrawable);
         if(getOdpowiedzA().startsWith("http")) {
             ((RadioButton) checkbox.getChildAt(0)).setText("A");//getOdpowiedzA());
             ((RadioButton) checkbox.getChildAt(2)).setText("B");//getOdpowiedzB());
@@ -206,29 +180,17 @@ public class ZagadkaWybor extends Zagadka{
 
         Button closeDialog = (Button) d.findViewById(R.id.closeCkeckBox);
 
-
-
-
-        //iv.setImageDrawable(d.findViewById(R.drawable.ic_launcher_foreground));
-        //d.findViewById(R.id.photoCheckBox).setVisibility(View.VISIBLE);
         Log.i("photo"," photoCheckbox:Visible");
-       /* Drawable dr=LoadImageFromWebOperations("https://www.html.am/images/image-codes/milford_sound_t.jpg");
-        iv.setImageDrawable(dr);*/
-        //new DownloadImageTask((ImageView) d.findViewById(R.id.photoCheckBox))
-          //      .execute("http://java.sogeti.nl/JavaBlog/wp-content/uploads/2009/04/android_icon_256.png");
 
-        // ((TextView)d.findViewById(R.id.pytanie_title)).setText(getTrescPytania());
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // d.dismiss();
                 RadioButton option=
                         (RadioButton) d.findViewById(checkbox.getCheckedRadioButtonId());
                 String option1="";
                 Character o1=' ';
                 if(ifChecked[0]) {
                     option1 = ((RadioButton) d.findViewById(checkbox.getCheckedRadioButtonId())).getText().toString();
-                    //Log.i("chosen",option.getText().toString());
                     o1=option1.charAt(0);
                 }
 
@@ -238,12 +200,10 @@ public class ZagadkaWybor extends Zagadka{
                 d.dismiss();
                 if(czyPoprawnaOdp)
                 {
-                    //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
                     ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                     ((Glowna) ctx).popUpSemafor=false;
 
                     showCongratulations(cD,curD,ctx);
-                    /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
                 }
                 else
                 {

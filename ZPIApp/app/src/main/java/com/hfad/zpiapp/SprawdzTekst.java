@@ -83,7 +83,6 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
     protected void onPostExecute(Void red)
     {
         loadingDialog.dismiss();
-        Log.println(Log.ASSERT, "Ending", "Ending");
         if(indexZagadki == 82) {
             czyPoprawna = MuzeumWspolczesneRecognition.museum(textFromImage);
         }
@@ -92,15 +91,12 @@ public class SprawdzTekst extends AsyncTask<Void,Integer,Void> {
             czyPoprawna = SolnyRecognition.solny(textFromImage);
         }
 
-        Log.println(Log.ASSERT, "TuZmienie", "TuZmienie");
         if(czyPoprawna)
         {
-            //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
             ((Glowna) ctx).user.setRozwiazana(indexZagadki, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
 
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
-            /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
         else {
             ((Glowna) ctx).popUpSemafor=false;

@@ -45,16 +45,10 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         double lat = Double.parseDouble(wsp[0]);
         double lng = Double.parseDouble(wsp[1]);
 
-        if (poprawnaOdpowiedz == null) {
-
-            Log.println(Log.ASSERT, "liczonko", "ugh");
-        }
-        Log.println(Log.ASSERT, "liczonko", poprawnaOdpowiedz);
         String[] wspCelu = poprawnaOdpowiedz.split(",");
         double latCelu = Double.parseDouble(wspCelu[0]);
         double lngCelu = Double.parseDouble(wspCelu[1]);
 
-        Log.println(Log.ASSERT, "liczonko", "liczonko");
         double distance = Math.sqrt((latCelu-lat)*(latCelu-lat) + (lngCelu-lng)*(lngCelu-lng));
         if(distance<0.0008){
             return true;
@@ -64,14 +58,6 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         }
 
     }
-
-    /*@Override
-    public PopupWindow showPopUp(LayoutInflater inflater) {
-
-        PopupWindow pw=null;
-        pw = new PopupWindow(inflater.inflate(R.layout.popup_idz_do, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        return pw;
-    }*/
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {

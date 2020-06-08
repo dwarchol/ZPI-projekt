@@ -105,10 +105,6 @@ public class Powiadomienie {
     }
     public void sendNotification() //mozna dodać zdjęcie, inny dźwięk, inny wzór wibracji etc.
     {
-        // Create an explicit intent for an Activity in your app
-       // Intent intent = new Intent(ctx, AlertDetails.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        //PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
         NotificationCompat.Builder builder;
 
         if(preferences.getBoolean("soundBool",true)==true && preferences.getBoolean("vibrationBool",true)==true) {
@@ -117,7 +113,6 @@ public class Powiadomienie {
                     .setContentTitle(Title)
                     .setContentText(Description)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                   // .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
         }
         else
@@ -127,7 +122,6 @@ public class Powiadomienie {
                         .setContentTitle(Title)
                         .setContentText(Description)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                       // .setContentIntent(pendingIntent)
                         .setVibrate(null)
                         .setAutoCancel(true);
             }
@@ -139,7 +133,6 @@ public class Powiadomienie {
                             .setContentTitle(Title)
                             .setContentText(Description)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                          //  .setContentIntent(pendingIntent)
                             .setSound(null)
                             .setAutoCancel(true);
                 }
@@ -150,7 +143,6 @@ public class Powiadomienie {
                             .setContentTitle(Title)
                             .setContentText(Description)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                          //  .setContentIntent(pendingIntent)
                             .setVibrate(null)
                             .setAutoCancel(true);
                 }
@@ -167,9 +159,6 @@ public class Powiadomienie {
 
     public void sendNotificationWithIntent() //mozna dodać zdjęcie, inny dźwięk, inny wzór wibracji etc.
     {
-        // Create an explicit intent for an Activity in your app
-       // PackageManager pm = ctx.getPackageManager();
-       // Intent launchIntent = pm.getLaunchIntentForPackage(BuildConfig.APPLICATION_ID);
         System.out.println("mudafaka "+preferences.getBoolean("vibrationBool",true));
          Intent intent = new Intent(ctx, Glowna.class);
         intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

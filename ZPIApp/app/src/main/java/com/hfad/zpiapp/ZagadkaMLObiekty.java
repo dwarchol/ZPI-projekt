@@ -57,13 +57,6 @@ public class ZagadkaMLObiekty extends Zagadka{
         return false;
 
     }
-   /* @Override
-    public PopupWindow showPopUp(LayoutInflater inflater) {
-
-        PopupWindow pw=null;
-        pw = new PopupWindow(inflater.inflate(R.layout.popup_zrob_zdj, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        return pw;
-    }*/
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
@@ -80,7 +73,6 @@ public class ZagadkaMLObiekty extends Zagadka{
                 ((Glowna)ctx).popUpSemafor=false;
             }
         });
-       // Button closeDialog = (Button) d.findViewById(R.id.zrobZdjecieButton);
         ((TextView)d.findViewById(R.id.zrobZdjecie_title)).setText(getTrescPytania());
         final Button takePhoto = (Button) d.findViewById(R.id.zrobZdjecieButton);
 
