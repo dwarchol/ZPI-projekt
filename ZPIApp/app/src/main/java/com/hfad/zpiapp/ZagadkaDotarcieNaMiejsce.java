@@ -8,19 +8,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class ZagadkaDotarcieNaMiejsce extends Zagadka{
 
     private String trescPytania;
     private String poprawnaOdpowiedz;
+    private String zdjecie;
     Context ctx;
 
     public ZagadkaDotarcieNaMiejsce(){
 
     }
 
-    public ZagadkaDotarcieNaMiejsce(int index, String poprawnaOdpowiedz, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania, String ciekawostka,int nastepna)
+    public ZagadkaDotarcieNaMiejsce(int index, String poprawnaOdpowiedz,String zdjecie, double wspolrzednaLat, double wspolrzednaLng, int typ, String nazwa, int poprzednia, String trescPytania, String ciekawostka,int nastepna)
     {
         this.index = index;
         this.wspolrzednaLat = wspolrzednaLat;
@@ -32,10 +36,12 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
         this.trescPytania = trescPytania;
         this.ciekawostka = ciekawostka;
         this.nastepna = nastepna;
+        this.zdjecie=zdjecie;
     }
 
     public String getTrescPytania(){return trescPytania;}
     public String getPoprawnaOdpowiedz(){return poprawnaOdpowiedz;}
+    public String getZdjecie(){return zdjecie;}
 
     @Override
     public boolean sprawdz(String str) {
@@ -83,6 +89,14 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
             }
         });
 
+        if(getZdjecie()!=null) {
+            ImageView iv = d.findViewById(R.id.dotarcieNaMiejceZdj);
+
+            //http://i.imgur.com/DvpvklR.png
+            Picasso.get().load(getZdjecie()).into(iv);//"https://fotopolska.eu/foto/27/27965.jpg","https://polska-org.pl/foto/8458/Epitafia_kartusze_i_pomniki_Wroclaw_8458498.jpg"
+            iv.setVisibility(View.VISIBLE);
+        }
+
         juzJestDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +127,7 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
                 }
             }
         });
+
         if(!((Glowna)ctx).isFinishing())
         {
             d.show();
