@@ -117,10 +117,6 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         //Za pierwszym razem
 
 
-        if (user.pierwszyRaz == 0) {
-            wyswietlFabule();
-        }
-
 
         coordinatesDialog = new Dialog(this);
         coordinatesDialog.setCancelable(true);
@@ -381,6 +377,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         });
         mMap.clear();
         drawMapsStartowe();
+        sound.finishSound();
         koniec.show();
     }
 
@@ -604,7 +601,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             ustawDialogi();
             zagadkiLista.get(ktory).setContext(this);
             zagadkiLista.get(ktory).showPopUp(doWszystkiego, badAnswerDialog, congratulationsDialog, curiosityDialog);
-            sound.spotSound();
+                sound.spotSound();
         }
         if (user.jestWRozwiazanych(zagadkiLista.get(ktory).index)) {
             Log.w("Jest w rozwiazanych ", ktory + "");

@@ -53,6 +53,19 @@ public class Odtwarzacz {
         }
     }
 
+    public void finishSound()
+    {
+        if(preferences.getBoolean("soundBool",true)==true) {
+            if (FXPlayer != null) {
+                FXPlayer.stop();
+                FXPlayer.release();
+            }
+            FXPlayer = MediaPlayer.create(ctx, R.raw.fanfare);
+            if (FXPlayer != null)
+                FXPlayer.start();
+        }
+    }
+
 
 
 }
