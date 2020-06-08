@@ -89,11 +89,13 @@ public class ZagadkaDotarcieNaMiejsce extends Zagadka{
             }
         });
 
-        ImageView iv=d.findViewById(R.id.dotarcieNaMiejceZdj);
+        if(getZdjecie()!=null) {
+            ImageView iv = d.findViewById(R.id.dotarcieNaMiejceZdj);
 
             //http://i.imgur.com/DvpvklR.png
             Picasso.get().load(getZdjecie()).into(iv);//"https://fotopolska.eu/foto/27/27965.jpg","https://polska-org.pl/foto/8458/Epitafia_kartusze_i_pomniki_Wroclaw_8458498.jpg"
             iv.setVisibility(View.VISIBLE);
+        }
 
         juzJestDialog.setOnClickListener(new View.OnClickListener() {
             @Override
