@@ -578,7 +578,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     @Override
     public void onLocationChanged(Location location) {
         checkGPS();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()),mMap.getCameraPosition().zoom));
+     //   mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()),mMap.getCameraPosition().zoom));
         //Toast.makeText(getApplicationContext(), "Location changed", Toast.LENGTH_SHORT).show();
         obecneWspolrzedne = location.getLatitude() + "," + location.getLongitude();
         boolean czyDzwiek = true;
@@ -589,7 +589,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
                 czyWLokacji = true;
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-                if ((myKM.inKeyguardRestrictedInputMode() || isInBackground) ) {
+                if ((myKM.inKeyguardRestrictedInputMode() || isInBackground) && i != obecnaZagadka ) {
                     powiadomienie.sendNotificationWithIntent();
                     obecnaZagadka = i;
                     czyDzwiek = false;

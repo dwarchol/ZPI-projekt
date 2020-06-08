@@ -44,7 +44,7 @@ public class KontoUzytkownika extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_2);
         SeekBar sb = (SeekBar) findViewById(R.id.seekBar);
         System.out.println(postep);
-        sb.setMax(47);
+        sb.setMax(48);
         sb.setProgress(postep);
         //sb.setEnabled(false);
         sb.setOnTouchListener(new View.OnTouchListener(){
@@ -65,7 +65,7 @@ public class KontoUzytkownika extends AppCompatActivity {
         // tv.setText(ciekawostki.get(i));
             ciekawostkiArr[i]= System.getProperty ("line.separator") +
                     ciekawostkiTyt.get(i)+ System.getProperty ("line.separator")+
-                    System.getProperty ("line.separator")+ ciekawostki.get(i);
+                    System.getProperty ("line.separator")+ ciekawostki.get(i) + System.getProperty ("line.separator");
            // ArrayAdapter adapter = new ArrayAdapter<String>(this,lv,tv,ciekawostkiArr);
           //lv.addView(tv);
         }
