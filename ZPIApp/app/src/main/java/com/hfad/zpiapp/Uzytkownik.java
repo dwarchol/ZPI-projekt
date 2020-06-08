@@ -164,7 +164,7 @@ public class Uzytkownik implements Serializable {
     }
 
     public boolean jestWRozwiazanych(int i){
-       if(zagadkiRozwiazane.contains(i))
+       if(zagadkiRozwiazane!=null && zagadkiRozwiazane.contains(i))
            return true;
        else
            return false;
