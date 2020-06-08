@@ -37,7 +37,6 @@ public class KontoUzytkownika extends AppCompatActivity {
         ArrayList<String> ciekawostkiTyt=intent.getStringArrayListExtra("ciekawostkiTytuly");
 
         int postep = rz.size();
-        //int postep=intent.getIntExtra("prog",0);
 
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -56,22 +55,14 @@ public class KontoUzytkownika extends AppCompatActivity {
         sb.setClickable(false);
        ListView lv= findViewById(R.id.ciekawostkiUsera);
         ArrayList<Zagadka> alt =new ArrayList<>();
-        //ArrayList<String> ciekawostki =new ArrayList<>();
-
-        //ciekawostki=intent.getStringArrayListExtra("ciek");
         String[] ciekawostkiArr=new String[ciekawostki.size()];
         TextView tv = findViewById(R.id.odznazki_textView);
         for(int i=0;i<ciekawostki.size();i++){
-        // tv.setText(ciekawostki.get(i));
             ciekawostkiArr[i]= System.getProperty ("line.separator") +
                     ciekawostkiTyt.get(i)+ System.getProperty ("line.separator")+
                     System.getProperty ("line.separator")+ ciekawostki.get(i) + System.getProperty ("line.separator");
-           // ArrayAdapter adapter = new ArrayAdapter<String>(this,lv,tv,ciekawostkiArr);
-          //lv.addView(tv);
         }
         ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview,R.id.lvTextView,ciekawostkiArr);
-        // ((TextView)progressDialog.findViewById(R.id.pytanie_title))//.setText(((Glowna) ctx).user.get(0));
-       // lv.addView(findViewById(R.id.odznazki_textView));
         lv.setAdapter(adapter);
 
         ctx = this;

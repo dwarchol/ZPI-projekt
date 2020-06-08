@@ -131,7 +131,6 @@ public class Uzytkownik implements Serializable {
 
     public void uaktualnijWBazie()
     {
-        Log.println(Log.ASSERT, "Reasuming", "uaktualnij");
        FirebaseDB fbdb = new FirebaseDB(this);
        fbdb.updateUser();
     }
@@ -139,8 +138,6 @@ public class Uzytkownik implements Serializable {
     public void uzupelnijNapisOCyfre(Integer cyfra, Integer miejsce)
     {
         StringBuilder sB = new StringBuilder("");
-        Log.println(Log.ASSERT, "cyfra", cyfra.toString());
-        Log.println(Log.ASSERT, "miejsce", miejsce.toString());
         for(int i = 0; i < wspolrzedne.length(); i ++)
         {
 
@@ -167,8 +164,6 @@ public class Uzytkownik implements Serializable {
     }
 
     public boolean jestWRozwiazanych(int i){
-        System.out.println("Jaki mam i "+i);
-        System.out.println("Jakie zagadki "+zagadkiRozwiazane.size());
        if(zagadkiRozwiazane.contains(i))
            return true;
        else

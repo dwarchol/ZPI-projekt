@@ -47,13 +47,6 @@ public class ZagadkaStartowa extends Zagadka{
         }
 
     }
-   /* @Override
-    public PopupWindow showPopUp(LayoutInflater inflater) {
-
-        PopupWindow pw=null;
-        pw = new PopupWindow(inflater.inflate(R.layout.popup_gratulacje, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        return pw;
-    }*/
 
    public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
    {
@@ -96,8 +89,6 @@ public class ZagadkaStartowa extends Zagadka{
            public void onClick(View view) {
 
                ((Glowna)ctx).popUpSemafor=false;
-             //  ((Glowna) ctx).showNext(nastepna);
-              // ((Glowna) ctx).user.setRozwiazana(index,nastepna);
                ((Glowna)ctx).mMap.clear();
                ((Glowna)ctx).drawMapsStartowe();
                d.dismiss();

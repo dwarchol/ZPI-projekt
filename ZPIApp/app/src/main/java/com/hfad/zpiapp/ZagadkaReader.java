@@ -19,7 +19,6 @@ public class ZagadkaReader {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    // Log.w("xxxx", snapshot.child("typ").getValue().toString());
                     if((Long)snapshot.child("typ").getValue()==1){
                         ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
                         zagadkas.add(zagadka);
@@ -30,7 +29,6 @@ public class ZagadkaReader {
                     }
                     if((Long)snapshot.child("typ").getValue()==3){
                         ZagadkaMLObiekty zagadka = snapshot.getValue(ZagadkaMLObiekty.class);
-                        // Log.w("xxxx", zagadka.poprawnaOdpowiedz);
                         zagadkas.add(zagadka);
 
                     }
@@ -48,9 +46,6 @@ public class ZagadkaReader {
                         zagadkas.add(zagadka);
                     }
 
-                    //ZagadkaPytanie zagadka = snapshot.getValue(ZagadkaPytanie.class);
-                    //       Log.w("ktorereader", zagadka.getNazwa());
-                    //  zagadkas.add(zagadka);
                 }
                 myCallback.onCallback(zagadkas);
             }

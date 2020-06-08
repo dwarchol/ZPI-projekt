@@ -39,10 +39,6 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
         mojaZagadka = zagadkaMLObiekty;
         this.nastepna = nastepna;
         badAnswerDialog = bAD;
-        if(zagadkaMLObiekty==null)
-        {
-            Log.println(Log.ASSERT, "nulle", "mnlle");
-        }
         congratulationsDialog = cD;
         curiosityDialog = curD;
 
@@ -62,7 +58,6 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
         publishProgress(50);
 
         Executor executor = Executors.newFixedThreadPool(1);
-        System.out.println("execute");
         executor.execute(ml);
         try {
             cdl.await();
@@ -84,18 +79,14 @@ public class SprawdzZdjecie extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPostExecute(Void res) {
         loadingDialog.dismiss();
-        Log.println(Log.ASSERT, "Ending", labelFromImage);
-       czyPoprawna=mojaZagadka.sprawdz(labelFromImage);
+        czyPoprawna=mojaZagadka.sprawdz(labelFromImage);
 
-        Log.println(Log.ASSERT, "TuZmienie", "TuZmienie");
         if(czyPoprawna)
         {
-            //////////////////////////////////////////////////////////////////////////////////////////////aktualizacja bazy danych
             ((Glowna) ctx).user.setRozwiazana(indexZagadki, nastepna);
             ((Glowna) ctx).popUpSemafor=false;
 
             mojaZagadka.showCongratulations(congratulationsDialog,curiosityDialog,ctx);
-            /////////////////////////////////////////////////////////////////////////////////////////////pokazanie kolejnego punktu na mapie
         }
         else {
             ((Glowna) ctx).popUpSemafor=false;

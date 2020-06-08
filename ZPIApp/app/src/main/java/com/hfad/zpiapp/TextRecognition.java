@@ -33,7 +33,6 @@ public class TextRecognition implements Runnable {
 
     public String getTextFromImage()
     {
-       // Log.println(Log.ASSERT,"cokolwiek", textFromImage);
         return textFromImage.toString();
     }
 

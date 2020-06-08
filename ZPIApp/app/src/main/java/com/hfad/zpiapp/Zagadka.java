@@ -115,7 +115,6 @@ public abstract class Zagadka {
             @Override
             public void onClick(View view) {
                 bAD.dismiss();
-                // showPopUp(d, bAD, cD);
             }
         });
         bAD.show();
@@ -132,8 +131,6 @@ public abstract class Zagadka {
             @Override
             public void onClick(View view) {
                 curD.dismiss();
-              //  ((Glowna)ctx).user.uaktualnijWBazie();
-               // ((Glowna) ctx).czyWLokacji = false;
                 if(nastepna != -1) {
                     curD.dismiss();
                 }

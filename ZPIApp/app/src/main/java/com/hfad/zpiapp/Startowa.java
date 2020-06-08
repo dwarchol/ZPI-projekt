@@ -25,7 +25,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-//import android.support.v7.app.AppCompatActivity;
 
 public class Startowa extends AppCompatActivity{
     Dialog haveAccountDialog;
@@ -70,14 +69,6 @@ public class Startowa extends AppCompatActivity{
             requestCameraPermission();
         }
 
-        /*VideoView vv=findViewById(R.id.animation);
-
-        MediaController mc = new MediaController(this);
-        mc.setVisibility(View.GONE);
-        vv.setMediaController(mc);
-        vv.setVideoURI(uri);
-        vv.setBackgroundColor(Color.TRANSPARENT);
-        vv.start();*/
         MediaController mc = new MediaController(this);
         mc.setVisibility(View.GONE);
         String dPath;

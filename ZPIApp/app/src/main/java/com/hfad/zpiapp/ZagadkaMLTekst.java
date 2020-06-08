@@ -42,13 +42,6 @@ public class ZagadkaMLTekst extends Zagadka{
     public boolean sprawdz(String odp) {
         return false;
     }
-    /*@Override
-    public PopupWindow showPopUp(LayoutInflater inflater) {
-
-        PopupWindow pw=null;
-        pw = new PopupWindow(inflater.inflate(R.layout.popup_zrob_zdj, null, false), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        return pw;
-    }*/
 
     public void showPopUp(final Dialog d, final Dialog bAD, final Dialog cD, final Dialog curD)
     {
