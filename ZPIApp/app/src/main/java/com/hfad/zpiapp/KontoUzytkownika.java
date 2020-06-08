@@ -34,6 +34,7 @@ public class KontoUzytkownika extends AppCompatActivity {
         Intent intent = getIntent();
         ArrayList<String> rz=intent.getStringArrayListExtra("program");
         ArrayList<String> ciekawostki=intent.getStringArrayListExtra("ciekawostki");
+        ArrayList<String> ciekawostkiTyt=intent.getStringArrayListExtra("ciekawostkiTytuly");
 
         int postep = rz.size();
         //int postep=intent.getIntExtra("prog",0);
@@ -62,7 +63,9 @@ public class KontoUzytkownika extends AppCompatActivity {
         TextView tv = findViewById(R.id.odznazki_textView);
         for(int i=0;i<ciekawostki.size();i++){
         // tv.setText(ciekawostki.get(i));
-            ciekawostkiArr[i]=ciekawostki.get(i);
+            ciekawostkiArr[i]= System.getProperty ("line.separator") +
+                    ciekawostkiTyt.get(i)+ System.getProperty ("line.separator")+
+                    System.getProperty ("line.separator")+ ciekawostki.get(i);
            // ArrayAdapter adapter = new ArrayAdapter<String>(this,lv,tv,ciekawostkiArr);
           //lv.addView(tv);
         }

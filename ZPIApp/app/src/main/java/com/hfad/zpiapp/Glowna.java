@@ -438,6 +438,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         }
 
         ArrayList<String> ciekawostkiToKonto = new ArrayList<>();
+        ArrayList<String> ciekawostkiTytuly = new ArrayList<>();
 
         if (user.zagadkiRozwiazane == null) {
             Log.i("empty", "xd");
@@ -448,6 +449,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 if (user.zagadkiRozwiazane.contains(zagadkiLista.get(j).index)) {
                     if (zagadkiLista.get(j).index % 10 != 0) {
                         ciekawostkiToKonto.add(zagadkiLista.get(j).ciekawostka);
+                        ciekawostkiTytuly.add(zagadkiLista.get(j).ciekawostkaTytul);
                     }
                 }
                 // if((zagadkiLista.get(i).index)== user.zagadkiRozwiazane.get(j)){
@@ -459,6 +461,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         userIntent.putExtra("ciekawostki", ciekawostkiToKonto);
         userIntent.putExtra("prog", user.zagadkiRozwiazane != null ? user.zagadkiRozwiazane.size() : 0);
         userIntent.putExtra("program", user.zagadkiRozwiazane);
+        userIntent.putExtra("ciekawostkiTytuly",ciekawostkiTytuly);
         // userIntent.putExtra("zagadki",zagadkiLista);
         //userIntent.putExtra("ciekawostki",zagadkiLista!=null?zagadkiLista:new ArrayList());
         // userIntent.putExtra("ciek",ciek!=null?zagadkiLista:new ArrayList());
