@@ -22,13 +22,13 @@
 
     <SeekBar
         android:id="@+id/seekBar"
-        android:layout_width="352dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+
         android:layout_marginBottom="3dp"
         android:layout_marginTop="15dp"
         android:clickable="false"
-
+        android:thumb="@null"
         app:layout_constraintBottom_toTopOf="@+id/odznazki_textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postep_gView" />

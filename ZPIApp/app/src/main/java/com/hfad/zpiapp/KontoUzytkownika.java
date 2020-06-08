@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,9 +13,9 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
@@ -46,6 +45,7 @@ public class KontoUzytkownika extends AppCompatActivity {
         System.out.println(postep);
         sb.setMax(48);
         sb.setProgress(postep);
+
         //sb.setEnabled(false);
         sb.setOnTouchListener(new View.OnTouchListener(){
             @Override

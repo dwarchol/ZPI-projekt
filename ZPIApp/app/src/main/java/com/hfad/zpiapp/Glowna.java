@@ -304,7 +304,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
     }
 
     public void drawMapsStartowe() {
-        //checkGPS();
+        checkGPS();
         mMap.setOnMarkerClickListener(this);
         actualiseCoordinatesText();
 
