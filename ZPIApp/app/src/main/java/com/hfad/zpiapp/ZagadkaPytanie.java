@@ -105,7 +105,7 @@ public class ZagadkaPytanie extends Zagadka{
             }
         });
         ImageView iv=d.findViewById(R.id.photoPytanie);
-         if(getIndex()==101 ||getIndex()==92|| getIndex()==22 || getIndex()==33||getIndex()==93 ||getIndex()==53 ) {
+         if(getIndex()==101 ||getIndex()==92|| getIndex()==22 || getIndex()==33||getIndex()==93 ||getIndex()==53 ||getIndex()==24 ) {
             //http://i.imgur.com/DvpvklR.png
             Picasso.get().load(getZdjecie()).into(iv);//"https://fotopolska.eu/foto/27/27965.jpg","https://polska-org.pl/foto/8458/Epitafia_kartusze_i_pomniki_Wroclaw_8458498.jpg"
             iv.setVisibility(View.VISIBLE);

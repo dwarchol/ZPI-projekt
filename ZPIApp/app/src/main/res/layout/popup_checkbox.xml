@@ -10,6 +10,15 @@
 
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="@string/Zagadka_info"
+        android:textColor="#111111ff"
+        android:textSize="5dp" />
+
+    <TextView
         android:id="@+id/closeCheckbox"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -23,44 +32,6 @@
         android:text="@string/close"
         android:textColor="@color/textColor"
         android:textSize="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="@string/Zagadka_info"
-        android:textColor="#111111ff"
-        android:textSize="5dp"
-        />
-
-    <ImageView
-        android:id="@+id/photoCheckBox"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="50dp"
-        android:src="@drawable/slodziaki"
-        android:visibility="visible"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/pytanie_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center_horizontal"
-        android:text="@string/Pytanie"
-        android:textColor="@color/textColor"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="167dp"
-        tools:layout_editor_absoluteY="538dp" />
 
     <TextView
         android:id="@+id/popup_text"
@@ -93,6 +64,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/photoCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="50dp"
+                android:src="@drawable/slodziaki"
+                android:visibility="visible"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/pytanie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center_horizontal"
+                android:text="@string/Pytanie"
+                android:textColor="@color/textColor"
+                android:textSize="20dp"
+                tools:layout_editor_absoluteX="167dp"
+                tools:layout_editor_absoluteY="538dp" />
+
             <RadioGroup
                 android:id="@+id/checkbox"
                 android:layout_width="295dp"
@@ -115,7 +114,7 @@
                 <ImageView
                     android:id="@+id/photoOdp1"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="50dp"
@@ -140,7 +139,7 @@
                 <ImageView
                     android:id="@+id/photoOdp2"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="50dp"
@@ -166,7 +165,7 @@
                 <ImageView
                     android:id="@+id/photoOdp3"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="50dp"
@@ -192,7 +191,7 @@
                 <ImageView
                     android:id="@+id/photoOdp4"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="50dp"
