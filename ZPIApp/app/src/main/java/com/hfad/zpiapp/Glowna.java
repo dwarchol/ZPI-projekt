@@ -150,58 +150,69 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
             }
         });
         Log.w("ZAGADKI", "" + zagadkiLista.size());
-
+        wyswietlFabule();
 
     }
 
     private void wyswietlFabule() {
-        final Dialog fabulaDialog = new Dialog(this);
-        fabulaDialog.setCanceledOnTouchOutside(false);
-        fabulaDialog.setCancelable(true);
-        fabulaDialog.setContentView(R.layout.popup_fabula);
-        fabulaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        if(user.pierwszyRaz==0 && popUpSemafor==false) {
+            popUpSemafor=true;
+            final Dialog fabulaDialog = new Dialog(this);
+            fabulaDialog.setCanceledOnTouchOutside(false);
+            fabulaDialog.setCancelable(true);
+            fabulaDialog.setContentView(R.layout.popup_fabula);
+            fabulaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
-        final Button tak = (Button) fabulaDialog.findViewById(R.id.takFabula);
-        final Button nie = (Button) fabulaDialog.findViewById(R.id.nieFabula);
+            final Button tak = (Button) fabulaDialog.findViewById(R.id.takFabula);
+            final Button nie = (Button) fabulaDialog.findViewById(R.id.nieFabula);
 
-        final Context cxt = this;
+            final Context cxt = this;
 
 
-        tak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Dialog fabulaDialog2 = new Dialog(cxt);
-                fabulaDialog2.setCanceledOnTouchOutside(false);
-                fabulaDialog2.setCancelable(true);
-                fabulaDialog2.setContentView(R.layout.popup_fabula2);
-                fabulaDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+            tak.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Dialog fabulaDialog2 = new Dialog(cxt);
+                    fabulaDialog2.setCanceledOnTouchOutside(false);
+                    fabulaDialog2.setCancelable(true);
+                    fabulaDialog2.setContentView(R.layout.popup_fabula2);
+                    fabulaDialog2.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
-                final Button ok = (Button) fabulaDialog2.findViewById(R.id.okFabula2);
+                    final Button ok = (Button) fabulaDialog2.findViewById(R.id.okFabula2);
 
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        user.otworzone();
-                        fabulaDialog.dismiss();
-                        fabulaDialog2.dismiss();
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            user.otworzone();
+                            user.pierwszyRaz=1;
+                            popUpSemafor=false;
+                            fabulaDialog.dismiss();
+                            fabulaDialog2.dismiss();
 
-                    }
-                });
-                fabulaDialog2.show();
+                        }
+                    });
+                    fabulaDialog2.show();
 
-            }
-        });
+                }
+            });
 
-        nie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+            nie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popUpSemafor=false;
+                    finish();
 
-            }
-        });
 
-        fabulaDialog.show();
+                }
+            });
 
+            user.uaktualnijWBazie();
+            fabulaDialog.show();
+        }
+        else
+        {
+
+        }
     }
 
 
