@@ -442,7 +442,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         userIntent.putExtra("prog", user.zagadkiRozwiazane != null ? user.zagadkiRozwiazane.size() : 0);
         userIntent.putExtra("program", user.zagadkiRozwiazane);
         userIntent.putExtra("ciekawostkiTytuly",ciekawostkiTytuly);
-        startActivity(userIntent);
+        startActivityForResult(userIntent, 90);
     }
 
     public void coordinatesMethod(View view) {
@@ -489,6 +489,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
 
 
         super.onBackPressed();
+        finish();
 
 
     }
@@ -553,7 +554,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
         boolean czyDzwiek = true;
 
         for (int i = 0; i < zagadkiLista.size(); i++) {
-            if (user.jestWAktywnych(zagadkiLista.get(i).index) && zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + "," + location.getLongitude()) && !popUpSemafor) {
+            if (user.jestWAktywnych(zagadkiLista.get(i).index) && zagadkiLista.get(i).czyNaMiejscu(location.getLatitude() + "," + location.getLongitude()) && !popUpSemafor &&!isFinishing()) {
 
                 czyWLokacji = true;
                 KeyguardManager myKM = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
@@ -673,6 +674,12 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                 GPSdialog.dismiss();
             }
             checkGPS();
+        }
+        if(requestCode==90 && data!=null)
+        {
+          boolean logout=  data.getBooleanExtra("logout",false);
+            if(logout)
+            finish();
         }
 
 

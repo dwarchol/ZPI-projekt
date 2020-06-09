@@ -48,7 +48,7 @@
             android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="userMethod"
+
             android:src="@drawable/logout" />
     </LinearLayout>
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.hfad.zpiapp;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -40,6 +42,17 @@ public class KontoUzytkownika extends AppCompatActivity {
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_2);
+        ImageView imv = (ImageView) findViewById(R.id.logout);
+        imv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.putExtra("logout",true);
+                setResult(Activity.RESULT_OK, i );
+                finish();
+                //startActivity(i);
+            }
+        });
         SeekBar sb = (SeekBar) findViewById(R.id.seekBar);
         System.out.println(postep);
         sb.setMax(48);

@@ -204,6 +204,7 @@ public class Startowa extends AppCompatActivity{
                            // Toast.makeText(getApplicationContext(),R.string.LogIn,Toast.LENGTH_SHORT).show();
                             final Intent MainPageIntent=new Intent(ctx, Glowna.class);
                             MainPageIntent.putExtra("Uzytkownik",fbdb.user);
+                            haveAccountDialog.dismiss();
                             startActivity(MainPageIntent);
                         }
                         @Override
@@ -219,6 +220,7 @@ public class Startowa extends AppCompatActivity{
 
             }
         });
+        if(!this.isFinishing())
         haveAccountDialog.show();
 
     }
