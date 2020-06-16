@@ -52,7 +52,7 @@ public abstract class Zagadka {
         double lng = Double.parseDouble(wsp[1]);
 
         double distance = Math.sqrt((wspolrzednaLat-lat)*(wspolrzednaLat-lat) + (wspolrzednaLng-lng)*(wspolrzednaLng-lng));
-        if(distance<0.001){
+        if(distance<0.0006){
             return true;
         }
         else{

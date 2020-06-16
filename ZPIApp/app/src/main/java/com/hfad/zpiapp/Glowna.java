@@ -563,7 +563,7 @@ public class Glowna extends AppCompatActivity implements OnMapReadyCallback, Loc
                     obecnaZagadka = i;
                     czyDzwiek = false;
                 }
-                else {
+                else if(!(myKM.inKeyguardRestrictedInputMode() && !isInBackground)){
                     popUpSemafor = true;
                     ustawDialogi();
                     doWszystkiego = new Dialog(this);
